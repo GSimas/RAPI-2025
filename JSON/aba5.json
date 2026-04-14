@@ -1,0 +1,222 @@
+[
+    {
+        "tema": "MOBILIDADE / TRANSPORTE",
+        "subtema": "INFRAESTRUTURA DE TRANSPORTE EQUILIBRADA",
+        "id_ces": "55",
+        "id_nova_ordem": null,
+        "id_floripa": "53",
+        "ods": "2.1.5",
+        "orgao_responsavel": "SMTI/F NR",
+        "indicador": "Comprimento total (km) dos sistemas de transporte público em operação na cidade dividido pela população total da cidade, expresso km por 100.000 habitantes.",
+        "faixas_semaforizacao": {},
+        "dados_anuais": {
+            "2019": null,
+            "2020": null,
+            "2021": null,
+            "2022": "1.282,34 por 100 mil hab",
+            "2023": "1.282,34 km/100 mil hab (2022)",
+            "2024": "1.282,34 km/100 mil hab (2022)"
+        }
+    },
+    {
+        "tema": "MOBILIDADE / TRANSPORTE",
+        "subtema": "INFRAESTRUTURA DE TRANSPORTE EQUILIBRADA",
+        "id_ces": "56",
+        "id_nova_ordem": "53",
+        "id_floripa": "54",
+        "ods": "2.1.4",
+        "orgao_responsavel": "SMTI",
+        "indicador": "Quilômetros de vias dedicadas exclusivamente ao  transporte público por 100 mil habitantes (população projetada do IBGE)",
+        "faixas_semaforizacao": {
+            "verde": "> 40",
+            "amarelo": "10–40",
+            "vermelho": "< 10"
+        },
+        "dados_anuais": {
+            "2019": "0%",
+            "2020": "0%",
+            "2021": "ND",
+            "2022": "0,197",
+            "2023": "ND",
+            "2024": "0,31"
+        }
+    },
+    {
+        "tema": "MOBILIDADE / TRANSPORTE",
+        "subtema": "INFRAESTRUTURA DE TRANSPORTE EQUILIBRADA",
+        "id_ces": "57",
+        "id_nova_ordem": "54",
+        "id_floripa": "55",
+        "ods": "so mar: 2.2.2 + 2.2.3 + 2.2.4",
+        "orgao_responsavel": "SMTI/F NR",
+        "indicador": "Quilômetros de ciclovias, ciclofaixas e ciclorotas por 100 mil habitantes (população projetada IBGE)",
+        "faixas_semaforizacao": {
+            "verde": "> 25",
+            "amarelo": "15–25",
+            "vermelho": "< 15"
+        },
+        "dados_anuais": {
+            "2019": "25,01",
+            "2020": "Km total de infraestrutura cicloviária: 164,81 km / 508.826 = 32,39 km / 100 mil habitantes.",
+            "2021": "35,89 KM",
+            "2022": "40,06 km/ 100 mil habitantes.",
+            "2023": "25,89 km / 100 mil hab",
+            "2024": "26,81 km / 100 mil hab"
+        }
+    },
+    {
+        "tema": "MOBILIDADE / TRANSPORTE",
+        "subtema": "INFRAESTRUTURA DE TRANSPORTE EQUILIBRADA",
+        "id_ces": "58",
+        "id_nova_ordem": "N OV O",
+        "id_floripa": "56",
+        "ods": null,
+        "orgao_responsavel": "SMTI",
+        "indicador": "Porcentagem de km de ciclovias, ciclofaixas e ciclorotas em relação ao total de km de vias  da cidade",
+        "faixas_semaforizacao": {
+            "verde": ">25%",
+            "amarelo": "25%-15%",
+            "vermelho": "<15%"
+        },
+        "dados_anuais": {
+            "2019": "1,51%",
+            "2020": "164,81 km / 1.794,54 km = 9,18%",
+            "2021": "10,32%",
+            "2022": "11,98%",
+            "2023": "11.98%",
+            "2024": "154,52 km / 1.794,54 km = 8,61%"
+        }
+    },
+    {
+        "tema": "MOBILIDADE / TRANSPORTE",
+        "subtema": "INFRAESTRUTURA DE TRANSPORTE EQUILIBRADA",
+        "id_ces": "59",
+        "id_nova_ordem": "55",
+        "id_floripa": "57",
+        "ods": null,
+        "orgao_responsavel": "SMTI",
+        "indicador": "Quilômetros de calçadas e calçadões pavimentados, por 100 mil habitantes (população projetada pelo IBGE)",
+        "faixas_semaforizacao": {
+            "verde": "Mais de quatro vezes a extensão da rede de rodovias",
+            "amarelo": "Entre duas e quatro vezes a extensão da rede de rodovias",
+            "vermelho": "Menos de duas vezes a extensão da rede de rodovias"
+        },
+        "dados_anuais": {
+            "2019": "ND",
+            "2020": "ND",
+            "2021": "ND",
+            "2022": "ND",
+            "2023": "ND",
+            "2024": "ND"
+        }
+    },
+    {
+        "tema": "MOBILIDADE / TRANSPORTE",
+        "subtema": "INFRAESTRUTURA DE TRANSPORTE EQUILIBRADA",
+        "id_ces": "60",
+        "id_nova_ordem": "N OV O",
+        "id_floripa": "58",
+        "ods": null,
+        "orgao_responsavel": "SMTI",
+        "indicador": "Porcentagem de km de calçadas e calçadões pavimentados, em relação ao total de km de vias",
+        "faixas_semaforizacao": {
+            "verde": ">70%",
+            "amarelo": "70%-50%",
+            "vermelho": "<50%"
+        },
+        "dados_anuais": {
+            "2019": "ND",
+            "2020": "ND",
+            "2021": "ND",
+            "2022": "60%",
+            "2023": "60%",
+            "2024": "60%"
+        }
+    },
+    {
+        "tema": "MOBILIDADE / TRANSPORTE",
+        "subtema": "INFRAESTRUTURA DE TRANSPORTE EQUILIBRADA",
+        "id_ces": "61",
+        "id_nova_ordem": "N OV O",
+        "id_floripa": "59",
+        "ods": null,
+        "orgao_responsavel": "SMTI",
+        "indicador": "Quilometragem média/mês rodada pela frota de transporte público",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "2.862.446 km",
+            "2020": "1.273.214,96 km/mês média",
+            "2021": "1 853 096,91",
+            "2022": "2.750.000",
+            "2023": "2.811.300",
+            "2024": "2.734.075"
+        }
+    },
+    {
+        "tema": "MOBILIDADE / TRANSPORTE",
+        "subtema": "INFRAESTRUTURA DE TRANSPORTE EQUILIBRADA",
+        "id_ces": "62",
+        "id_nova_ordem": "N OV O",
+        "id_floripa": "60",
+        "ods": null,
+        "orgao_responsavel": "SMTI",
+        "indicador": "Quantidade média/mês de pessoas transportadas pelo transporte público",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "175.378",
+            "2020": "1.768.150,67 passageiros/ mês.",
+            "2021": "2 569 218,33",
+            "2022": "4.603.849",
+            "2023": "4.902.930",
+            "2024": "4.934.532"
+        }
+    },
+    {
+        "tema": "MOBILIDADE / TRANSPORTE",
+        "subtema": "INFRAESTRUTURA DE TRANSPORTE EQUILIBRADA",
+        "id_ces": "63",
+        "id_nova_ordem": "N OV O",
+        "id_floripa": "61",
+        "ods": null,
+        "orgao_responsavel": "SMTI",
+        "indicador": "Custo anual do sistema de transporte público (subsídio + custo do consórcio) por pessoa transportada",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "R$ 4.25",
+            "2020": "ND",
+            "2021": "ND",
+            "2022": "R$ 5,27",
+            "2023": "R$ 5,32",
+            "2024": "R$ 5,84"
+        }
+    },
+    {
+        "tema": "MOBILIDADE / TRANSPORTE",
+        "subtema": "INFRAESTRUTURA DE TRANSPORTE EQUILIBRADA",
+        "id_ces": "64",
+        "id_nova_ordem": "N OV O",
+        "id_floripa": "62",
+        "ods": null,
+        "orgao_responsavel": "SMTI",
+        "indicador": "Velocidade média/mês da frota de transporte público",
+        "faixas_semaforizacao": {
+            "verde": ">30%",
+            "amarelo": "30%–15%",
+            "vermelho": "< 15%"
+        },
+        "dados_anuais": {
+            "2019": "23 km/h",
+            "2020": "ND",
+            "2021": "24,23 km/h",
+            "2022": "23,53 KM/H",
+            "2023": "23,00 km/h",
+            "2024": "22.91"
+        }
+    }
+]

@@ -1,0 +1,63 @@
+[
+    {
+        "tema": "USO DO SOLO / ORDENAMENTO TERRITORIAL",
+        "subtema": "PLANEJAMENTO DO SOLO",
+        "id_ces": "42",
+        "id_nova_ordem": null,
+        "id_floripa": "42",
+        "ods": "6.1.2",
+        "orgao_responsavel": "IPUF/FNR",
+        "indicador": "Porcentagem da área total terrestre do município designada para proteção ambiental por meio de legislação federal, estadual ou municipal.",
+        "faixas_semaforizacao": {},
+        "dados_anuais": {
+            "2019": null,
+            "2020": null,
+            "2021": "59,60%",
+            "2022": "59,6%(2022)",
+            "2023": "59,6%(2022)",
+            "2024": null
+        }
+    },
+    {
+        "tema": "USO DO SOLO / ORDENAMENTO TERRITORIAL",
+        "subtema": "PLANEJAMENTO DO SOLO",
+        "id_ces": "43",
+        "id_nova_ordem": "L 4",
+        "id_floripa": "43",
+        "ods": "1.9.1",
+        "orgao_responsavel": "SMPIU",
+        "indicador": "Porcentagem de área parcelada irregularmente sobre área urbanizável. (Floripa em Números = Núcelos Urbanos informais)",
+        "faixas_semaforizacao": {
+            "verde": "< 10%",
+            "amarelo": "10% - 25%",
+            "vermelho": "> 25%"
+        },
+        "dados_anuais": {
+            "2019": "36% de mancha urbana com indicativo de irregularidades urbanísticas e fundiárias no Município.",
+            "2020": "ND",
+            "2021": "Total 36% Por Distrito: Barra da Lagoa: 50,58% Cachoeira do Bom Jesus: 48,07% Campeche: 71,80% Canasvieiras: 16,58% Ingleses do Rio Vermelho: 66,35% Lagoa da Conceição: 38,39% Pântano do Sul: 42,98% Ratones: 34,09% Ribeirão da Ilha: 35,98% Santo Antônio de Lisboa: 16,26% São João do Rio Vermelho: 81,84% Sede: 17,49%",
+            "2022": "39,81%",
+            "2023": "37,89 %(base 2019, consulta 02/10/24)",
+            "2024": "ND"
+        }
+    },
+    {
+        "tema": "DESIGUALDADE URBANA",
+        "subtema": "POBREZA",
+        "id_ces": "44",
+        "id_nova_ordem": null,
+        "id_floripa": "44",
+        "ods": "5.2.5",
+        "orgao_responsavel": "SEMAS/FNR",
+        "indicador": "População vivendo abaixo da linha internacional de pobreza (porcentagem)",
+        "faixas_semaforizacao": {},
+        "dados_anuais": {
+            "2019": null,
+            "2020": null,
+            "2021": null,
+            "2022": null,
+            "2023": "8,5% (PNAD 2022)",
+            "2024": "4,8% (PNAD 2023)"
+        }
+    }
+]

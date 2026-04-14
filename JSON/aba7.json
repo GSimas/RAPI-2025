@@ -1,0 +1,109 @@
+[
+    {
+        "tema": "AMBIENTE DE NEGÓCIOS",
+        "subtema": "GESTÃO ESTRATÉGICA DA INFRAESTRUTURA",
+        "id_ces": "77",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "75",
+        "ods": null,
+        "orgao_responsavel": "FLORIPA AIRPORT",
+        "indicador": "Tonelada de carga transportada pelo aeroporto em comparação com a sua capacidade máxima (Fonte: Infraero e aeroporto)",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "ND",
+            "2020": "ND",
+            "2021": "ND",
+            "2022": "2.500 toneladas Carga Internacional, 3.550 toneladas carga doméstica",
+            "2023": "3.070 toneladas Carga Internacional, 5.284 toneladas carga doméstica",
+            "2024": "6.568 toneladas Carga Internacional, 6.578 toneladas carga doméstica"
+        }
+    },
+    {
+        "tema": "AMBIENTE DE NEGÓCIOS",
+        "subtema": "GESTÃO ESTRATÉGICA DA INFRAESTRUTURA",
+        "id_ces": "78",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "76",
+        "ods": null,
+        "orgao_responsavel": "FLORIPA AIRPORT",
+        "indicador": "Quantidade de pessoas transportadas pelo aeroporto ano- Consultar Infraero e aeroporto",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "ND",
+            "2020": "ND",
+            "2021": "ND",
+            "2022": "3.393.219 de passageiros em 2022",
+            "2023": "3.955.113 de passageiros em 2023",
+            "2024": "4.895.252 de passageiros em 2024"
+        }
+    },
+    {
+        "tema": "AMBIENTE DE NEGÓCIOS",
+        "subtema": "GESTÃO ESTRATÉGICA DA INFRAESTRUTURA",
+        "id_ces": "79",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "77",
+        "ods": null,
+        "orgao_responsavel": "SIE e Adm da Rodoviária Rita Maria (SINART ORGANIZAÇÕES)",
+        "indicador": "Quantidade de viagens de ônibus ano (chegadas e saídas no ano) (indicador novo 2024)",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": null,
+            "2020": null,
+            "2021": null,
+            "2022": null,
+            "2023": null,
+            "2024": "Chegados= 72.618, Saidos/Transito= 76.440, Total= 149.058"
+        }
+    },
+    {
+        "tema": "AMBIENTE DE NEGÓCIOS",
+        "subtema": "GESTÃO ESTRATÉGICA DA INFRAESTRUTURA",
+        "id_ces": "80",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "78",
+        "ods": null,
+        "orgao_responsavel": "SIE",
+        "indicador": "Quantidade de pessoas transportadas pela rodoviária ano (Fonte: rodoviária e Deter)",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "ND",
+            "2020": "ND",
+            "2021": "ND",
+            "2022": "Chegados= 791.428, Saidos= 850.637, Total= 1.642.065",
+            "2023": "Chegados= 985.834, Saidos= 1.037.721, Total= 2.023.555",
+            "2024": "Chegados= 1.218.210, Saidos= 1.282.326, Total= 2.500.536"
+        }
+    },
+    {
+        "tema": "AMBIENTE DE NEGÓCIOS",
+        "subtema": "GESTÃO ESTRATÉGICA DA INFRAESTRUTURA",
+        "id_ces": "81",
+        "id_nova_ordem": "67",
+        "id_floripa": "79",
+        "ods": "8.2.1",
+        "orgao_responsavel": "SMDE CT/SIE/FRN",
+        "indicador": "PIB per capita da cidade (Fonte IBGE - Estatisticas)",
+        "faixas_semaforizacao": {
+            "verde": ">US$ 9.000",
+            "amarelo": "US$ 3.000–US$ 9.000",
+            "vermelho": "< US$ 3.000"
+        },
+        "dados_anuais": {
+            "2019": "43.847 (U$ 4.0795)",
+            "2020": "41.886 (U$ 5,4854)",
+            "2021": "45.603 (U$ 5.5748)",
+            "2022": "R$ 41.885,53 Fonte: IBGE ano base 2020",
+            "2023": "PIB Per Capita 2021 R$ 45.602,98 / PIB Per Capita 2020 R$ 41.885,53",
+            "2024": "45.602,98 R$ [2021]"
+        }
+    }
+]

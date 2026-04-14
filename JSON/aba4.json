@@ -1,0 +1,170 @@
+[
+    {
+        "tema": "DESIGUALDADE URBANA",
+        "subtema": "POBREZA",
+        "id_ces": "45",
+        "id_nova_ordem": null,
+        "id_floripa": "45",
+        "ods": "5.2.8",
+        "orgao_responsavel": "SEMAS/FNR",
+        "indicador": "População vivendo abaixo da linha nacional de pobreza (porcentagem)",
+        "faixas_semaforizacao": {},
+        "dados_anuais": {
+            "2019": null,
+            "2020": null,
+            "2021": "9,11%",
+            "2022": null,
+            "2023": "4,81% (https://www.negociossc.com.br/noticia/compare-a-desigualdade-no-brasil-e-santa-catarina-em-3-dados/#:~:text=Percentual%20de%20pessoas%20em%20situa%C3%A7%C3%A3o%20de%20pobreza,14%2C98%25%20*%20Entorno%20Metropolitano%20de%20Florian%C3%B3polis:%2016%2C12%25)",
+            "2024": "4,81% (https://www.negociossc.com.br/noticia/compare-a-desigualdade-no-brasil-e-santa-catarina-em-3-dados/#:~:text=Percentual%20de%20pessoas%20em%20situa%C3%A7%C3%A3o%20de%20pobreza,14%2C98%25%20*%20Entorno%20Metropolitano%20de%20Florian%C3%B3polis:%2016%2C12%25)"
+        }
+    },
+    {
+        "tema": "DESIGUALDADE URBANA",
+        "subtema": "SEGREGAÇÃO SOCIOESPACIAL",
+        "id_ces": "48",
+        "id_nova_ordem": null,
+        "id_floripa": "46",
+        "ods": "1.9.3",
+        "orgao_responsavel": "SMDU/FNR",
+        "indicador": "Percentual de moradias sem títulos legais de propriedade em relação ao número total de moradias.",
+        "faixas_semaforizacao": {},
+        "dados_anuais": {
+            "2019": null,
+            "2020": null,
+            "2021": null,
+            "2022": "3,94 % / 100 mil hab",
+            "2023": "3,94 % / 100 mil hab",
+            "2024": "ND"
+        }
+    },
+    {
+        "tema": "DESIGUALDADE URBANA",
+        "subtema": "SEGREGAÇÃO SOCIOESPACIAL",
+        "id_ces": "49",
+        "id_nova_ordem": null,
+        "id_floripa": "47",
+        "ods": "5.1.4",
+        "orgao_responsavel": "SMDU/FNR",
+        "indicador": "Percentual de pessoas vivendo em moradias inadequadas em relação à população total.",
+        "faixas_semaforizacao": {},
+        "dados_anuais": {
+            "2019": "2.52%",
+            "2020": null,
+            "2021": null,
+            "2022": null,
+            "2023": "2,52 % / 100 mil hab (2019)",
+            "2024": "ND"
+        }
+    },
+    {
+        "tema": "DESIGUALDADE URBANA",
+        "subtema": "SEGREGAÇÃO SOCIOESPACIAL",
+        "id_ces": "50",
+        "id_nova_ordem": null,
+        "id_floripa": "48",
+        "ods": "5.1.6",
+        "orgao_responsavel": "SMDU/FNR",
+        "indicador": "Pessoas em situação de rua (por 100 mil habitantes)",
+        "faixas_semaforizacao": {},
+        "dados_anuais": {
+            "2019": null,
+            "2020": null,
+            "2021": null,
+            "2022": null,
+            "2023": "1.002 / 100 mil hab",
+            "2024": "ND"
+        }
+    },
+    {
+        "tema": "DESIGUALDADE URBANA",
+        "subtema": "DESIGUALDADE DE RENDA",
+        "id_ces": "51",
+        "id_nova_ordem": "51",
+        "id_floripa": "49",
+        "ods": "5.2.10",
+        "orgao_responsavel": "SEMAS/FRN",
+        "indicador": "Coeficiente de Gini da renda (Fonte: PENAD Contínua do IBGE)",
+        "faixas_semaforizacao": {
+            "verde": "< 0,40",
+            "amarelo": "0,40–0,49",
+            "vermelho": "> 0,49"
+        },
+        "dados_anuais": {
+            "2019": "0,54 (2010)",
+            "2020": "0,54",
+            "2021": "0,54 (2010)",
+            "2022": "0,419 (FIESC 2022)",
+            "2023": "0,419 (FIESC 2022)",
+            "2024": "0,4 (IBGE 2023)"
+        }
+    },
+    {
+        "tema": "DESIGUALDADE URBANA",
+        "subtema": "DESIGUALDADE DE RENDA",
+        "id_ces": "52",
+        "id_nova_ordem": "L 17",
+        "id_floripa": "50",
+        "ods": null,
+        "orgao_responsavel": "SMTTDE",
+        "indicador": "Remuneração média dos trabalhadores formais (Fonte: Secretaria do Trabalho - RAIS)",
+        "faixas_semaforizacao": {
+            "verde": "Acima de R$ 3.280",
+            "amarelo": "R$ 2.569 a R$ 3.280",
+            "vermelho": "R$ 788 a R$ 2.568"
+        },
+        "dados_anuais": {
+            "2019": "ND",
+            "2020": "ND Ainda não foram publicados os dados de 2020",
+            "2021": "R$ 5.411,68 (Ano base de 2020. Ainda não foram publicados os dados de 2021)",
+            "2022": "R$ 5.459,98 Fonte: RAIS ano base 2021 - ainda não foram publicado os dados de 2022",
+            "2023": "ND",
+            "2024": "ND"
+        }
+    },
+    {
+        "tema": "DESIGUALDADE URBANA",
+        "subtema": "DESIGUALDADE DE RENDA",
+        "id_ces": "53",
+        "id_nova_ordem": "52",
+        "id_floripa": "51",
+        "ods": null,
+        "orgao_responsavel": "SMPIU",
+        "indicador": "Quilômetros de vias públicas por 100 mil habitantes (População projetada do IBGE)",
+        "faixas_semaforizacao": {
+            "verde": "< 300",
+            "amarelo": "300–400",
+            "vermelho": "> 400"
+        },
+        "dados_anuais": {
+            "2019": "357,49",
+            "2020": "352,68 km/100 mil hab.",
+            "2021": "347,73 km",
+            "2022": "334,3 km/",
+            "2023": "334,3 km/(base 2022)",
+            "2024": "ND"
+        }
+    },
+    {
+        "tema": "DESIGUALDADE URBANA",
+        "subtema": "DESIGUALDADE DE RENDA",
+        "id_ces": "54",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "52",
+        "ods": "2.5.3",
+        "orgao_responsavel": "SMPU",
+        "indicador": "Porcentagem de vias públicas não pavimentadas em relação ao total de quilômetros de vias públicas",
+        "faixas_semaforizacao": {
+            "verde": "< 5%",
+            "amarelo": "5%-10%",
+            "vermelho": "> 10%"
+        },
+        "dados_anuais": {
+            "2019": "40,39%",
+            "2020": "ND",
+            "2021": "ND",
+            "2022": "6.65% (2022)",
+            "2023": "6.65% (2022)",
+            "2024": "ND"
+        }
+    }
+]

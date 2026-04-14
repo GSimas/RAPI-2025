@@ -1,0 +1,224 @@
+[
+    {
+        "tema": "IMPOSTOS E AUTONOMIA FINANCEIRA",
+        "subtema": "GESTÃO DE COBRANÇAS",
+        "id_ces": "175",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "196",
+        "ods": null,
+        "orgao_responsavel": "SMF",
+        "indicador": "Porcentagem de inadimplência do IPTU",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "38,47%",
+            "2020": "29,63%",
+            "2021": "15,10%",
+            "2022": "19,77%",
+            "2023": "19,81%",
+            "2024": "16,73%"
+        }
+    },
+    {
+        "tema": "GESTÃO DO GASTO PÚBLICO",
+        "subtema": "QUALIDADE DO GASTO PÚBLICO",
+        "id_ces": "176",
+        "id_nova_ordem": "126",
+        "id_floripa": "197",
+        "ods": null,
+        "orgao_responsavel": "SMF (Siconfi-TCE/SC)",
+        "indicador": "Porcentagem dos gastos correntes em relação aos gastos totais",
+        "faixas_semaforizacao": {
+            "geral": "Comparado com diferentes cidades - sem padrão - fazer parâmetro em SC"
+        },
+        "dados_anuais": {
+            "2019": "87,20%",
+            "2020": "90%",
+            "2021": "86,70%",
+            "2022": "87,07%",
+            "2023": "85,36%",
+            "2024": "86,21%"
+        }
+    },
+    {
+        "tema": "GESTÃO DO GASTO PÚBLICO",
+        "subtema": "QUALIDADE DO GASTO PÚBLICO",
+        "id_ces": "177",
+        "id_nova_ordem": "127",
+        "id_floripa": "198",
+        "ods": "9.2.5",
+        "orgao_responsavel": "SMF/FNR",
+        "indicador": "Despesas de capital como porcentagem do total de gastos: Percentual de investimentos em ativo fixo (despesas de capital) em relação aos gastos totais",
+        "faixas_semaforizacao": {
+            "geral": "Comparado com diferentes cidades - sem padrão - fazer parâmetro em SC"
+        },
+        "dados_anuais": {
+            "2019": "12,63%",
+            "2020": "16,27%",
+            "2021": "10,00%",
+            "2022": "6,82%",
+            "2023": "14,63%",
+            "2024": "13,79%"
+        }
+    },
+    {
+        "tema": "GESTÃO DO GASTO PÚBLICO",
+        "subtema": "QUALIDADE DO GASTO PÚBLICO",
+        "id_ces": "178",
+        "id_nova_ordem": "128",
+        "id_floripa": "199",
+        "ods": null,
+        "orgao_responsavel": "SMF",
+        "indicador": "Taxa média de crescimento anual do gasto corrente: Porcentagem de variação no ano dos gastos correntes",
+        "faixas_semaforizacao": {
+            "verde": "< 0",
+            "amarelo": "0 - IPCA",
+            "vermelho": "> IPCA"
+        },
+        "dados_anuais": {
+            "2019": "38,57% (IPCA 4,30%)",
+            "2020": "(-20,35%) - (IPCA 4,51%)",
+            "2021": "14,75% (IPCA 10,06%)",
+            "2022": "23,8% (IPCA 5,78%)",
+            "2023": "16,95% (IPCA 4,62%)",
+            "2024": "4,46% (IPCA 4,83%)"
+        }
+    },
+    {
+        "tema": "GESTÃO DO GASTO PÚBLICO",
+        "subtema": "QUALIDADE DO GASTO PÚBLICO",
+        "id_ces": "179",
+        "id_nova_ordem": "L 1",
+        "id_floripa": "200",
+        "ods": null,
+        "orgao_responsavel": "SMF",
+        "indicador": "Despesa de pessoal/Receita corrente líquida: percentual da depesas totais (salário + encargos + vales transporte e alimentação + plano de saúde) e de pessoal em relação a receita corrente líquida",
+        "faixas_semaforizacao": {
+            "verde": "< 51,3%",
+            "amarelo": "51,3% a 54%",
+            "vermelho": "> 54%"
+        },
+        "dados_anuais": {
+            "2019": "48,51%",
+            "2020": "48,68%",
+            "2021": "45,61%",
+            "2022": "45,42%",
+            "2023": "49,53%",
+            "2024": "48,46%"
+        }
+    },
+    {
+        "tema": "GESTÃO DO GASTO PÚBLICO",
+        "subtema": "QUALIDADE DO GASTO PÚBLICO",
+        "id_ces": "180",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "201",
+        "ods": null,
+        "orgao_responsavel": "SMF",
+        "indicador": "Porcentagem das despesas com contratação de pessoal tercerizado (terceiros PJ + PF +  locação de mão de obra) em relação a receita total líquida.",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "4,65%",
+            "2020": "3,33%",
+            "2021": "4,22%",
+            "2022": "4,56%",
+            "2023": "4,73%",
+            "2024": "4,20%"
+        }
+    },
+    {
+        "tema": "GESTÃO ADEQUADA DA DÍVIDA",
+        "subtema": "SUSTENTABILIDADE DA DÍVIDA",
+        "id_ces": "181",
+        "id_nova_ordem": "131",
+        "id_floripa": "202",
+        "ods": "9.2.4",
+        "orgao_responsavel": "SMF/FNR",
+        "indicador": "Crescimento do serviço da dívida: Porcentagem dos juros da dívida em relação a receita própria",
+        "faixas_semaforizacao": {
+            "verde": "< 5%",
+            "amarelo": "5% - 10%",
+            "vermelho": "> 10%"
+        },
+        "dados_anuais": {
+            "2019": "0,67%",
+            "2020": "0,72%",
+            "2021": "11,00%",
+            "2022": "101,28% no FNR registra 8,63%",
+            "2023": "8,55%",
+            "2024": "3,73%"
+        }
+    },
+    {
+        "tema": "GESTÃO ADEQUADA DA DÍVIDA",
+        "subtema": "SUSTENTABILIDADE DA DÍVIDA",
+        "id_ces": "182",
+        "id_nova_ordem": "132",
+        "id_floripa": "203",
+        "ods": null,
+        "orgao_responsavel": "SMF",
+        "indicador": "Crescimento da dívida: Porcentagem de crescimento da dívida (Emprestimos de curto e longo prazo)",
+        "faixas_semaforizacao": {
+            "verde": "A taxa de crescimento real anual é negativa",
+            "amarelo": "A taxa de crescimento real anual está entre 0% e 2%",
+            "vermelho": "A taxa de crescimento real anual é superior a 2%"
+        },
+        "dados_anuais": {
+            "2019": "-0,04%",
+            "2020": "-12,00%",
+            "2021": "14,56%",
+            "2022": "37,74%",
+            "2023": "-4,91%",
+            "2024": "16,94%"
+        }
+    },
+    {
+        "tema": "GESTÃO ADEQUADA DA DÍVIDA",
+        "subtema": "LEI DE RESPONSABILIDADE FISCAL",
+        "id_ces": "183",
+        "id_nova_ordem": "L 2",
+        "id_floripa": "204",
+        "ods": null,
+        "orgao_responsavel": "SMF",
+        "indicador": "Dívida consolidada líquida/Receita corrente líquida: Porcentagem da dívida consolidada líquida em relação a receita corrente líquida",
+        "faixas_semaforizacao": {
+            "verde": "< 50%",
+            "amarelo": "50% a 60%",
+            "vermelho": "> 60%"
+        },
+        "dados_anuais": {
+            "2019": "43,61%",
+            "2020": "36,26%",
+            "2021": "31,82%",
+            "2022": "45,27%",
+            "2023": "24,19%",
+            "2024": "34,75%"
+        }
+    },
+    {
+        "tema": "GESTÃO ADEQUADA DA DÍVIDA",
+        "subtema": "LEI DE RESPONSABILIDADE FISCAL",
+        "id_ces": "184",
+        "id_nova_ordem": "L 3",
+        "id_floripa": "205",
+        "ods": null,
+        "orgao_responsavel": "SMF",
+        "indicador": "Operação de Crédito/Receita Corrente Líquida:Porcentagem do valor das operações de crédito contratadas no ano em relação a receita corrente líquida",
+        "faixas_semaforizacao": {
+            "verde": "Menor 10%",
+            "amarelo": "Entre 10 e 16%",
+            "vermelho": "Acima 16%"
+        },
+        "dados_anuais": {
+            "2019": "6,22",
+            "2020": "6,50%",
+            "2021": "4,00%",
+            "2022": "10,12%",
+            "2023": "1,97%",
+            "2024": "5,22%"
+        }
+    }
+]

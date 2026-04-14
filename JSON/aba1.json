@@ -1,0 +1,460 @@
+[
+    {
+        "tema": "ÁGUA",
+        "subtema": "COBERTURA DE ÁGUA",
+        "id_ces": "1",
+        "id_nova_ordem": "1",
+        "id_floripa": "1",
+        "ods": "7.1.1",
+        "orgao_responsavel": "CASAN/FNR",
+        "indicador": "Porcentagem de pessoas com serviço de abastecimento de água potável em relação à população total do município",
+        "faixas_semaforizacao": {
+            "verde": "> 90%–100%",
+            "amarelo": "75%–90%",
+            "vermelho": "< 75%"
+        },
+        "dados_anuais": {
+            "2019": "100%",
+            "2020": "100%",
+            "2021": "100%",
+            "2022": "100%",
+            "2023": "100%",
+            "2024": "93%"
+        }
+    },
+    {
+        "tema": "ÁGUA",
+        "subtema": "EFICIÊNCIA NO USO DA ÁGUA",
+        "id_ces": "2",
+        "id_nova_ordem": "2",
+        "id_floripa": "2",
+        "ods": "7.1.5",
+        "orgao_responsavel": "CASAN/FNR",
+        "indicador": "Quantidade total do consumo de água em litros por dia dividida pelo total da população. Inclui uso não doméstico.",
+        "faixas_semaforizacao": {
+            "verde": "120–200",
+            "amarelo": "80–120 ou 200–250",
+            "vermelho": "< 80 ou > 250"
+        },
+        "dados_anuais": {
+            "2019": "173,5 l/pessoa/dia",
+            "2020": "172,9 l/pessoa/dia",
+            "2021": "0,1631 m3/pessoa/ dia = 163,1 l/pessoa/dia",
+            "2022": "0,1726 m³pessoa/dia = 172,6 l/pessoa/dia",
+            "2023": "0,1799 = 179,9 l/pessoa/dia",
+            "2024": "178,9 L/pessoa/dia"
+        }
+    },
+    {
+        "tema": "ÁGUA",
+        "subtema": "EFICIÊNCIA NO SERVIÇO DE ABASTECIMENTO DE ÁGUA",
+        "id_ces": "3",
+        "id_nova_ordem": "3",
+        "id_floripa": "3",
+        "ods": null,
+        "orgao_responsavel": "CASAN",
+        "indicador": "Média anual de horas/dia em que há o fornecimento contínuo de água.",
+        "faixas_semaforizacao": {
+            "verde": "> 20 h/dia",
+            "amarelo": "12–20 h/dia",
+            "vermelho": "< 12 h/dia"
+        },
+        "dados_anuais": {
+            "2019": "24h",
+            "2020": "23,86 horas/dia",
+            "2021": "23,86 horas/dia",
+            "2022": "23,98 horas/dia",
+            "2023": "24,00 horas/dia",
+            "2024": "24,00 horas/dia"
+        }
+    },
+    {
+        "tema": "ÁGUA",
+        "subtema": "EFICIÊNCIA NO SERVIÇO DE ABASTECIMENTO DE ÁGUA",
+        "id_ces": "4",
+        "id_nova_ordem": "4",
+        "id_floripa": "4",
+        "ods": "7.1.4",
+        "orgao_responsavel": "CASAN/FNR",
+        "indicador": "Qualidade da água: Porcentagem do número total de testes conformes em relação ao número total de testes de qualidade de água tratada realizados.",
+        "faixas_semaforizacao": {
+            "verde": "> 97%",
+            "amarelo": "90%–97%",
+            "vermelho": "< 90%"
+        },
+        "dados_anuais": {
+            "2019": "98,53%",
+            "2020": "95,19%",
+            "2021": "95,87%",
+            "2022": "97,20%",
+            "2023": "97%",
+            "2024": "96,08%"
+        }
+    },
+    {
+        "tema": "ÁGUA",
+        "subtema": "EFICIÊNCIA NO SERVIÇO DE ABASTECIMENTO DE ÁGUA",
+        "id_ces": "5",
+        "id_nova_ordem": "5",
+        "id_floripa": "5",
+        "ods": "7.1.6",
+        "orgao_responsavel": "CASAN/FNR",
+        "indicador": "Água não contabilizada = Índice de perdas na distribuição de água.",
+        "faixas_semaforizacao": {
+            "verde": "0%–30%",
+            "amarelo": "30%–45%",
+            "vermelho": "> 45%"
+        },
+        "dados_anuais": {
+            "2019": "42,41%",
+            "2020": "43,84%",
+            "2021": "43,80%",
+            "2022": "39,30%",
+            "2023": "35,87%",
+            "2024": "38,09%"
+        }
+    },
+    {
+        "tema": "ÁGUA",
+        "subtema": "EFICIÊNCIA NO SERVIÇO DE ABASTECIMENTO DE ÁGUA",
+        "id_ces": "6",
+        "id_nova_ordem": "6",
+        "id_floripa": "6",
+        "ods": null,
+        "orgao_responsavel": "SDE/SEMA",
+        "indicador": "Número remanescente de anos de saldo hídrico positivo (volume de água disponível dividido pelo consumo anual real (faturado + perdido).",
+        "faixas_semaforizacao": {
+            "verde": "> 10",
+            "amarelo": "5–10",
+            "vermelho": "< 5"
+        },
+        "dados_anuais": {
+            "2019": "ND",
+            "2020": "ND",
+            "2021": "85%",
+            "2022": "ND",
+            "2023": "ND",
+            "2024": "ND"
+        }
+    },
+    {
+        "tema": "SANEAMENTO E DRENAGEM",
+        "subtema": "COBERTURA DE SANEAMENTO",
+        "id_ces": "7",
+        "id_nova_ordem": "7",
+        "id_floripa": "7",
+        "ods": null,
+        "orgao_responsavel": "CASAN",
+        "indicador": "Porcentagem de moradias com ligação ao sistema de esgoto",
+        "faixas_semaforizacao": {
+            "verde": "> 75%",
+            "amarelo": "75%–60%",
+            "vermelho": "< 60%"
+        },
+        "dados_anuais": {
+            "2019": "66,9% da cobertura urbana em Florianópolis",
+            "2020": "67,42%",
+            "2021": "68,89% da cobertura urbana em Florianópolis * das áreas atendidas pela Casan",
+            "2022": "68,39% da cobertura urbana em Florianópolis",
+            "2023": "66,67%",
+            "2024": "64,81%"
+        }
+    },
+    {
+        "tema": "SANEAMENTO E DRENAGEM",
+        "subtema": "TRATAMENTO DE ÁGUA RESIDUÁRIAS",
+        "id_ces": "8",
+        "id_nova_ordem": "8",
+        "id_floripa": "8",
+        "ods": null,
+        "orgao_responsavel": "CASAN",
+        "indicador": "Porcentagem de águas residuais ou efluente (águas de esgoto) tratadas: total de m³ de águas residuais que entram anualmente nas estações de tratamento dividido pelo total de m³ de água faturadas.",
+        "faixas_semaforizacao": {
+            "verde": "> 60%",
+            "amarelo": "40%–60%",
+            "vermelho": "< 40%"
+        },
+        "dados_anuais": {
+            "2019": "58,58%",
+            "2020": "55,56%",
+            "2021": "65,07%",
+            "2022": "62,69%",
+            "2023": "60,14%",
+            "2024": "63,15%"
+        }
+    },
+    {
+        "tema": "SANEAMENTO E DRENAGEM",
+        "subtema": "EFETIVIDADE DA DRENAGEM",
+        "id_ces": "9",
+        "id_nova_ordem": "9",
+        "id_floripa": "9",
+        "ods": null,
+        "orgao_responsavel": "SMSP",
+        "indicador": "Porcentagem anual de moradias afetadas por inundações intensas decorrentes de transbordamentos dos sistemas de drenagem e esgoto e de inundações causadas por rios e marés.",
+        "faixas_semaforizacao": {
+            "verde": "< 0,5%",
+            "amarelo": "0,5–3",
+            "vermelho": "> 3%"
+        },
+        "dados_anuais": {
+            "2019": "0,50%",
+            "2020": "7,00%",
+            "2021": "9,00%",
+            "2022": "11,00%",
+            "2023": "13%",
+            "2024": "15%"
+        }
+    },
+    {
+        "tema": "GESTÃO DE RESÍDUOS SÓLIDOS",
+        "subtema": "COLETA DE RESÍDUOS",
+        "id_ces": "10",
+        "id_nova_ordem": "10",
+        "id_floripa": "10",
+        "ods": null,
+        "orgao_responsavel": "COMCAP",
+        "indicador": "Porcentagem das moradias com coleta regular de resíduos sólidos.",
+        "faixas_semaforizacao": {
+            "verde": "90%–100%",
+            "amarelo": "80%–90%",
+            "vermelho": "< 80%"
+        },
+        "dados_anuais": {
+            "2019": "100%",
+            "2020": "100%",
+            "2021": "100%",
+            "2022": "100%",
+            "2023": "100%",
+            "2024": "100%"
+        }
+    },
+    {
+        "tema": "GESTÃO DE RESÍDUOS SÓLIDOS",
+        "subtema": "VOLUME DE RESÍDUOS",
+        "id_ces": "11",
+        "id_nova_ordem": "L 5",
+        "id_floripa": "11",
+        "ods": null,
+        "orgao_responsavel": "COMCAP",
+        "indicador": "Toneladas totais de resíduos sólidos recolhidos (lixo convencional, coleta seletiva, lixo hospitalar, lixo pesado).",
+        "faixas_semaforizacao": {
+            "geral": "Sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "212.303 ton",
+            "2020": "205.291 ton",
+            "2021": "198.945,33",
+            "2022": "227.444,05",
+            "2023": "253.577,01",
+            "2024": "259.313,04"
+        }
+    },
+    {
+        "tema": "GESTÃO DE RESÍDUOS SÓLIDOS",
+        "subtema": "VOLUME DE RESÍDUOS",
+        "id_ces": "12",
+        "id_nova_ordem": "N OV O",
+        "id_floripa": "12",
+        "ods": null,
+        "orgao_responsavel": "COMCAP",
+        "indicador": "Quantidade (kg) de resíduos sólidos coletados por habitante, por dia (população projetada IBGE)",
+        "faixas_semaforizacao": {
+            "verde": "≤ 1,0",
+            "amarelo": "1,01 - 1,5",
+            "vermelho": "> 1,5"
+        },
+        "dados_anuais": {
+            "2019": "1,16 kg/hab/dia (pop 500.973)",
+            "2020": "1,10 kg",
+            "2021": "1,05 kg/hab/dia",
+            "2022": "1,09",
+            "2023": "1,28 kg/hab/dia",
+            "2024": "1,14"
+        }
+    },
+    {
+        "tema": "GESTÃO DE RESÍDUOS SÓLIDOS",
+        "subtema": "DISPOSIÇÃO FINAL DOS RESÍDUOS SÓLIDOS",
+        "id_ces": "13",
+        "id_nova_ordem": "11",
+        "id_floripa": "13",
+        "ods": "7.3.5",
+        "orgao_responsavel": "COMCAP/FNR",
+        "indicador": "Porcentagem de resíduos sólidos municipais depositados em aterros sanitários",
+        "faixas_semaforizacao": {
+            "verde": "<35%",
+            "amarelo": "36%-50%",
+            "vermelho": "> 50%"
+        },
+        "dados_anuais": {
+            "2019": "92,85%",
+            "2020": "ND",
+            "2021": "93,27%",
+            "2022": "88,82%",
+            "2023": "86,38%",
+            "2024": "86,81"
+        }
+    },
+    {
+        "tema": "GESTÃO DE RESÍDUOS SÓLIDOS",
+        "subtema": "DISPOSIÇÃO FINAL DOS RESÍDUOS SÓLIDOS",
+        "id_ces": "14",
+        "id_nova_ordem": "12",
+        "id_floripa": "14",
+        "ods": null,
+        "orgao_responsavel": "COMCAP",
+        "indicador": "Vida remanescente útil das instalações de aterro sanitário",
+        "faixas_semaforizacao": {
+            "verde": "> 8",
+            "amarelo": "5–8",
+            "vermelho": "< 5"
+        },
+        "dados_anuais": {
+            "2019": "ND",
+            "2020": "Não dispomos deste informação. O Aterro Sanitário, é operado por empresa privada que também recebe resíduos de outros municípios",
+            "2021": "16 anos(2020), sem contar com área a ser ampliada.",
+            "2022": "ND",
+            "2023": "ND",
+            "2024": "24"
+        }
+    },
+    {
+        "tema": "GESTÃO DE RESÍDUOS SÓLIDOS",
+        "subtema": "TRATAMENTO DOS RESÍDUOS SÓLIDOS",
+        "id_ces": "15",
+        "id_nova_ordem": "14",
+        "id_floripa": "15",
+        "ods": null,
+        "orgao_responsavel": "COMCAP",
+        "indicador": "Porcentagem de resíduos sólidos municipais compostados pela Prefeitura",
+        "faixas_semaforizacao": {
+            "verde": "> 20%",
+            "amarelo": "5%–20%",
+            "vermelho": "< 5%"
+        },
+        "dados_anuais": {
+            "2019": "1,93%",
+            "2020": "2,30%",
+            "2021": "0,91%",
+            "2022": "3,58%",
+            "2023": "4,56%",
+            "2024": "12,93"
+        }
+    },
+    {
+        "tema": "GESTÃO DE RESÍDUOS SÓLIDOS",
+        "subtema": "TRATAMENTO DOS RESÍDUOS SÓLIDOS",
+        "id_ces": "16",
+        "id_nova_ordem": "15",
+        "id_floripa": "16",
+        "ods": "7.3.4",
+        "orgao_responsavel": "COMCAP/FNR",
+        "indicador": "Porcentagem de resíduos sólidos separados e classificados para reciclagem",
+        "faixas_semaforizacao": {
+            "verde": "> 25%",
+            "amarelo": "15%–25%",
+            "vermelho": "< 15%"
+        },
+        "dados_anuais": {
+            "2019": "5,22%",
+            "2020": "5,90%",
+            "2021": "3,76%",
+            "2022": "7,60%",
+            "2023": "9,05%",
+            "2024": "10,73"
+        }
+    },
+    {
+        "tema": "GESTÃO DE RESÍDUOS SÓLIDOS",
+        "subtema": "TRATAMENTO DOS RESÍDUOS SÓLIDOS",
+        "id_ces": "17",
+        "id_nova_ordem": "16",
+        "id_floripa": "17",
+        "ods": "7.3.6",
+        "orgao_responsavel": "COMCAP/FNR",
+        "indicador": "Porcentagem de resíduos sólidos tratados em usinas de geração de energia a partir de resíduos em relação ao total de resíduos sólidos produzidos.",
+        "faixas_semaforizacao": {
+            "verde": "> 20 %",
+            "amarelo": "10%-19%",
+            "vermelho": "< 10%"
+        },
+        "dados_anuais": {
+            "2019": "0%",
+            "2020": "0%",
+            "2021": "0%",
+            "2022": "0%",
+            "2023": "0%",
+            "2024": "0%"
+        }
+    },
+    {
+        "tema": "ENERGIA",
+        "subtema": "COBERTURA ENERGÉTICA",
+        "id_ces": "18",
+        "id_nova_ordem": "17",
+        "id_floripa": "18",
+        "ods": null,
+        "orgao_responsavel": "CELESC",
+        "indicador": "Porcentagem de domicílios(residenciais) com ligação autorizada à energia elétrica",
+        "faixas_semaforizacao": {
+            "verde": "90%–100%",
+            "amarelo": "70%–90%",
+            "vermelho": "< 70%"
+        },
+        "dados_anuais": {
+            "2019": "Não temos informação do número de ligações clandestinas.",
+            "2020": "224.611 unidades consumidoras residencias",
+            "2021": "264.673 unidades consumidoras",
+            "2022": "271.230 número total de unidades consumidoras",
+            "2023": "276.889 em dez de 2023 - 99,93% (Base utilizando o CENSO 2022 do IBGE).",
+            "2024": "98,08%"
+        }
+    },
+    {
+        "tema": "ENERGIA",
+        "subtema": "COBERTURA ENERGÉTICA",
+        "id_ces": "19",
+        "id_nova_ordem": null,
+        "id_floripa": "19",
+        "ods": "7.4.6",
+        "orgao_responsavel": "SC GÁS/FNR",
+        "indicador": "Número de conexões de serviço de distribuição de gás - residencial (por 100 mil habitantes)",
+        "faixas_semaforizacao": {
+            "verde": "> 54.000",
+            "amarelo": "> 33.000 = < 54.000",
+            "vermelho": "< 33.000"
+        },
+        "dados_anuais": {
+            "2019": null,
+            "2020": "2.585 unidades residenciais = 508,03/100 mil",
+            "2021": "2.612 unidades residenciais = 516,2/100 mil",
+            "2022": "3.506 unidades residenciais = 652,87/100 mil",
+            "2023": "3.740 unidades residenciais = 649,31/100 mil",
+            "2024": "4.588 unidades residenciais = 796,53/100 mil"
+        }
+    },
+    {
+        "tema": "ENERGIA",
+        "subtema": "COBERTURA ENERGÉTICA",
+        "id_ces": "20",
+        "id_nova_ordem": "19",
+        "id_floripa": "20",
+        "ods": "7.4.7",
+        "orgao_responsavel": "CELESC/FNR",
+        "indicador": "Média de interrupção do fornecimento de energia elétrica por domicílio/ano, expresso em h/domicílio/ano",
+        "faixas_semaforizacao": {
+            "verde": "< 7h",
+            "amarelo": "7–10h",
+            "vermelho": "> 10h"
+        },
+        "dados_anuais": {
+            "2019": "5,42 vezes (ano)",
+            "2020": "4,46 (vezes ano)",
+            "2021": "7,24",
+            "2022": "CELESC = 5,77 h/domicílio/ano",
+            "2023": "5,45 h/domicílio/ano (2023)",
+            "2024": "5,61 h/domicílio/ano"
+        }
+    }
+]

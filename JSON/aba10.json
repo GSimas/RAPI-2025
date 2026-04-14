@@ -1,0 +1,174 @@
+[
+    {
+        "tema": "CAPITAL HUMANO",
+        "subtema": "CULTURA",
+        "id_ces": "136",
+        "id_nova_ordem": "L 18",
+        "id_floripa": "158",
+        "ods": null,
+        "orgao_responsavel": "SMF",
+        "indicador": "Investimento em cultura per capita: por habitante (população projetada IBGE)",
+        "faixas_semaforizacao": {
+            "verde": "> R$ 26,83",
+            "amarelo": "R$ 17,88 a R$ 26,82",
+            "vermelho": "< R$ 17,87"
+        },
+        "dados_anuais": {
+            "2019": "R$ 29,59",
+            "2020": "R$ 2,32",
+            "2021": "4,01 %",
+            "2022": "R$ 26,24",
+            "2023": "R$ 58,22",
+            "2024": "R$ 52,26 (recursos próprios)"
+        }
+    },
+    {
+        "tema": "CAPITAL HUMANO",
+        "subtema": "CULTURA",
+        "id_ces": "137",
+        "id_nova_ordem": "L 19",
+        "id_floripa": "159",
+        "ods": null,
+        "orgao_responsavel": "SMF",
+        "indicador": "Investimento em cultura sobre receita corrente líquida: total da receita líquida investida em cultura, no ano.",
+        "faixas_semaforizacao": {
+            "verde": "> R$ 2,47",
+            "amarelo": "R$ 1,77 a R$ 2,47",
+            "vermelho": "< R$ 1,76"
+        },
+        "dados_anuais": {
+            "2019": "R$ 0,69",
+            "2020": "0,58%",
+            "2021": "0,60%",
+            "2022": "0,54%",
+            "2023": "1,04% revisar parâmetros de semaforização para percentual",
+            "2024": "0,89%"
+        }
+    },
+    {
+        "tema": "CAPITAL HUMANO",
+        "subtema": "INTERNACIONALIZAÇÃO",
+        "id_ces": "138",
+        "id_nova_ordem": "99",
+        "id_floripa": "160",
+        "ods": null,
+        "orgao_responsavel": "SMTDI",
+        "indicador": "Percentual de exportações de bens e serviços em relação ao PIB projetado IBGE do município (Fonte: http://comexstat.mdic.gov.br/pt/municipio - Exportações no SISCOMEX - Ministério da Economia e PIB do IBGE)",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "2019 - Valor FOB (US$) Florianópolis - SC $33.980.716",
+            "2020": "2020 - Valor FOB (US$) Florianópolis - SC $26.406.990",
+            "2021": "2021 - Valor FOB (US$) Florianópolis - SC $40.839.598",
+            "2022": "(US$) 46.283.170",
+            "2023": "US$ 51.811.796",
+            "2024": "US$ 65.232.646"
+        }
+    },
+    {
+        "tema": "CAPITAL HUMANO",
+        "subtema": "INTERNACIONALIZAÇÃO",
+        "id_ces": "139",
+        "id_nova_ordem": "102",
+        "id_floripa": "161",
+        "ods": null,
+        "orgao_responsavel": "SMTDI",
+        "indicador": "Incremento anual da quantidade de empresas - Porcentagem de novas empresas abertas no ano (inclui todos os tamanhos de empresas)",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "Aprox. 20%",
+            "2020": "27%",
+            "2021": "24% 2020 = 97811 empresas - novas em 2021 = 23786 - fonte: Mapa de Empresas/ME",
+            "2022": "22% Fonte: mapa de empresas, ano base 2022 (novas empresas/ empresas ativas)",
+            "2023": "21%",
+            "2024": "21%"
+        }
+    },
+    {
+        "tema": "CAPITAL HUMANO",
+        "subtema": "INTERNACIONALIZAÇÃO",
+        "id_ces": "140",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "162",
+        "ods": null,
+        "orgao_responsavel": "SMF",
+        "indicador": "Porcentagem de variação do faturamento, em relação ao ano anterior, das empresas de tecnologia",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "18,46",
+            "2020": "113,87%",
+            "2021": "ND",
+            "2022": "34,22%",
+            "2023": "25,07%",
+            "2024": "28,39%"
+        }
+    },
+    {
+        "tema": "CAPITAL HUMANO",
+        "subtema": "INTERNACIONALIZAÇÃO",
+        "id_ces": "141",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "163",
+        "ods": null,
+        "orgao_responsavel": "SMF",
+        "indicador": "Porcentagem de participação da receita de impostos cobrados do setor de tecnologia em relação aos impostos totais",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "15,64",
+            "2020": "1,83%",
+            "2021": "ND",
+            "2022": "26,70%",
+            "2023": "15,78%",
+            "2024": "18,87%"
+        }
+    },
+    {
+        "tema": "CAPITAL HUMANO",
+        "subtema": "INTERNACIONALIZAÇÃO",
+        "id_ces": "142",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "164",
+        "ods": null,
+        "orgao_responsavel": "SMF",
+        "indicador": "Porcentagem de variação do faturamento, em relação ao ano anterior, das empresas de hotelaria e pousadas",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "-17,99",
+            "2020": "59,18%",
+            "2021": "ND",
+            "2022": "70,71%",
+            "2023": "29,62%",
+            "2024": "35,21%"
+        }
+    },
+    {
+        "tema": "CAPITAL HUMANO",
+        "subtema": "INTERNACIONALIZAÇÃO",
+        "id_ces": "143",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "165",
+        "ods": null,
+        "orgao_responsavel": "SMF",
+        "indicador": "Porcentagem de participação da receita de impostos cobrados do setor de saúde privada em relação aos impostos totais",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "1,9",
+            "2020": "1,03%",
+            "2021": "ND",
+            "2022": "15,90%",
+            "2023": "5,86%",
+            "2024": "6,32%"
+        }
+    }
+]

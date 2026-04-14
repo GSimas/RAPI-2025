@@ -1,0 +1,272 @@
+[
+    {
+        "tema": "MOBILIDADE / TRANSPORTE",
+        "subtema": "INFRAESTRUTURA DE TRANSPORTE EQUILIBRADA",
+        "id_ces": "65",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "63",
+        "ods": null,
+        "orgao_responsavel": "SMTI",
+        "indicador": "Média/mês da capacidade ofertada para o transporte de pessoas no sistema de transporte público",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "ND",
+            "2020": "7.351.979 média/mês da capacidade ofertada.",
+            "2021": "12.800.000",
+            "2022": "16.300.000",
+            "2023": "14.442.624",
+            "2024": "16.099.959"
+        }
+    },
+    {
+        "tema": "MOBILIDADE / TRANSPORTE",
+        "subtema": "INFRAESTRUTURA DE TRANSPORTE EQUILIBRADA",
+        "id_ces": "66",
+        "id_nova_ordem": "56",
+        "id_floripa": "64",
+        "ods": null,
+        "orgao_responsavel": "SMTI",
+        "indicador": "Distribuição modal: porcentagem do transporte realizado via bicicleta, barco, taxi, aplicativo, carro particular e ônibus.",
+        "faixas_semaforizacao": {
+            "verde": "> 65%",
+            "amarelo": "50%–65%",
+            "vermelho": "< 50%"
+        },
+        "dados_anuais": {
+            "2019": "ND",
+            "2020": "ND",
+            "2021": "ND",
+            "2022": "ND",
+            "2023": "ND",
+            "2024": "ND"
+        }
+    },
+    {
+        "tema": "MOBILIDADE / TRANSPORTE",
+        "subtema": "INFRAESTRUTURA DE TRANSPORTE EQUILIBRADA",
+        "id_ces": "67",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "65",
+        "ods": null,
+        "orgao_responsavel": "SMTI",
+        "indicador": "Média/litros/mês do consumo de óleo diesel da frota de transporte público (Fonte: Consórcio Fênix)",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "0,3438 l/km",
+            "2020": "ND",
+            "2021": "ND",
+            "2022": "834.462",
+            "2023": "1.062.886",
+            "2024": "1.222.319"
+        }
+    },
+    {
+        "tema": "MOBILIDADE / TRANSPORTE",
+        "subtema": "TRANSPORTE LIMPO",
+        "id_ces": "68",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "66",
+        "ods": null,
+        "orgao_responsavel": "SMTI",
+        "indicador": "Porcentagem da frota de transporte público movida a energia elétrica",
+        "faixas_semaforizacao": {
+            "verde": "> 20%",
+            "amarelo": "20%–10%",
+            "vermelho": "< 10%"
+        },
+        "dados_anuais": {
+            "2019": "0%",
+            "2020": "0%",
+            "2021": "0%",
+            "2022": "0%",
+            "2023": "0%",
+            "2024": "0%"
+        }
+    },
+    {
+        "tema": "MOBILIDADE / TRANSPORTE",
+        "subtema": "TRANSPORTE LIMPO",
+        "id_ces": "69",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "67",
+        "ods": null,
+        "orgao_responsavel": "SMTI",
+        "indicador": "Porcentagem da frota de transporte público com ar condicionado",
+        "faixas_semaforizacao": {
+            "verde": "> 70%",
+            "amarelo": "70%–50%",
+            "vermelho": "< 50%"
+        },
+        "dados_anuais": {
+            "2019": "18,50%",
+            "2020": "19,74%",
+            "2021": "19,75%",
+            "2022": "18,00%",
+            "2023": "18,00%",
+            "2024": "4,00%"
+        }
+    },
+    {
+        "tema": "MOBILIDADE / TRANSPORTE",
+        "subtema": "TRANSPORTE LIMPO",
+        "id_ces": "70",
+        "id_nova_ordem": "57",
+        "id_floripa": "68",
+        "ods": null,
+        "orgao_responsavel": "SMTI",
+        "indicador": "Idade média da frota do transporte público",
+        "faixas_semaforizacao": {
+            "verde": "< 6",
+            "amarelo": "6–12",
+            "vermelho": "> 12"
+        },
+        "dados_anuais": {
+            "2019": "5,9 anos",
+            "2020": "6,78 anos.",
+            "2021": "7 anos e 9 meses",
+            "2022": "8 anos e 6 meses",
+            "2023": "8,43 anos",
+            "2024": "8,94"
+        }
+    },
+    {
+        "tema": "MOBILIDADE / TRANSPORTE",
+        "subtema": "TRANSPORTE SEGURO",
+        "id_ces": "71",
+        "id_nova_ordem": "58",
+        "id_floripa": "69",
+        "ods": "10.2.1",
+        "orgao_responsavel": "SSP/FNR",
+        "indicador": "Vítimas mortais de acidentes de trânsito por 100 mil habitantes",
+        "faixas_semaforizacao": {
+            "verde": "< 10",
+            "amarelo": "10–20",
+            "vermelho": "> 20"
+        },
+        "dados_anuais": {
+            "2019": "10.18",
+            "2020": "7,30",
+            "2021": "5,600",
+            "2022": "5,9",
+            "2023": "6,100",
+            "2024": "8,5"
+        }
+    },
+    {
+        "tema": "MOBILIDADE / TRANSPORTE",
+        "subtema": "TRANSPORTE SEGURO",
+        "id_ces": "72",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "70",
+        "ods": null,
+        "orgao_responsavel": "SMS",
+        "indicador": "Quantidade anual de pessoas hospitalizadas por acidentes de trânsito por 100.000 habitantes (população projetada IBGE)",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "23.15",
+            "2020": "14.80",
+            "2021": "18.18",
+            "2022": "20.36",
+            "2023": "12.91",
+            "2024": "10.58"
+        }
+    },
+    {
+        "tema": "MOBILIDADE / TRANSPORTE",
+        "subtema": "MENOS CONGESTIONAMENTO",
+        "id_ces": "73",
+        "id_nova_ordem": "59",
+        "id_floripa": "71",
+        "ods": null,
+        "orgao_responsavel": "SMTI",
+        "indicador": "Velocidade média de viagem (transporte público e privado) nas principais vias públicas durante os horários de pico",
+        "faixas_semaforizacao": {
+            "verde": "> 30",
+            "amarelo": "15–30",
+            "vermelho": "< 15"
+        },
+        "dados_anuais": {
+            "2019": "17 km/h",
+            "2020": "ND",
+            "2021": "ND",
+            "2022": "20,12",
+            "2023": "19,75",
+            "2024": "21.81"
+        }
+    },
+    {
+        "tema": "MOBILIDADE / TRANSPORTE",
+        "subtema": "MENOS CONGESTIONAMENTO",
+        "id_ces": "74",
+        "id_nova_ordem": "60",
+        "id_floripa": "72",
+        "ods": "2.4.1",
+        "orgao_responsavel": "SMTI/F NR",
+        "indicador": "Número de veículos de uso pessoal (automóveis, SUV's, etc) registrados no DETRAN local (exceto táxis) per capita (população projetada IBGE)",
+        "faixas_semaforizacao": {
+            "verde": "< 0,3",
+            "amarelo": "0,3–0,4",
+            "vermelho": "> 0,4"
+        },
+        "dados_anuais": {
+            "2019": "0,63",
+            "2020": "0,63",
+            "2021": "0,638",
+            "2022": "0,722",
+            "2023": "0,65",
+            "2024": "0,723"
+        }
+    },
+    {
+        "tema": "MOBILIDADE / TRANSPORTE",
+        "subtema": "TRANSPORTE ECONÔMICO",
+        "id_ces": "75",
+        "id_nova_ordem": "62",
+        "id_floripa": "73",
+        "ods": null,
+        "orgao_responsavel": "SMTI",
+        "indicador": "Índice de acessibilidade (Salário Mínimo Nacional/(44 viagens mês* valor da tarifa em dinheiro))",
+        "faixas_semaforizacao": {
+            "verde": "Até 5%",
+            "amarelo": "5%–10%",
+            "vermelho": "> 10%"
+        },
+        "dados_anuais": {
+            "2019": "5,15",
+            "2020": "5,27",
+            "2021": "6,12",
+            "2022": "5,00",
+            "2023": "R$1.412,00/( 44*R$6,00) = 5,35",
+            "2024": "4,65"
+        }
+    },
+    {
+        "tema": "AMBIENTE DE NEGÓCIOS",
+        "subtema": "REG. NEGÓCIOS E INVESTIMENTOS",
+        "id_ces": "76",
+        "id_nova_ordem": "65",
+        "id_floripa": "74",
+        "ods": null,
+        "orgao_responsavel": "SMDE CT",
+        "indicador": "Quantidade de dias para abrir uma empresa",
+        "faixas_semaforizacao": {
+            "verde": "< 12",
+            "amarelo": "12–20",
+            "vermelho": "> 20"
+        },
+        "dados_anuais": {
+            "2019": "Baixo Risco - Mesmo Dia (4 horas) Outras Categorias de Risco - em até 15 dias",
+            "2020": "1 dia e 19 horas",
+            "2021": "1 dia e 1 hora (Mapa de Empresas, Ministério da Economia)",
+            "2022": "12 horas",
+            "2023": "12 horas",
+            "2024": "5 horas"
+        }
+    }
+]

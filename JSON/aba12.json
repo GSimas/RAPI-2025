@@ -1,0 +1,247 @@
+[
+    {
+        "tema": "TRANSPARÊNCIA",
+        "subtema": "TRANSPARÊNCIA E AUDITORIA DA GESTÃO PÚBLICA",
+        "id_ces": "164",
+        "id_nova_ordem": "114",
+        "id_floripa": "185",
+        "ods": null,
+        "orgao_responsavel": "Controladoria Geral do Município",
+        "indicador": "Índice de transparência: Consultar transparência internacional Brasil",
+        "faixas_semaforizacao": {
+            "verde": "> 6",
+            "amarelo": "3,0 - 6,0",
+            "vermelho": "< 3"
+        },
+        "dados_anuais": {
+            "2019": "106",
+            "2020": "ótimo",
+            "2021": "ND",
+            "2022": "97,40%",
+            "2023": "85,77% Classificação: Ouro https://radardatransparencia.atricon.org.br/radar-da-transparencia-publica.html",
+            "2024": "índice: 85,16% Classificação: Ouro https://radardatransparencia.atricon.org.br/radar-da-transparencia-publica.html"
+        }
+    },
+    {
+        "tema": "IMPOSTOS E AUTONOMIA FINANCEIRA",
+        "subtema": "RECEITAS E IMPOSTOS MUNICIPAIS",
+        "id_ces": "165",
+        "id_nova_ordem": "118",
+        "id_floripa": "186",
+        "ods": "9.2.6",
+        "orgao_responsavel": "SMF/FNR",
+        "indicador": "Receita própria: Porcentagem da receita do governo municipal proveniente de tributos (tarifas, encargos e impostos) permitidos pela lei em relação à receita total.",
+        "faixas_semaforizacao": {
+            "geral": "Comparar com as metas da PMF"
+        },
+        "dados_anuais": {
+            "2019": "46,6",
+            "2020": "60%",
+            "2021": "48%",
+            "2022": "55,51% no FNR informa 62,28%",
+            "2023": "51,19%",
+            "2024": "46,85%"
+        }
+    },
+    {
+        "tema": "IMPOSTOS E AUTONOMIA FINANCEIRA",
+        "subtema": "RECEITAS E IMPOSTOS MUNICIPAIS",
+        "id_ces": "166",
+        "id_nova_ordem": "119",
+        "id_floripa": "187",
+        "ods": null,
+        "orgao_responsavel": "SMF",
+        "indicador": "Porcentagem das transferências totais recebidas de outros níveis de governo em relação a receita total.",
+        "faixas_semaforizacao": {
+            "geral": "Comparado com diferentes cidades - sem padrão - fazer parâmetro em SC"
+        },
+        "dados_anuais": {
+            "2019": "22,94",
+            "2020": "27,64%",
+            "2021": "32,47%",
+            "2022": "34,49%",
+            "2023": "34,05%",
+            "2024": "32,97%"
+        }
+    },
+    {
+        "tema": "IMPOSTOS E AUTONOMIA FINANCEIRA",
+        "subtema": "RECEITAS E IMPOSTOS MUNICIPAIS",
+        "id_ces": "167",
+        "id_nova_ordem": "120",
+        "id_floripa": "188",
+        "ods": null,
+        "orgao_responsavel": "SMF",
+        "indicador": "Porcentagem das transferências recebidas destinadas a usos específicos (pré-definidos) em relação as transferências totais",
+        "faixas_semaforizacao": {
+            "geral": "Comparado com diferentes cidades - sem padrão - fazer parâmetro em SC"
+        },
+        "dados_anuais": {
+            "2019": "49,09",
+            "2020": "12,59%",
+            "2021": "16,56%",
+            "2022": "50,97%",
+            "2023": "46,03%",
+            "2024": "56,48%"
+        }
+    },
+    {
+        "tema": "IMPOSTOS E AUTONOMIA FINANCEIRA",
+        "subtema": "RECEITAS E IMPOSTOS MUNICIPAIS",
+        "id_ces": "168",
+        "id_nova_ordem": "121",
+        "id_floripa": "189",
+        "ods": null,
+        "orgao_responsavel": "SMF",
+        "indicador": "Porcentagem das receitas de fontes externas ao governo municipal (excluindo-se receita própria e transferências) em relação a receita total",
+        "faixas_semaforizacao": {
+            "geral": "Comparado com diferentes cidades - sem padrão - fazer parâmetro em SC"
+        },
+        "dados_anuais": {
+            "2019": "20,3",
+            "2020": "20,45%",
+            "2021": "18,92%",
+            "2022": "10,01%",
+            "2023": "27,63%",
+            "2024": "37,37%"
+        }
+    },
+    {
+        "tema": "IMPOSTOS E AUTONOMIA FINANCEIRA",
+        "subtema": "RECEITAS E IMPOSTOS MUNICIPAIS",
+        "id_ces": "169",
+        "id_nova_ordem": "122",
+        "id_floripa": "190",
+        "ods": null,
+        "orgao_responsavel": "SMF",
+        "indicador": "Porcentagem das receitas próprias acrescidas as transferências sem fim definido em relação a receita total",
+        "faixas_semaforizacao": {
+            "verde": "≥ 80%",
+            "amarelo": "> 61%  e < 80%",
+            "vermelho": "≤ 61%"
+        },
+        "dados_anuais": {
+            "2019": "64,7",
+            "2020": "60,19%",
+            "2021": "64,53%",
+            "2022": "72,42%",
+            "2023": "72,37%",
+            "2024": "62,63%"
+        }
+    },
+    {
+        "tema": "IMPOSTOS E AUTONOMIA FINANCEIRA",
+        "subtema": "RECEITAS E IMPOSTOS MUNICIPAIS",
+        "id_ces": "170",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "191",
+        "ods": null,
+        "orgao_responsavel": "SMF",
+        "indicador": "Porcentagem da variação anual da cota parte do ICMS",
+        "faixas_semaforizacao": {
+            "verde": "Acima do IPCA",
+            "amarelo": "Igual ao IPCA",
+            "vermelho": "Abaixo do IPCA"
+        },
+        "dados_anuais": {
+            "2019": "10,68%",
+            "2020": "0,47%",
+            "2021": "17,86%",
+            "2022": "7,63%",
+            "2023": "0,83% (IPCA 2023 = 4,62%)",
+            "2024": "12,26% (IPCA 2024 = 4,83%)"
+        }
+    },
+    {
+        "tema": "IMPOSTOS E AUTONOMIA FINANCEIRA",
+        "subtema": "RECEITAS E IMPOSTOS MUNICIPAIS",
+        "id_ces": "171",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "192",
+        "ods": null,
+        "orgao_responsavel": "SMF",
+        "indicador": "Porcentagem de variação anual da arrecadação do ISS",
+        "faixas_semaforizacao": {
+            "verde": "Acima do IPCA",
+            "amarelo": "Igual ao IPCA",
+            "vermelho": "Abaixo do IPCA"
+        },
+        "dados_anuais": {
+            "2019": "12,70%",
+            "2020": "-6,00%",
+            "2021": "26,50%",
+            "2022": "30,70%",
+            "2023": "28,37%",
+            "2024": "9,33%"
+        }
+    },
+    {
+        "tema": "IMPOSTOS E AUTONOMIA FINANCEIRA",
+        "subtema": "RECEITAS E IMPOSTOS MUNICIPAIS",
+        "id_ces": "172",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "193",
+        "ods": null,
+        "orgao_responsavel": "SMF",
+        "indicador": "Porcentagem de variação anual da arrecadação do IPTU",
+        "faixas_semaforizacao": {
+            "verde": "Acima do IPCA",
+            "amarelo": "Igual ao IPCA",
+            "vermelho": "Abaixo do IPCA"
+        },
+        "dados_anuais": {
+            "2019": "6,10%",
+            "2020": "1,31%",
+            "2021": "9,27%",
+            "2022": "12,23%",
+            "2023": "14,27%",
+            "2024": "2,09%"
+        }
+    },
+    {
+        "tema": "IMPOSTOS E AUTONOMIA FINANCEIRA",
+        "subtema": "RECEITAS E IMPOSTOS MUNICIPAIS",
+        "id_ces": "173",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "194",
+        "ods": null,
+        "orgao_responsavel": "SMF",
+        "indicador": "Percentual da variação anual da arrecadação do ITBI",
+        "faixas_semaforizacao": {
+            "verde": "Acima do IPCA",
+            "amarelo": "Igual ao IPCA",
+            "vermelho": "Abaixo do IPCA"
+        },
+        "dados_anuais": {
+            "2019": "13,01%",
+            "2020": "11,08%",
+            "2021": "57,49%",
+            "2022": "-8,83%",
+            "2023": "-4,74%",
+            "2024": "18,17%"
+        }
+    },
+    {
+        "tema": "IMPOSTOS E AUTONOMIA FINANCEIRA",
+        "subtema": "RECEITAS E IMPOSTOS MUNICIPAIS",
+        "id_ces": "174",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "195",
+        "ods": null,
+        "orgao_responsavel": "SMF",
+        "indicador": "Porcentagem de variação da dívida ativa em relação ao ano anterior",
+        "faixas_semaforizacao": {
+            "verde": "< 0",
+            "amarelo": "0 - IPCA",
+            "vermelho": "> IPCA"
+        },
+        "dados_anuais": {
+            "2019": "-0,06%",
+            "2020": "18,09%",
+            "2021": "8,48%",
+            "2022": "54,78%",
+            "2023": "105,18%",
+            "2024": "14,82%"
+        }
+    }
+]

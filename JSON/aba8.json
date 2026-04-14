@@ -1,0 +1,48 @@
+[
+    {
+        "tema": "TECIDO PRODUTIVO",
+        "subtema": "CRESCIMENTO PRODUTIVO",
+        "id_ces": "82",
+        "id_nova_ordem": "68",
+        "id_floripa": "80",
+        "ods": null,
+        "orgao_responsavel": "SMTDI",
+        "indicador": "Taxa de crescimento do PIB per capita da cidade (Fonte: IBGE Estatísticas)",
+        "faixas_semaforizacao": {
+            "verde": "> 2,5% O crescimento do PIB per capita da cidade é positivo e superior ao crescimento do PIB nacional (2)",
+            "amarelo": "2-2,5% O crescimento do PIB per capita da cidade é positivo e igual ou similar ao crescimento do PIB nacional (1)",
+            "vermelho": "<2% O crescimento do PIB per capita da cidade é positivo e igual ou similar ao crescimento do PIB nacional (0)"
+        },
+        "dados_anuais": {
+            "2019": "2,85%",
+            "2020": "6,36%",
+            "2021": "2,63% (Cálculo com base no indicador do ano anterior!)",
+            "2022": "- 4,46% Fonte: IBGE - ano base 2020 (renda percapita ano atual/renda per capita ano anterior)",
+            "2023": "1,08%",
+            "2024": "1,08%"
+        }
+    },
+    {
+        "tema": "TECIDO PRODUTIVO",
+        "subtema": "CRESCIMENTO PRODUTIVO",
+        "id_ces": "83",
+        "id_nova_ordem": "L 13",
+        "id_floripa": "81",
+        "ods": null,
+        "orgao_responsavel": "Secretaria Executiva de Desenvolvimento Econômico, Ciência e Tecnologia",
+        "indicador": "Porcentagem do PIB de Florianópolis em relação ao PIB de SC",
+        "faixas_semaforizacao": {
+            "verde": "> maior que a inflação",
+            "amarelo": "igual a inflação",
+            "vermelho": "< que a inflação"
+        },
+        "dados_anuais": {
+            "2019": "ND",
+            "2020": "14,% (inflação 4,51%)",
+            "2021": "6,79 % (inflação 10,06%)",
+            "2022": "6,1% (inflação 5,78%)",
+            "2023": "5,48% (2021) (Inflação 10,06%)",
+            "2024": "5,5% (2021) (Inflação 4,83%)"
+        }
+    }
+]

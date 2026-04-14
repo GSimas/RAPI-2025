@@ -1,0 +1,401 @@
+[
+    {
+        "tema": "TECIDO EMPRESARIAL",
+        "subtema": "DESENVOLVIMENTO EMPRESARIAL",
+        "id_ces": "144",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "166",
+        "ods": null,
+        "orgao_responsavel": "SMF",
+        "indicador": "Porcentagem de variação do faturamento, em relação ao ano anterior, das empresas de saúde privada",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "739,01",
+            "2020": "109,31%",
+            "2021": "ND",
+            "2022": "21,16%",
+            "2023": "18,61%",
+            "2024": "15,52%"
+        }
+    },
+    {
+        "tema": "TECIDO EMPRESARIAL",
+        "subtema": "DESENVOLVIMENTO EMPRESARIAL",
+        "id_ces": "145",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "167",
+        "ods": null,
+        "orgao_responsavel": "SMF",
+        "indicador": "Porcentagem de participação da receita de impostos cobrados do segmento de hotelaria e pousada em relação aos impostos totais",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "2,19",
+            "2020": "2,50%",
+            "2021": "ND",
+            "2022": "4,68%",
+            "2023": "2,66%",
+            "2024": "3,19%"
+        }
+    },
+    {
+        "tema": "TECIDO EMPRESARIAL",
+        "subtema": "DESENVOLVIMENTO EMPRESARIAL",
+        "id_ces": "146",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "168",
+        "ods": null,
+        "orgao_responsavel": "SEF",
+        "indicador": "Porcentagem de variação do faturamento, em relação ao ano anterior, das empresas de bares e restaurantes",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "13,6%",
+            "2020": "-16,5%",
+            "2021": "45,3%",
+            "2022": "36,30%",
+            "2023": "16,70%",
+            "2024": "13,04%"
+        }
+    },
+    {
+        "tema": "TECIDO EMPRESARIAL",
+        "subtema": "DESENVOLVIMENTO EMPRESARIAL",
+        "id_ces": "147",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "169",
+        "ods": null,
+        "orgao_responsavel": "SEF",
+        "indicador": "Percentual de participação da receita de impostos do segmento de bares e restaurantes em relação aos impostos totais",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "0,62%",
+            "2020": "0,46%",
+            "2021": "0,63%",
+            "2022": "0,80%",
+            "2023": "0,87%",
+            "2024": "2,14%"
+        }
+    },
+    {
+        "tema": "TECIDO EMPRESARIAL",
+        "subtema": "DESENVOLVIMENTO EMPRESARIAL",
+        "id_ces": "149",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "170",
+        "ods": null,
+        "orgao_responsavel": "SMTDI",
+        "indicador": "Porcentagem de Crescimento de pessoas empregadas no segmento de tecnologia (Fonte: ACATE)",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "4,10%",
+            "2020": "ND",
+            "2021": "12,22% (RAIS)",
+            "2022": "22,15% Acate, com base em Rais (ano base 2021) e CAGED (ano base 2022)",
+            "2023": "Em Florianópolis (2022): 38.402 Crescimento de 23,49%, na comparação com o ano anterior (31.096).",
+            "2024": "Em Florianópolis (2022): 38.402 Crescimento de 23,49%, na comparação com o ano anterior (31.096)."
+        }
+    },
+    {
+        "tema": "TECIDO EMPRESARIAL",
+        "subtema": "DESENVOLVIMENTO EMPRESARIAL",
+        "id_ces": "150",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "171",
+        "ods": null,
+        "orgao_responsavel": "SMTDI",
+        "indicador": "Porcentagem de Crescimento de pessoas empregadas no segmento de Hotelaria (Fonte: SHRBS)",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "ND",
+            "2020": "ND",
+            "2021": "ND",
+            "2022": "ND",
+            "2023": "ND",
+            "2024": "ND"
+        }
+    },
+    {
+        "tema": "TECIDO EMPRESARIAL",
+        "subtema": "DESENVOLVIMENTO EMPRESARIAL",
+        "id_ces": "151",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "172",
+        "ods": null,
+        "orgao_responsavel": "SHRBS",
+        "indicador": "Porcentagem de ocupação dos leitos de hotelaria e pousada (Fonte SHRBS)",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "57,80%",
+            "2020": "30,80%",
+            "2021": "45,70%",
+            "2022": "69,10%",
+            "2023": "57,16",
+            "2024": "63,80%"
+        }
+    },
+    {
+        "tema": "TECIDO EMPRESARIAL",
+        "subtema": "DESENVOLVIMENTO EMPRESARIAL",
+        "id_ces": "152",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "173",
+        "ods": null,
+        "orgao_responsavel": "SMTDI",
+        "indicador": "Porcentagem de Crescimento de pessoas empregadas no segmento de bares e restaurantes (Fonte: SHRBS)",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "3%",
+            "2020": "ND",
+            "2021": "ND",
+            "2022": "ND",
+            "2023": "ND",
+            "2024": "ND"
+        }
+    },
+    {
+        "tema": "TECIDO EMPRESARIAL",
+        "subtema": "DESENVOLVIMENTO EMPRESARIAL",
+        "id_ces": "153",
+        "id_nova_ordem": null,
+        "id_floripa": "174",
+        "ods": "8.1.6",
+        "orgao_responsavel": "SMTDI/FNR",
+        "indicador": "Número de empresas (por 100 mil habitantes)",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": null,
+            "2020": null,
+            "2021": "7.660",
+            "2022": null,
+            "2023": "23.440(fonte direta)",
+            "2024": "24.779"
+        }
+    },
+    {
+        "tema": "GESTÃO PÚBLICA PARTICIPATIVA",
+        "subtema": "PRESTAÇÃO DE CONTAS AO CIDADÃO",
+        "id_ces": "154",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "175",
+        "ods": null,
+        "orgao_responsavel": "SMF",
+        "indicador": "Qual a porcentagem do orçamento que a Sociedade Civil participa na sua definição",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "12,47",
+            "2020": "5% da arrecadação do  IPTU",
+            "2021": "5% da arrecadação IPTU",
+            "2022": "5% do valor arrecadado do IPTU do último exercício fechado",
+            "2023": "Lei Complementar n. 756, de janeiro/2023: \"5% do valor arrecadado do IPTU do último exercício fechado (2021)\". 2021 era o ano que estava fechado quando a Proposta de LOA 2023 foi elaborada, em 2022.",
+            "2024": "Conforme Lei Orgâniza Municipal, a cada peça orçamentária (PPA, LDO e LOA), são realizadas pelo menos 2 (duas) audiências públicas, uma do Poder Executivo e outra dirigida pelo Poder Legislativo municipal. E se expõe a totalidade do orçamento."
+        }
+    },
+    {
+        "tema": "GESTÃO PÚBLICA MODERNA",
+        "subtema": "PROCESSOS MODERNOS DE GESTÃO PÚBLICA DO ORÇAMENTO MUNICIPAL",
+        "id_ces": "155",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "176",
+        "ods": null,
+        "orgao_responsavel": "SMF",
+        "indicador": "Porcentagem do gasto com pessoal em relação ao gasto total  (conforme conta 3.1.1.00.00.00 conforme dados do SICONFI do TCE-SC)",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "62,73%",
+            "2020": "62,63%",
+            "2021": "55,14%",
+            "2022": "51,85%",
+            "2023": "54,49%",
+            "2024": "46,07%"
+        }
+    },
+    {
+        "tema": "GESTÃO PÚBLICA MODERNA",
+        "subtema": "PROCESSOS MODERNOS DE GESTÃO PÚBLICA DO ORÇAMENTO MUNICIPAL",
+        "id_ces": "156",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "177",
+        "ods": null,
+        "orgao_responsavel": "SMA",
+        "indicador": "Porcentagem mensal de horas falta sem atestado, em relação ao total de horas contratadas",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "0,41%",
+            "2020": "0,35%",
+            "2021": "0,50%",
+            "2022": "0,43%",
+            "2023": "0,45%",
+            "2024": "0,52%"
+        }
+    },
+    {
+        "tema": "GESTÃO PÚBLICA MODERNA",
+        "subtema": "PROCESSOS MODERNOS DE GESTÃO PÚBLICA DO ORÇAMENTO MUNICIPAL",
+        "id_ces": "157",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "178",
+        "ods": null,
+        "orgao_responsavel": "SMA",
+        "indicador": "Porcentagem mensal de horas falta com atestado, em relação ao total de horas contratadas",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "9,65%",
+            "2020": "7,05%",
+            "2021": "8,71%",
+            "2022": "8,32%",
+            "2023": "9,43%",
+            "2024": "10,24%"
+        }
+    },
+    {
+        "tema": "GESTÃO PÚBLICA MODERNA",
+        "subtema": "PROCESSOS MODERNOS DE GESTÃO PÚBLICA DO ORÇAMENTO MUNICIPAL",
+        "id_ces": "158",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "179",
+        "ods": null,
+        "orgao_responsavel": "SMLCP",
+        "indicador": "Porcentagem do valor das compras totais da administração pública municipal feitas por meio de pregão eletrônico",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "28,47%",
+            "2020": "54,34%",
+            "2021": "49,16%",
+            "2022": "47,75%",
+            "2023": "43,02%",
+            "2024": "53,62%"
+        }
+    },
+    {
+        "tema": "GESTÃO PÚBLICA MODERNA",
+        "subtema": "PROCESSOS MODERNOS DE GESTÃO PÚBLICA DO ORÇAMENTO MUNICIPAL",
+        "id_ces": "159",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "180",
+        "ods": null,
+        "orgao_responsavel": "SMLCP",
+        "indicador": "Porcentagem do valor das compras totais da administração pública municipais feitas por meio de pregão presencial",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "13,30%",
+            "2020": "1,62%",
+            "2021": "14,85%",
+            "2022": "4,55%",
+            "2023": "2,22%",
+            "2024": "0,00%"
+        }
+    },
+    {
+        "tema": "GESTÃO PÚBLICA MODERNA",
+        "subtema": "PROCESSOS MODERNOS DE GESTÃO PÚBLICA DO ORÇAMENTO MUNICIPAL",
+        "id_ces": "160",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "181",
+        "ods": null,
+        "orgao_responsavel": "SMLCP",
+        "indicador": "Porcentagem do valor das compras totais da administração pública municipais feitas por meio de tomada de preços",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "17,65%",
+            "2020": "7,68%",
+            "2021": "1,73%",
+            "2022": "3,26%",
+            "2023": "6,65%",
+            "2024": "0,00%"
+        }
+    },
+    {
+        "tema": "GESTÃO PÚBLICA MODERNA",
+        "subtema": "PROCESSOS MODERNOS DE GESTÃO PÚBLICA DO ORÇAMENTO MUNICIPAL",
+        "id_ces": "161",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "182",
+        "ods": null,
+        "orgao_responsavel": "SMLCP",
+        "indicador": "Porcentagem do valor das compras totais da administração pública por inexigibilidade, por contratação direta",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "4,12%",
+            "2020": "2,27%",
+            "2021": "3,94%",
+            "2022": "7,17%",
+            "2023": "13,30%",
+            "2024": "20,55%"
+        }
+    },
+    {
+        "tema": "GESTÃO PÚBLICA MODERNA",
+        "subtema": "PROCESSOS MODERNOS DE GESTÃO PÚBLICA DO ORÇAMENTO MUNICIPAL",
+        "id_ces": "162",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "183",
+        "ods": null,
+        "orgao_responsavel": "SMLCP",
+        "indicador": "Porcentagem do valor das compras totais da administração pública municipais em que são dispensadas licitações com base em lei especifica",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "11,51%",
+            "2020": "9,83%",
+            "2021": "16,67%",
+            "2022": "12,31%",
+            "2023": "25,72%",
+            "2024": "5,85%"
+        }
+    },
+    {
+        "tema": "GESTÃO PÚBLICA MODERNA",
+        "subtema": "PROCESSOS MODERNOS DE GESTÃO PÚBLICA DO ORÇAMENTO MUNICIPAL",
+        "id_ces": "163",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "184",
+        "ods": null,
+        "orgao_responsavel": "SMLCP",
+        "indicador": "Porcentagem do valor das compras totais da administração pública municipal feitas por meio de concorrência pública",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "24,16%",
+            "2020": "18,28%",
+            "2021": "9,50%",
+            "2022": "24,13%",
+            "2023": "6,65%",
+            "2024": "13,74%"
+        }
+    }
+]

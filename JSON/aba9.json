@@ -1,0 +1,1639 @@
+[
+    {
+        "tema": "TECIDO PRODUTIVO",
+        "subtema": "CRESCIMENTO PRODUTIVO",
+        "id_ces": "84",
+        "id_nova_ordem": "BA",
+        "id_floripa": "82",
+        "ods": null,
+        "orgao_responsavel": "SMTDI",
+        "indicador": "Taxa de crescimento do PIB da cidade (Fonte: IBGE Estatisticas)",
+        "faixas_semaforizacao": {
+            "verde": ">3,5% O crescimento do PIB da cidade é positivo e superior ao crescimento do PIB nacional (2)",
+            "amarelo": "3-3,5% O crescimento do PIB da cidade é positivo e igual ou similar ao crescimento do PIB nacional (1)",
+            "vermelho": "<3% O crescimento do PIB da cidade é positivo e igual ou similar ao ao crescimento do PIB nacional (0)"
+        },
+        "dados_anuais": {
+            "2019": "ND",
+            "2020": "7,90%",
+            "2021": "2,60%",
+            "2022": "2,97%  Fonte: IBGE - ano base 2020 (PIB ano atual/PIB ano anterior)",
+            "2023": "10% (IBGE)",
+            "2024": "ND"
+        }
+    },
+    {
+        "tema": "MERCADO LABORAL",
+        "subtema": "DESEMPREGO",
+        "id_ces": "85",
+        "id_nova_ordem": "69",
+        "id_floripa": "83",
+        "ods": "8.1.5",
+        "orgao_responsavel": "SMTDI/FNR",
+        "indicador": "Taxa de desemprego (Fonte: IBGE - ESTATISTICAS - PNAD Contínua)",
+        "faixas_semaforizacao": {
+            "verde": "< 7%",
+            "amarelo": "7%–12%",
+            "vermelho": "> 12%"
+        },
+        "dados_anuais": {
+            "2019": "8,30% (jan, fev, mar 2020)",
+            "2020": "ND",
+            "2021": "ND",
+            "2022": "5,37%",
+            "2023": "4,30%",
+            "2024": "4,40%"
+        }
+    },
+    {
+        "tema": "MERCADO LABORAL",
+        "subtema": "EMPREGO FORMAL",
+        "id_ces": "86",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "84",
+        "ods": "8.1.7",
+        "orgao_responsavel": "SMTDI/FNR",
+        "indicador": "Porcentagem da população ocupada - Formal (Fonte: IBGE - ESTATISTICAS - PNAD Contínua) https://cidades.ibge.gov.br/brasil/sc/florianopolis/panorama",
+        "faixas_semaforizacao": {
+            "verde": "> 75%",
+            "amarelo": "75% - 65%",
+            "vermelho": "< 65%"
+        },
+        "dados_anuais": {
+            "2019": "63,90%",
+            "2020": "ND",
+            "2021": "ND ( PNAD Contínua somente traz dados de SC)",
+            "2022": "72% Fonte: PNAD continua, painel, ano base 2019 - taxa de ocupação e não formalidade",
+            "2023": "63,72% (2010)",
+            "2024": "64,40%"
+        }
+    },
+    {
+        "tema": "MERCADO LABORAL",
+        "subtema": "EMPREGO INFORMAL",
+        "id_ces": "87",
+        "id_nova_ordem": "70",
+        "id_floripa": "85",
+        "ods": null,
+        "orgao_responsavel": "SMTDI",
+        "indicador": "Emprego informal como porcentagem do emprego total (Fonte: IBGE - ESTATISTICAS - PNAD Contínua)",
+        "faixas_semaforizacao": {
+            "verde": "< 20%",
+            "amarelo": "20%–35%",
+            "vermelho": "> 35%"
+        },
+        "dados_anuais": {
+            "2019": "ND",
+            "2020": "ND",
+            "2021": "ND ( PNAD Contínua somente traz dados de SC)",
+            "2022": "28,4% Fonte: PNAD continua, painel, ano base 2019 (taxa de informalidade = 100 - taxa de formalidade)",
+            "2023": "27,50%",
+            "2024": "ND"
+        }
+    },
+    {
+        "tema": "EDUCAÇÃO",
+        "subtema": "QUALIDADE DO ENSINO",
+        "id_ces": "89",
+        "id_nova_ordem": "76",
+        "id_floripa": "86",
+        "ods": null,
+        "orgao_responsavel": "SME",
+        "indicador": "Taxa de analfabetismo de pessoas acima de 15 anos",
+        "faixas_semaforizacao": {
+            "verde": "< 0,5%",
+            "amarelo": "0,5% - 2%",
+            "vermelho": "> 2%"
+        },
+        "dados_anuais": {
+            "2019": "1,60%",
+            "2020": "1,60% (dados de 2019)",
+            "2021": "ND",
+            "2022": "1,60% (dados de 2019)",
+            "2023": "1,10%",
+            "2024": "1,4% (IBGE)"
+        }
+    },
+    {
+        "tema": "EDUCAÇÃO",
+        "subtema": "QUALIDADE DO ENSINO",
+        "id_ces": "90",
+        "id_nova_ordem": "77",
+        "id_floripa": "87",
+        "ods": null,
+        "orgao_responsavel": "SME",
+        "indicador": "Porcentagem de Estudantes do ensino fundamental com nível satisfatório em provas padronizadas (IDEB) de Leitura",
+        "faixas_semaforizacao": {
+            "verde": ">=70%",
+            "amarelo": "69%–50%",
+            "vermelho": "> 50%"
+        },
+        "dados_anuais": {
+            "2019": "35%(2019)",
+            "2020": "35%(2019)",
+            "2021": "35%(2019)",
+            "2022": "35%(2019)",
+            "2023": "43% (2021)",
+            "2024": "31% (QEdu)"
+        }
+    },
+    {
+        "tema": "EDUCAÇÃO",
+        "subtema": "QUALIDADE DO ENSINO",
+        "id_ces": null,
+        "id_nova_ordem": null,
+        "id_floripa": "88",
+        "ods": null,
+        "orgao_responsavel": "SME",
+        "indicador": "Nota IDEB dos anos iniciais",
+        "faixas_semaforizacao": {
+            "verde": ">6",
+            "amarelo": "6-5",
+            "vermelho": "<5"
+        },
+        "dados_anuais": {
+            "2019": "6",
+            "2020": "6(2019)",
+            "2021": "5,9",
+            "2022": "5,9(2021)",
+            "2023": "5,8",
+            "2024": "5.8(2023)"
+        }
+    },
+    {
+        "tema": "EDUCAÇÃO",
+        "subtema": "QUALIDADE DO ENSINO",
+        "id_ces": null,
+        "id_nova_ordem": null,
+        "id_floripa": "89",
+        "ods": null,
+        "orgao_responsavel": "SME",
+        "indicador": "Nota IDEB dos anos finais",
+        "faixas_semaforizacao": {
+            "verde": ">6",
+            "amarelo": "6-5",
+            "vermelho": "<5"
+        },
+        "dados_anuais": {
+            "2019": "4,9",
+            "2020": "4,9(2019)",
+            "2021": "5,2",
+            "2022": "5,2(2021)",
+            "2023": "4,6",
+            "2024": "4,6(2023)"
+        }
+    },
+    {
+        "tema": "EDUCAÇÃO",
+        "subtema": "QUALIDADE DO ENSINO",
+        "id_ces": "91",
+        "id_nova_ordem": "78",
+        "id_floripa": "90",
+        "ods": null,
+        "orgao_responsavel": "SME",
+        "indicador": "Porcentagem de Estudantes do ensino fundamental com nível satisfatório em provas padronizadas (IDEB) de Matemática",
+        "faixas_semaforizacao": {
+            "verde": ">=70%",
+            "amarelo": "69%–50%",
+            "vermelho": "> 50%"
+        },
+        "dados_anuais": {
+            "2019": "19% (2019)",
+            "2020": "19% (2019)",
+            "2021": "19%(2019)",
+            "2022": "18% (2021)",
+            "2023": "18% (2021)",
+            "2024": "14% (QEdu)"
+        }
+    },
+    {
+        "tema": "EDUCAÇÃO",
+        "subtema": "QUALIDADE DO ENSINO",
+        "id_ces": null,
+        "id_nova_ordem": null,
+        "id_floripa": "91",
+        "ods": null,
+        "orgao_responsavel": "SME",
+        "indicador": "Quantidade de professores (Efetivos) na Educação Básica do Município",
+        "faixas_semaforizacao": {
+            "verde": ">60%",
+            "amarelo": "60%-50%",
+            "vermelho": "<50%"
+        },
+        "dados_anuais": {
+            "2019": "1004 (50%)",
+            "2020": "975 (47,5%)",
+            "2021": "996 (49,5%)",
+            "2022": "1193 (51,1%)",
+            "2023": "1131 (44,4%)",
+            "2024": "954 (39,30%)"
+        }
+    },
+    {
+        "tema": "EDUCAÇÃO",
+        "subtema": "QUALIDADE DO ENSINO",
+        "id_ces": null,
+        "id_nova_ordem": null,
+        "id_floripa": "92",
+        "ods": null,
+        "orgao_responsavel": "SME",
+        "indicador": "Quantidade de professores (ACTs) na Educação Básica do Município",
+        "faixas_semaforizacao": {
+            "verde": "<50%",
+            "amarelo": "50%-60%",
+            "vermelho": ">60%"
+        },
+        "dados_anuais": {
+            "2019": "1001 (49,9%)",
+            "2020": "1078 (52,5%)",
+            "2021": "1015 (50,5%)",
+            "2022": "1140 (48,9%)",
+            "2023": "1417 (55,6%)",
+            "2024": "1471 (60,7%)"
+        }
+    },
+    {
+        "tema": "EDUCAÇÃO",
+        "subtema": "QUALIDADE DO ENSINO",
+        "id_ces": null,
+        "id_nova_ordem": null,
+        "id_floripa": "93",
+        "ods": null,
+        "orgao_responsavel": "SME",
+        "indicador": "Porcetagem de profissionais da educação com especialização (efetivos + substitutos)",
+        "faixas_semaforizacao": {
+            "verde": ">60%",
+            "amarelo": "60%-40%",
+            "vermelho": "<40%"
+        },
+        "dados_anuais": {
+            "2019": null,
+            "2020": null,
+            "2021": null,
+            "2022": null,
+            "2023": null,
+            "2024": "61,07%"
+        }
+    },
+    {
+        "tema": "EDUCAÇÃO",
+        "subtema": "QUALIDADE DO ENSINO",
+        "id_ces": null,
+        "id_nova_ordem": null,
+        "id_floripa": "94",
+        "ods": null,
+        "orgao_responsavel": "SME",
+        "indicador": "Porcetagem de profissionais da educação com mestrado (efetivos + substitutos)",
+        "faixas_semaforizacao": {
+            "verde": ">20%",
+            "amarelo": "20%-10%",
+            "vermelho": "<10%"
+        },
+        "dados_anuais": {
+            "2019": null,
+            "2020": null,
+            "2021": null,
+            "2022": null,
+            "2023": null,
+            "2024": "13,12%"
+        }
+    },
+    {
+        "tema": "EDUCAÇÃO",
+        "subtema": "QUALIDADE DO ENSINO",
+        "id_ces": null,
+        "id_nova_ordem": null,
+        "id_floripa": "95",
+        "ods": null,
+        "orgao_responsavel": "SME",
+        "indicador": "Porcetagem de profissionais da educação com doutorado (efetivos + substitutos)",
+        "faixas_semaforizacao": {
+            "verde": ">5%",
+            "amarelo": "5%-4%",
+            "vermelho": "<4%"
+        },
+        "dados_anuais": {
+            "2019": null,
+            "2020": null,
+            "2021": null,
+            "2022": null,
+            "2023": null,
+            "2024": "4,17%"
+        }
+    },
+    {
+        "tema": "EDUCAÇÃO",
+        "subtema": "QUALIDADE DO ENSINO",
+        "id_ces": null,
+        "id_nova_ordem": null,
+        "id_floripa": "96",
+        "ods": null,
+        "orgao_responsavel": "SME",
+        "indicador": "Percentual de alunos da educação básica pública que pertencem ao público alvo da ETI e que estão em jornada de tempo integral( Rede Municipal) - Meta 6A",
+        "faixas_semaforizacao": {
+            "verde": ">=25%",
+            "amarelo": "20 - 24,9%",
+            "vermelho": "<19,9"
+        },
+        "dados_anuais": {
+            "2019": "32,1%%",
+            "2020": "24,70%",
+            "2021": "24,00%",
+            "2022": "27,30%",
+            "2023": "27,10%",
+            "2024": null
+        }
+    },
+    {
+        "tema": "EDUCAÇÃO",
+        "subtema": "QUALIDADE DO ENSINO",
+        "id_ces": null,
+        "id_nova_ordem": null,
+        "id_floripa": "97",
+        "ods": null,
+        "orgao_responsavel": "SME",
+        "indicador": "Percentual da população de 0 a 3 anos que frequenta a escola/creche.(Território) - Meta 1B Fonte TCE SC",
+        "faixas_semaforizacao": {
+            "verde": ">50%",
+            "amarelo": "<50-40",
+            "vermelho": "<40"
+        },
+        "dados_anuais": {
+            "2019": "53,15%",
+            "2020": "44,69%",
+            "2021": "40,06%",
+            "2022": "45,91%",
+            "2023": "59,60%",
+            "2024": null
+        }
+    },
+    {
+        "tema": "EDUCAÇÃO",
+        "subtema": "QUALIDADE DO ENSINO",
+        "id_ces": null,
+        "id_nova_ordem": null,
+        "id_floripa": "98",
+        "ods": null,
+        "orgao_responsavel": "SME",
+        "indicador": "Percentual da população de 4 a 5 anos que frequenta a escola/creche .(Território) - Meta 1A - Fonte TCE SC",
+        "faixas_semaforizacao": {
+            "verde": "95-100%",
+            "amarelo": "<95-90",
+            "vermelho": "<90"
+        },
+        "dados_anuais": {
+            "2019": "89,59%",
+            "2020": "86,21%",
+            "2021": "76,79%",
+            "2022": "81,42%",
+            "2023": "97,89%",
+            "2024": null
+        }
+    },
+    {
+        "tema": "EDUCAÇÃO",
+        "subtema": "QUALIDADE DO ENSINO",
+        "id_ces": "94",
+        "id_nova_ordem": "81",
+        "id_floripa": "99",
+        "ods": null,
+        "orgao_responsavel": "SME",
+        "indicador": "Percentual da população de 6 a 14 anos que frequenta ou que já concluiu o ensino fundamental  Meta 2 A - Fonte TCE SC",
+        "faixas_semaforizacao": {
+            "verde": "95-100",
+            "amarelo": "<94",
+            "vermelho": "<90"
+        },
+        "dados_anuais": {
+            "2019": "103,40% IBGE",
+            "2020": "96,51% TCE SC",
+            "2021": "96,03% TCE SC",
+            "2022": "99,18% TCE SC",
+            "2023": "106,18% TCE SC",
+            "2024": null
+        }
+    },
+    {
+        "tema": "EDUCAÇÃO",
+        "subtema": "QUALIDADE DO ENSINO",
+        "id_ces": "95",
+        "id_nova_ordem": "82",
+        "id_floripa": "100",
+        "ods": null,
+        "orgao_responsavel": "SME",
+        "indicador": "Número de estudantes matriculados nos anos finais do ensino fundamental - que esta cursando o ensino médio ou concluiu o ensino fundamental  (15 a 17 anos) Meta 3 B - IBGE",
+        "faixas_semaforizacao": {
+            "verde": "95-100",
+            "amarelo": "<94",
+            "vermelho": "<90"
+        },
+        "dados_anuais": {
+            "2019": "71,80%",
+            "2020": "72,70%",
+            "2021": "73,40%",
+            "2022": "83,31%",
+            "2023": "74,60%",
+            "2024": null
+        }
+    },
+    {
+        "tema": "EDUCAÇÃO",
+        "subtema": "QUALIDADE DO ENSINO",
+        "id_ces": "97",
+        "id_nova_ordem": null,
+        "id_floripa": "101",
+        "ods": "4.1.3",
+        "orgao_responsavel": "SEE/FNR",
+        "indicador": "Porcentagem de estudantes que completam o último ano do ensino médio em relação ao total de estudantes originalmente matriculados no primeiro ano do ensino médio.",
+        "faixas_semaforizacao": {},
+        "dados_anuais": {
+            "2019": null,
+            "2020": null,
+            "2021": null,
+            "2022": "54,7",
+            "2023": "ND",
+            "2024": "ND"
+        }
+    },
+    {
+        "tema": "EDUCAÇÃO",
+        "subtema": "QUALIDADE DO ENSINO",
+        "id_ces": "98",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "102",
+        "ods": null,
+        "orgao_responsavel": "SME",
+        "indicador": "Número de estudantes público alvo da educação especial matriculadas na Educação Básica (0 a 17 anos)",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "841",
+            "2020": "905",
+            "2021": "952",
+            "2022": "1335",
+            "2023": "1716",
+            "2024": "1952"
+        }
+    },
+    {
+        "tema": "EDUCAÇÃO",
+        "subtema": "QUALIDADE DO ENSINO",
+        "id_ces": "99",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "103",
+        "ods": null,
+        "orgao_responsavel": "SME",
+        "indicador": "Porcentagem das escolas que cumprem a Lei de Acessibilidade",
+        "faixas_semaforizacao": {
+            "verde": "> 95%",
+            "amarelo": "95% - 90%",
+            "vermelho": "< 90%"
+        },
+        "dados_anuais": {
+            "2019": "Não é levantado pelo município.",
+            "2020": "91% ou seja, 106 unidades educativas da rede municipal possuem dependências acessíveis",
+            "2021": "95,07%",
+            "2022": "96,46 %",
+            "2023": "96,19%",
+            "2024": "96,21%"
+        }
+    },
+    {
+        "tema": "EDUCAÇÃO",
+        "subtema": "ENSINO SUPERIOR",
+        "id_ces": "100",
+        "id_nova_ordem": null,
+        "id_floripa": "104",
+        "ods": "4.1.6",
+        "orgao_responsavel": "SME/FNR",
+        "indicador": "Número de pessoas com ensino superior completo acima de 25 anos (por 100 mil habitantes)",
+        "faixas_semaforizacao": {},
+        "dados_anuais": {
+            "2019": null,
+            "2020": null,
+            "2021": "271711 (+ 25 anos TOTAL)",
+            "2022": "271711",
+            "2023": "383891",
+            "2024": "383891"
+        }
+    },
+    {
+        "tema": "SEGURANÇA",
+        "subtema": "VIOLÊNCIA",
+        "id_ces": "101",
+        "id_nova_ordem": "85",
+        "id_floripa": "105",
+        "ods": "10.1.5",
+        "orgao_responsavel": "SSP/FNR",
+        "indicador": "Quantidade de homicídios por 100 mil habitantes - população projetada pelo IBGE",
+        "faixas_semaforizacao": {
+            "verde": "< 10",
+            "amarelo": "10–25",
+            "vermelho": "> 25"
+        },
+        "dados_anuais": {
+            "2019": "12,2",
+            "2020": "10,60",
+            "2021": "6,90",
+            "2022": "6,40",
+            "2023": "4,50",
+            "2024": "5,40"
+        }
+    },
+    {
+        "tema": "SEGURANÇA",
+        "subtema": "VIOLÊNCIA",
+        "id_ces": "102",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "106",
+        "ods": null,
+        "orgao_responsavel": "SSP",
+        "indicador": "Quantidade de latrocínios por 100.000 habitantes - população projetada pelo IBGE",
+        "faixas_semaforizacao": {
+            "verde": "<5",
+            "amarelo": "5-10",
+            "vermelho": ">10"
+        },
+        "dados_anuais": {
+            "2019": "0,0",
+            "2020": "0,20",
+            "2021": "0,00",
+            "2022": "0,30",
+            "2023": "0,20",
+            "2024": "0,00"
+        }
+    },
+    {
+        "tema": "SEGURANÇA",
+        "subtema": "VIOLÊNCIA",
+        "id_ces": "103",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "107",
+        "ods": null,
+        "orgao_responsavel": "SSP",
+        "indicador": "Quantidade de feminicídios por 100.000 habitantes mulheres - população projetada pelo IBGE",
+        "faixas_semaforizacao": {
+            "verde": "<5",
+            "amarelo": "5-10",
+            "vermelho": ">10"
+        },
+        "dados_anuais": {
+            "2019": "Nº de vítimas: 1",
+            "2020": "0,70",
+            "2021": "0,70",
+            "2022": "0,50",
+            "2023": "0,20",
+            "2024": "0,50"
+        }
+    },
+    {
+        "tema": "SEGURANÇA",
+        "subtema": "VIOLÊNCIA",
+        "id_ces": "104",
+        "id_nova_ordem": "86",
+        "id_floripa": "108",
+        "ods": null,
+        "orgao_responsavel": "SSP",
+        "indicador": "Número de ocorrências de violência doméstica em mulheres",
+        "faixas_semaforizacao": {},
+        "dados_anuais": {
+            "2019": "Nº de ocorrências de lesão corporal dolosa em situação de violência doméstica. Vítimas do sexo masculino: 154; Vítimas do sexo feminino: 1.081 = 247 por 100 mil hab",
+            "2020": "5.342",
+            "2021": "5.815",
+            "2022": "6.077",
+            "2023": "6.865",
+            "2024": "5864 (Estimativa de população feminina: 300.000 Nr/100 mil =34.502)"
+        }
+    },
+    {
+        "tema": "SEGURANÇA",
+        "subtema": "VIOLÊNCIA",
+        "id_ces": "105",
+        "id_nova_ordem": "88",
+        "id_floripa": "109",
+        "ods": null,
+        "orgao_responsavel": "SSP",
+        "indicador": "Roubos por 100 mil habitantes - população projetada pelo IBGE",
+        "faixas_semaforizacao": {
+            "verde": "< 300",
+            "amarelo": "300–1.000",
+            "vermelho": "> 1.000"
+        },
+        "dados_anuais": {
+            "2019": "324,2",
+            "2020": "205,8",
+            "2021": "194,3",
+            "2022": "139,8",
+            "2023": "144,5",
+            "2024": "153"
+        }
+    },
+    {
+        "tema": "SEGURANÇA",
+        "subtema": "VIOLÊNCIA",
+        "id_ces": "106",
+        "id_nova_ordem": "89",
+        "id_floripa": "110",
+        "ods": null,
+        "orgao_responsavel": "SSP",
+        "indicador": "Furtos por 100 mil habitantes - população projetada pelo IBGE",
+        "faixas_semaforizacao": {
+            "verde": "< 3.000",
+            "amarelo": "3.000–5.000",
+            "vermelho": "> 5.000"
+        },
+        "dados_anuais": {
+            "2019": "2326,3",
+            "2020": "1616,20",
+            "2021": "1600,40",
+            "2022": "2242,50",
+            "2023": "2770,1",
+            "2024": "2661,4"
+        }
+    },
+    {
+        "tema": "SEGURANÇA",
+        "subtema": "VIOLÊNCIA",
+        "id_ces": "107",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "111",
+        "ods": null,
+        "orgao_responsavel": "SSP",
+        "indicador": "Furtos de veículos por 100 mil habitantes - população projetada pelo IBGE",
+        "faixas_semaforizacao": {
+            "verde": "<100",
+            "amarelo": "100-150",
+            "vermelho": ">150"
+        },
+        "dados_anuais": {
+            "2019": "92,0",
+            "2020": "67,70",
+            "2021": "64,70",
+            "2022": "64,00",
+            "2023": "71",
+            "2024": "66,5"
+        }
+    },
+    {
+        "tema": "SEGURANÇA",
+        "subtema": "VIOLÊNCIA",
+        "id_ces": "108",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "112",
+        "ods": null,
+        "orgao_responsavel": "SSP",
+        "indicador": "Roubos de veículos por 100 mil habitantes - população projetada pelo IBGE",
+        "faixas_semaforizacao": {
+            "verde": "<50",
+            "amarelo": "50-75",
+            "vermelho": ">75"
+        },
+        "dados_anuais": {
+            "2019": "40,5",
+            "2020": "21,50",
+            "2021": "20,10",
+            "2022": "16,00",
+            "2023": "16,8",
+            "2024": "13,9"
+        }
+    },
+    {
+        "tema": "SEGURANÇA",
+        "subtema": "VIOLÊNCIA",
+        "id_ces": "109",
+        "id_nova_ordem": null,
+        "id_floripa": "113",
+        "ods": "10.1.10",
+        "orgao_responsavel": "SSP/FNR",
+        "indicador": "Crimes contra a propriedade por 100 000 habitantes",
+        "faixas_semaforizacao": {
+            "verde": "<50",
+            "amarelo": "50-75",
+            "vermelho": ">75"
+        },
+        "dados_anuais": {
+            "2019": null,
+            "2020": "18,4",
+            "2021": "21",
+            "2022": "9,5",
+            "2023": "10,9",
+            "2024": "8,8"
+        }
+    },
+    {
+        "tema": "SEGURANÇA",
+        "subtema": "ESTRUTURAS DE SEGURANÇA",
+        "id_ces": "110",
+        "id_nova_ordem": "L 20",
+        "id_floripa": "114",
+        "ods": null,
+        "orgao_responsavel": "SSP",
+        "indicador": "Quantidade de CONSEGs ativos",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "Esta Gerência não tem essa informação",
+            "2020": "8 CONSEGS ativos",
+            "2021": "ND",
+            "2022": "8 ATIVOS: 1 CONSEG Centro 2 CONSEG Portal do Sul da Ilha 3 CONSEG Barra da Lagoa 4 CONSEG Canasvieiras 5 CONSEG Ingleses e Rio Vermelho 6 CONSEG Jurerê, Forte e Daniela 7 CONSEG Coqueiros 8 CONSEG Balneário do Estreito",
+            "2023": "ND",
+            "2024": "ND"
+        }
+    },
+    {
+        "tema": "SEGURANÇA",
+        "subtema": "ESTRUTURAS DE SEGURANÇA",
+        "id_ces": "111",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "115",
+        "ods": null,
+        "orgao_responsavel": "SMS",
+        "indicador": "Taxa Geral de mortalidade por 100.000 habitantes (População projetada IBGE)",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "476.98",
+            "2020": "543.56",
+            "2021": "647.08",
+            "2022": "568.26",
+            "2023": "545.65",
+            "2024": "518.60"
+        }
+    },
+    {
+        "tema": "SEGURANÇA",
+        "subtema": "ESTRUTURAS DE SEGURANÇA",
+        "id_ces": "112",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "116",
+        "ods": null,
+        "orgao_responsavel": "SMS",
+        "indicador": "Taxa Geral de mortalidade de homens por 100.000 habitantes (População projetada IBGE)",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "520.16",
+            "2020": "601.56",
+            "2021": "712.32",
+            "2022": "633.41",
+            "2023": "569.40",
+            "2024": "548.67"
+        }
+    },
+    {
+        "tema": "SEGURANÇA",
+        "subtema": "ESTRUTURAS DE SEGURANÇA",
+        "id_ces": "113",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "117",
+        "ods": null,
+        "orgao_responsavel": "SMS",
+        "indicador": "Taxa Geral de mortalidade de mulheres por 100.000 habitantes (População projetada IBGE)",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "436.52",
+            "2020": "489.72",
+            "2021": "586.58",
+            "2022": "507.57",
+            "2023": "523.64",
+            "2024": "490.40"
+        }
+    },
+    {
+        "tema": "SAÚDE",
+        "subtema": "NÍVEL DE SAÚDE",
+        "id_ces": "114",
+        "id_nova_ordem": "95",
+        "id_floripa": "118",
+        "ods": "3.1.4",
+        "orgao_responsavel": "SMS/FNR",
+        "indicador": "Taxa de mortalidade infantil (crianças menores de 5 anos)por 100.000 habitantes (População projetada IBGE)",
+        "faixas_semaforizacao": {
+            "verde": "< 20",
+            "amarelo": "20 -30",
+            "vermelho": "> 30"
+        },
+        "dados_anuais": {
+            "2019": "5.22",
+            "2020": "7.78",
+            "2021": "6.10",
+            "2022": "7.73",
+            "2023": "6,37",
+            "2024": "6.90"
+        }
+    },
+    {
+        "tema": "SAÚDE",
+        "subtema": "NÍVEL DE SAÚDE",
+        "id_ces": "115",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "119",
+        "ods": null,
+        "orgao_responsavel": "SMS",
+        "indicador": "Taxa de mortalidade Precoce (Anos potenciais de vida perdido - APVP) por 100.000 habitantes (População projetada IBGE)",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "4113.40",
+            "2020": "4488.74",
+            "2021": "4940.25",
+            "2022": "4432.35",
+            "2023": "4238.98",
+            "2024": "3884.54"
+        }
+    },
+    {
+        "tema": "SAÚDE",
+        "subtema": "NÍVEL DE SAÚDE",
+        "id_ces": "116",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "120",
+        "ods": null,
+        "orgao_responsavel": "SMS",
+        "indicador": "Taxa de mortalidade por doenças cardovasculares por 100.000 habitantes (População projetada IBGE)",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "137.95",
+            "2020": "138.42",
+            "2021": "141.98",
+            "2022": "152.47",
+            "2023": "154.18",
+            "2024": "141.40"
+        }
+    },
+    {
+        "tema": "SAÚDE",
+        "subtema": "NÍVEL DE SAÚDE",
+        "id_ces": "117",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "121",
+        "ods": null,
+        "orgao_responsavel": "SMS",
+        "indicador": "Taxa de mortalidade por neoplasias por 100.000 habitantes (População projetada IBGE)",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "130.10",
+            "2020": "134.48",
+            "2021": "142.53",
+            "2022": "154,9",
+            "2023": "149.23",
+            "2024": "140.19"
+        }
+    },
+    {
+        "tema": "SAÚDE",
+        "subtema": "NÍVEL DE SAÚDE",
+        "id_ces": "118",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "122",
+        "ods": null,
+        "orgao_responsavel": "SMS",
+        "indicador": "Taxa de mortalidade por causas externas (acidentes, crimes, etc.) por 100.000 habitantes (População projetada IBGE)",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "35.59",
+            "2020": "39.89",
+            "2021": "46.65",
+            "2022": "50.82",
+            "2023": "46.86",
+            "2024": "44.59"
+        }
+    },
+    {
+        "tema": "SAÚDE",
+        "subtema": "NÍVEL DE SAÚDE",
+        "id_ces": "119",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "123",
+        "ods": null,
+        "orgao_responsavel": "SMS",
+        "indicador": "Taxa de internação de adultos por 100.000 habitantes (População projetada IBGE)",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "5305.46",
+            "2020": "4260.80",
+            "2021": "4423.44",
+            "2022": "4746.20",
+            "2023": "5254.74",
+            "2024": "4940.43"
+        }
+    },
+    {
+        "tema": "SAÚDE",
+        "subtema": "NÍVEL DE SAÚDE",
+        "id_ces": "120",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "124",
+        "ods": null,
+        "orgao_responsavel": "SMS",
+        "indicador": "Taxa de internação de crianças por 100.000 habitantes (População projetada IBGE)",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "3987.56",
+            "2020": "2688.84",
+            "2021": "3150.18",
+            "2022": "4352.32",
+            "2023": "4932.08",
+            "2024": "4684.31"
+        }
+    },
+    {
+        "tema": "SAÚDE",
+        "subtema": "NÍVEL DE SAÚDE",
+        "id_ces": "121",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "125",
+        "ods": null,
+        "orgao_responsavel": "SMS",
+        "indicador": "Taxa de internação por causas externas (acidentes, crimes, etc. ) por 100.000 habitantes (População projetada IBGE)",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "589.87",
+            "2020": "452.53",
+            "2021": "506.75",
+            "2022": "534.38",
+            "2023": "644.14",
+            "2024": "566.14"
+        }
+    },
+    {
+        "tema": "SAÚDE",
+        "subtema": "NÍVEL DE SAÚDE",
+        "id_ces": "122",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "126",
+        "ods": null,
+        "orgao_responsavel": "SMS",
+        "indicador": "Taxa de internação por doenças cardiovasculares por 100.000 habitantes (População projetada IBGE)",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "473.35",
+            "2020": "375.54",
+            "2021": "395.26",
+            "2022": "418.49",
+            "2023": "455.83",
+            "2024": "428.72"
+        }
+    },
+    {
+        "tema": "SAÚDE",
+        "subtema": "NÍVEL DE SAÚDE",
+        "id_ces": "123",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "127",
+        "ods": null,
+        "orgao_responsavel": "SMS",
+        "indicador": "Taxa de internação por neoplasias por 100.000 habitantes (População projetada IBGE)",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "430.87",
+            "2020": "385.85",
+            "2021": "416.39",
+            "2022": "466.61",
+            "2023": "461.31",
+            "2024": "527.97"
+        }
+    },
+    {
+        "tema": "SAÚDE",
+        "subtema": "NÍVEL DE SAÚDE",
+        "id_ces": "124",
+        "id_nova_ordem": "L 22",
+        "id_floripa": "128",
+        "ods": null,
+        "orgao_responsavel": "SMS",
+        "indicador": "Prevalência de Diabetes Millitus: Percentual da população atendida nos hospitais e postos de Saúde pública que tem diabetes - População projetada pelo IBGE",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "6.12",
+            "2020": "7.95%",
+            "2021": "6.44%",
+            "2022": "ND",
+            "2023": "7.27",
+            "2024": "ND"
+        }
+    },
+    {
+        "tema": "SAÚDE",
+        "subtema": "NÍVEL DE SAÚDE",
+        "id_ces": "125",
+        "id_nova_ordem": "L 23",
+        "id_floripa": "129",
+        "ods": "3.1.9",
+        "orgao_responsavel": "SMS/FNR",
+        "indicador": "Prevalência de obesidade: Percentual de indivíduos, com Índice de Massa Corporal (IMC) maior ou igual a 25 (População projetada pelo IBGE)",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "17.62",
+            "2020": "17.51%",
+            "2021": "20.17%",
+            "2022": "20,20%",
+            "2023": "21.91",
+            "2024": "ND"
+        }
+    },
+    {
+        "tema": "SAÚDE",
+        "subtema": "NÍVEL DE SAÚDE",
+        "id_ces": "126",
+        "id_nova_ordem": "L 24",
+        "id_floripa": "130",
+        "ods": null,
+        "orgao_responsavel": "SMS",
+        "indicador": "Prevalência de Hipertensão: Percentual de pessoas com  diagnóstico de hipertensão (População projetada pelo IBGE)",
+        "faixas_semaforizacao": {
+            "verde": "Abaixo de 5,7%",
+            "amarelo": "5,7% a 7,14%",
+            "vermelho": "Acima de 10%"
+        },
+        "dados_anuais": {
+            "2019": "21.61",
+            "2020": "22.09%",
+            "2021": "24.31%",
+            "2022": "23,30%",
+            "2023": "22.08",
+            "2024": "ND"
+        }
+    },
+    {
+        "tema": "SAÚDE",
+        "subtema": "NÍVEL DE SAÚDE",
+        "id_ces": "127",
+        "id_nova_ordem": "96",
+        "id_floripa": "131",
+        "ods": "3.1.3",
+        "orgao_responsavel": "SMS/FNR",
+        "indicador": "Quantidade de médicos por 100 mil habitantes (População projetada pelo IBGE)",
+        "faixas_semaforizacao": {
+            "verde": "> 200",
+            "amarelo": "75 - 200",
+            "vermelho": "< 75"
+        },
+        "dados_anuais": {
+            "2019": "2004.87",
+            "2020": "2155.81",
+            "2021": "240143",
+            "2022": "2759.53",
+            "2023": "2963.17",
+            "2024": "3060.03"
+        }
+    },
+    {
+        "tema": "SAÚDE",
+        "subtema": "OFERTA DE SERVIÇOS DE SAÚDE",
+        "id_ces": "128",
+        "id_nova_ordem": "97",
+        "id_floripa": "132",
+        "ods": null,
+        "orgao_responsavel": "SMS",
+        "indicador": "Quantidade de leitos de hospital por 100 mil habitantes, em hospitais públicos e privados",
+        "faixas_semaforizacao": {
+            "verde": "> 100",
+            "amarelo": "50 - 100",
+            "vermelho": "< 50"
+        },
+        "dados_anuais": {
+            "2019": "313.41",
+            "2020": "321.54",
+            "2021": "344.05",
+            "2022": "353.86",
+            "2023": "356.21",
+            "2024": "347.02"
+        }
+    },
+    {
+        "tema": "SAÚDE",
+        "subtema": "OFERTA DE SERVIÇOS DE SAÚDE",
+        "id_ces": "129",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "133",
+        "ods": null,
+        "orgao_responsavel": "SMS",
+        "indicador": "Quantidade de leitos de UTI em hospitais públicos e privados",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "42.31",
+            "2020": "57.77",
+            "2021": "66.11",
+            "2022": "58.44",
+            "2023": "51.60",
+            "2024": "52.93"
+        }
+    },
+    {
+        "tema": "SAÚDE",
+        "subtema": "OFERTA DE SERVIÇOS DE SAÚDE",
+        "id_ces": "130",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "134",
+        "ods": null,
+        "orgao_responsavel": "SMS",
+        "indicador": "Total de gasto do município com saúde pública por 100.000 habitantes",
+        "faixas_semaforizacao": {
+            "geral": "Sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "94.938.073,88",
+            "2020": "97.262.531,48",
+            "2021": "95.367.635,02",
+            "2022": "102.122.757,78",
+            "2023": "99.745.048,06",
+            "2024": "111.441.182,76"
+        }
+    },
+    {
+        "tema": "SAÚDE",
+        "subtema": "OFERTA DE SERVIÇOS DE SAÚDE",
+        "id_ces": "131",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "135",
+        "ods": null,
+        "orgao_responsavel": "SMS",
+        "indicador": "Total do valor recebidos do Estado e do Governo Federal, destinados à saúde no município por 100.000 habitantes",
+        "faixas_semaforizacao": {
+            "geral": "Sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "30.329.891,09",
+            "2020": "45.532.133,69",
+            "2021": "30.604.981,90",
+            "2022": "32.188.512,39",
+            "2023": "26.871.584,69",
+            "2024": "37.522.240,45"
+        }
+    },
+    {
+        "tema": "SAÚDE",
+        "subtema": "OFERTA DE SERVIÇOS DE SAÚDE",
+        "id_ces": "132",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "136",
+        "ods": null,
+        "orgao_responsavel": "SMS",
+        "indicador": "Cobertura de saúde da família: Média/mês de residências atendidas na modalidade de saúde da família",
+        "faixas_semaforizacao": {
+            "geral": "Sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "97.98",
+            "2020": "82.22",
+            "2021": "108.88%",
+            "2022": "103.77%",
+            "2023": "104.73",
+            "2024": "108.39"
+        }
+    },
+    {
+        "tema": "SAÚDE",
+        "subtema": "OFERTA DE SERVIÇOS DE SAÚDE",
+        "id_ces": "133",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "137",
+        "ods": null,
+        "orgao_responsavel": "SMS",
+        "indicador": "Média/mês de pessoas atendidas nas UPAS e nos Postos de Saúde.",
+        "faixas_semaforizacao": {
+            "geral": "Sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "27.401",
+            "2020": "131.151",
+            "2021": "169.786",
+            "2022": "203.685",
+            "2023": "210.034",
+            "2024": "213.306"
+        }
+    },
+    {
+        "tema": "SAÚDE",
+        "subtema": "OFERTA DE SERVIÇOS DE SAÚDE",
+        "id_ces": "134",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "138",
+        "ods": null,
+        "orgao_responsavel": "ACM",
+        "indicador": "Quantas vidas asseguradas em plano de saúde privada?",
+        "faixas_semaforizacao": {
+            "geral": "Sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "179.209 (SMS)",
+            "2020": "187.504 total (tirando filantropia e Autogestão: 153.661)",
+            "2021": "Planos de saude : 170.152 População de:  500.973 habitantes",
+            "2022": "209.105",
+            "2023": "Grande Florianópolis: 345.085 e 299.703 (sem filantropia e autogestão)",
+            "2024": "ND"
+        }
+    },
+    {
+        "tema": "SAÚDE",
+        "subtema": "OFERTA DE SERVIÇOS DE SAÚDE",
+        "id_ces": null,
+        "id_nova_ordem": null,
+        "id_floripa": "139",
+        "ods": null,
+        "orgao_responsavel": "SMS",
+        "indicador": "Cobertura Vacinal - BCG - ao nascer",
+        "faixas_semaforizacao": {
+            "verde": ">=meta 90%",
+            "amarelo": "41 até <meta",
+            "vermelho": "<40"
+        },
+        "dados_anuais": {
+            "2023": "21,71%",
+            "2024": "39,17%"
+        }
+    },
+    {
+        "tema": "SAÚDE",
+        "subtema": "OFERTA DE SERVIÇOS DE SAÚDE",
+        "id_ces": null,
+        "id_nova_ordem": null,
+        "id_floripa": "140",
+        "ods": null,
+        "orgao_responsavel": "SMS",
+        "indicador": "Cobertura Vacinal - HEPATITE B - ao nascer",
+        "faixas_semaforizacao": {
+            "verde": ">=meta 95%",
+            "amarelo": "41 até <meta",
+            "vermelho": "<40"
+        },
+        "dados_anuais": {
+            "2023": "20,16%",
+            "2024": "34,94%"
+        }
+    },
+    {
+        "tema": "SAÚDE",
+        "subtema": "OFERTA DE SERVIÇOS DE SAÚDE",
+        "id_ces": null,
+        "id_nova_ordem": null,
+        "id_floripa": "141",
+        "ods": null,
+        "orgao_responsavel": "SMS",
+        "indicador": "Cobertura Vacinal - FEBRE AMARELA - menores 1 ano",
+        "faixas_semaforizacao": {
+            "verde": ">=meta 95%",
+            "amarelo": "41 até <meta",
+            "vermelho": "<40"
+        },
+        "dados_anuais": {
+            "2023": "64,83%",
+            "2024": "66,39%"
+        }
+    },
+    {
+        "tema": "SAÚDE",
+        "subtema": "OFERTA DE SERVIÇOS DE SAÚDE",
+        "id_ces": null,
+        "id_nova_ordem": null,
+        "id_floripa": "142",
+        "ods": null,
+        "orgao_responsavel": "SMS",
+        "indicador": "Cobertura Vacinal - HEPATITE B - menores 1 ano",
+        "faixas_semaforizacao": {
+            "verde": ">=meta 95%",
+            "amarelo": "41 até <meta",
+            "vermelho": "<40"
+        },
+        "dados_anuais": {
+            "2023": "79,58%",
+            "2024": "84,11%"
+        }
+    },
+    {
+        "tema": "SAÚDE",
+        "subtema": "OFERTA DE SERVIÇOS DE SAÚDE",
+        "id_ces": null,
+        "id_nova_ordem": null,
+        "id_floripa": "143",
+        "ods": null,
+        "orgao_responsavel": "SMS",
+        "indicador": "Cobertura Vacinal - DTP - menores 1 ano",
+        "faixas_semaforizacao": {
+            "verde": ">=meta 95%",
+            "amarelo": "41 até <meta",
+            "vermelho": "<40"
+        },
+        "dados_anuais": {
+            "2023": "79,60%",
+            "2024": "84,51%"
+        }
+    },
+    {
+        "tema": "SAÚDE",
+        "subtema": "OFERTA DE SERVIÇOS DE SAÚDE",
+        "id_ces": null,
+        "id_nova_ordem": null,
+        "id_floripa": "144",
+        "ods": null,
+        "orgao_responsavel": "SMS",
+        "indicador": "Cobertura Vacinal - MENINGO C - menores 1 ano",
+        "faixas_semaforizacao": {
+            "verde": ">=meta 95%",
+            "amarelo": "41 até <meta",
+            "vermelho": "<40"
+        },
+        "dados_anuais": {
+            "2023": "67,23%",
+            "2024": "72,80%"
+        }
+    },
+    {
+        "tema": "SAÚDE",
+        "subtema": "OFERTA DE SERVIÇOS DE SAÚDE",
+        "id_ces": null,
+        "id_nova_ordem": null,
+        "id_floripa": "145",
+        "ods": null,
+        "orgao_responsavel": "SMS",
+        "indicador": "Cobertura Vacinal - PENTAVALENTE - menores 1 no",
+        "faixas_semaforizacao": {
+            "verde": ">=meta 95%",
+            "amarelo": "41 até <meta",
+            "vermelho": "<40"
+        },
+        "dados_anuais": {
+            "2023": "79,57%",
+            "2024": "84,11%"
+        }
+    },
+    {
+        "tema": "SAÚDE",
+        "subtema": "OFERTA DE SERVIÇOS DE SAÚDE",
+        "id_ces": null,
+        "id_nova_ordem": null,
+        "id_floripa": "146",
+        "ods": null,
+        "orgao_responsavel": "SMS",
+        "indicador": "Cobertura Vacinal - PNEUMO 10 - menores 1 ano",
+        "faixas_semaforizacao": {
+            "verde": ">=meta 95%",
+            "amarelo": "41 até <meta",
+            "vermelho": "<40"
+        },
+        "dados_anuais": {
+            "2023": "78,46%",
+            "2024": "86,78%"
+        }
+    },
+    {
+        "tema": "SAÚDE",
+        "subtema": "OFERTA DE SERVIÇOS DE SAÚDE",
+        "id_ces": null,
+        "id_nova_ordem": null,
+        "id_floripa": "147",
+        "ods": null,
+        "orgao_responsavel": "SMS",
+        "indicador": "Cobertura Vacinal - POLIOMELITE injetável - menores 1 ano",
+        "faixas_semaforizacao": {
+            "verde": ">=meta 95%",
+            "amarelo": "41 até <meta",
+            "vermelho": "<40"
+        },
+        "dados_anuais": {
+            "2023": "79,11%",
+            "2024": "83,47%"
+        }
+    },
+    {
+        "tema": "SAÚDE",
+        "subtema": "OFERTA DE SERVIÇOS DE SAÚDE",
+        "id_ces": null,
+        "id_nova_ordem": null,
+        "id_floripa": "148",
+        "ods": null,
+        "orgao_responsavel": "SMS",
+        "indicador": "Cobertura Vacinal - ROTAVIRUS - menores 1 ano",
+        "faixas_semaforizacao": {
+            "verde": ">=meta 90%",
+            "amarelo": "41 até <meta",
+            "vermelho": "<40"
+        },
+        "dados_anuais": {
+            "2023": "76,55%",
+            "2024": "83,54%"
+        }
+    },
+    {
+        "tema": "SAÚDE",
+        "subtema": "OFERTA DE SERVIÇOS DE SAÚDE",
+        "id_ces": null,
+        "id_nova_ordem": null,
+        "id_floripa": "149",
+        "ods": null,
+        "orgao_responsavel": "SMS",
+        "indicador": "Cobertura Vacinal - HEPATITE A - 1 ano de idade",
+        "faixas_semaforizacao": {
+            "verde": ">=meta 95%",
+            "amarelo": "41 até <meta",
+            "vermelho": "<40"
+        },
+        "dados_anuais": {
+            "2023": "74,74%",
+            "2024": "74,32%"
+        }
+    },
+    {
+        "tema": "SAÚDE",
+        "subtema": "OFERTA DE SERVIÇOS DE SAÚDE",
+        "id_ces": null,
+        "id_nova_ordem": null,
+        "id_floripa": "150",
+        "ods": null,
+        "orgao_responsavel": "SMS",
+        "indicador": "Cobertura Vacinal - DTP 1º reforço - 1 ano de idade",
+        "faixas_semaforizacao": {
+            "verde": ">=meta 95%",
+            "amarelo": "41 até <meta",
+            "vermelho": "<40"
+        },
+        "dados_anuais": {
+            "2023": "68,22%",
+            "2024": "74,77%"
+        }
+    },
+    {
+        "tema": "SAÚDE",
+        "subtema": "OFERTA DE SERVIÇOS DE SAÚDE",
+        "id_ces": null,
+        "id_nova_ordem": null,
+        "id_floripa": "151",
+        "ods": null,
+        "orgao_responsavel": "SMS",
+        "indicador": "Cobertura Vacinal - TRIPLICE VIRAL 1ª dose - 1 ano de idade",
+        "faixas_semaforizacao": {
+            "verde": ">=meta 95%",
+            "amarelo": "41 até <meta",
+            "vermelho": "<40"
+        },
+        "dados_anuais": {
+            "2023": "75,93%",
+            "2024": "85,61%"
+        }
+    },
+    {
+        "tema": "SAÚDE",
+        "subtema": "OFERTA DE SERVIÇOS DE SAÚDE",
+        "id_ces": null,
+        "id_nova_ordem": null,
+        "id_floripa": "152",
+        "ods": null,
+        "orgao_responsavel": "SMS",
+        "indicador": "Cobertura Vacinal - TRIPLICE VIRAL 2ª dose - 1 ano de idade",
+        "faixas_semaforizacao": {
+            "verde": ">=meta 95%",
+            "amarelo": "41 até <meta",
+            "vermelho": "<40"
+        },
+        "dados_anuais": {
+            "2023": "59,30%",
+            "2024": "58,04%"
+        }
+    },
+    {
+        "tema": "SAÚDE",
+        "subtema": "OFERTA DE SERVIÇOS DE SAÚDE",
+        "id_ces": null,
+        "id_nova_ordem": null,
+        "id_floripa": "153",
+        "ods": null,
+        "orgao_responsavel": "SMS",
+        "indicador": "Cobertura Vacinal - PNEUMO 10 1º reforço - 1 ano de idade",
+        "faixas_semaforizacao": {
+            "verde": ">=meta 95%",
+            "amarelo": "41 até <meta",
+            "vermelho": "<40"
+        },
+        "dados_anuais": {
+            "2023": "68,62%",
+            "2024": "79,68%"
+        }
+    },
+    {
+        "tema": "SAÚDE",
+        "subtema": "OFERTA DE SERVIÇOS DE SAÚDE",
+        "id_ces": null,
+        "id_nova_ordem": null,
+        "id_floripa": "154",
+        "ods": null,
+        "orgao_responsavel": "SMS",
+        "indicador": "Cobertura Vacinal - VARICELA - 1 ano de idade",
+        "faixas_semaforizacao": {
+            "verde": ">=meta 95%",
+            "amarelo": "41 até <meta",
+            "vermelho": "<40"
+        },
+        "dados_anuais": {
+            "2023": "53,92%",
+            "2024": "56,70%"
+        }
+    },
+    {
+        "tema": "SAÚDE",
+        "subtema": "OFERTA DE SERVIÇOS DE SAÚDE",
+        "id_ces": null,
+        "id_nova_ordem": null,
+        "id_floripa": "155",
+        "ods": null,
+        "orgao_responsavel": "SMS",
+        "indicador": "Cobertura Vacinal - POLIO ORAL LIVALENTE - 1 ano de idade",
+        "faixas_semaforizacao": {
+            "verde": ">=meta 95%",
+            "amarelo": "41 até <meta",
+            "vermelho": "<40"
+        },
+        "dados_anuais": {
+            "2023": "68,66%",
+            "2024": "80,61%"
+        }
+    },
+    {
+        "tema": "SAÚDE",
+        "subtema": "OFERTA DE SERVIÇOS DE SAÚDE",
+        "id_ces": null,
+        "id_nova_ordem": null,
+        "id_floripa": "156",
+        "ods": null,
+        "orgao_responsavel": "SMS",
+        "indicador": "Cobertura Vacinal - MENINGO C - 1 ano de idade",
+        "faixas_semaforizacao": {
+            "verde": ">=meta 95%",
+            "amarelo": "41 até <meta",
+            "vermelho": "<40"
+        },
+        "dados_anuais": {
+            "2023": "63,31%",
+            "2024": "67,83%"
+        }
+    },
+    {
+        "tema": "SAÚDE",
+        "subtema": "OFERTA DE SERVIÇOS DE SAÚDE",
+        "id_ces": null,
+        "id_nova_ordem": null,
+        "id_floripa": "157",
+        "ods": null,
+        "orgao_responsavel": "SMS",
+        "indicador": "Cobertura Vacinal - DTPA ADULTO",
+        "faixas_semaforizacao": {
+            "verde": ">=meta 95%",
+            "amarelo": "41 até <meta",
+            "vermelho": "<40"
+        },
+        "dados_anuais": {
+            "2023": "69,46%",
+            "2024": "75,39%"
+        }
+    },
+    {
+        "tema": "SAÚDE",
+        "subtema": "OFERTA DE SERVIÇOS DE SAÚDE",
+        "id_ces": "135",
+        "id_nova_ordem": "L 21",
+        "id_floripa": null,
+        "ods": null,
+        "orgao_responsavel": "SMS",
+        "indicador": "Cobertura de vacinas",
+        "faixas_semaforizacao": {
+            "geral": "sem valor de referência"
+        },
+        "dados_anuais": {
+            "2019": "ND",
+            "2020": "- < 1 ano - Pentavalente - 3ªs doses - 45,7% - < 1 ano - Pneumocócica Conjugada 10v (PnC10v) - 2ªs doses - 54,8% - < 1 ano - Vacina contra Poliomielite - 3ªs doses - 48,2% - 1 ano - Tríplice Viral - 1ªs doses - 51,4%",
+            "2021": "- < 1 ano - Pentavalente - 3ª dose - 73,10% - < 1 ano - Penumo 10 - 2ª dose - 76,40% - < 1 ano - VIP - 3ª dose - 72,30% - 1 ano VTV 1ª dose - 82,50%",
+            "2022": "Febre amarela 69% Varicela 74% Meningo C 75% Rotavírus 81% Poliomielite 82% Pentavalente 82% Hepatite A 86% VTV 91% Penumo 10 93% BCG 113% ( (Em crianças de até 01 ano)",
+            "2023": "Febre amarela 69% Varicela 50% Meningo C 70% Rotavírus 77% Poliomielite 74% Pentavalente 77% Hepatite A 78% VTV 80% Penumo 78% BCG 159%",
+            "2024": "Substituido pelos indicadores 140 até 158"
+        }
+    }
+]

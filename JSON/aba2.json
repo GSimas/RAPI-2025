@@ -1,0 +1,473 @@
+[
+    {
+        "tema": "ENERGIA",
+        "subtema": "EFICIÊNCIA ENERGÉTICA",
+        "id_ces": "21",
+        "id_nova_ordem": "21",
+        "id_floripa": "21",
+        "ods": null,
+        "orgao_responsavel": "CELESC",
+        "indicador": "Consumo anual de eletricidade por cliente residencial em Kw/h",
+        "faixas_semaforizacao": {
+            "verde": "1500–3500 kWh/por domicílio/ano",
+            "amarelo": "900–1500 kWh/por domicílio/ano ou 3500–5000 kWh/por domicílio/ano",
+            "vermelho": "< 900 kWh/por domicílio/ano ou > 5000 kWh/por domicílio/ano"
+        },
+        "dados_anuais": {
+            "2019": "2.536,56 kWh/ano",
+            "2020": "2.885,36 kWh/ano",
+            "2021": "2.877,59",
+            "2022": "2.975,27",
+            "2023": "3.071,78",
+            "2024": "3.286,75"
+        }
+    },
+    {
+        "tema": "ENERGIA",
+        "subtema": "EFICIÊNCIA ENERGÉTICA",
+        "id_ces": "22",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "22",
+        "ods": null,
+        "orgao_responsavel": "COSIP",
+        "indicador": "Porcentagem da iluminação pública que utiliza a tecnologia LED",
+        "faixas_semaforizacao": {
+            "verde": "> 50%",
+            "amarelo": "50% - 30%",
+            "vermelho": "< 30%"
+        },
+        "dados_anuais": {
+            "2019": "13,2% de unidades LED instaladas no parque de IP (7.410 unidades LED de um total de 55.994 unidades).",
+            "2020": "15,80%",
+            "2021": "17,50%",
+            "2022": "17,5%  10.913 Luminárias",
+            "2023": "45% 25.927 luminárias",
+            "2024": "77% - 44.660 luminárias"
+        }
+    },
+    {
+        "tema": "ENERGIA",
+        "subtema": "ENERGIA ALTERNATIVA E RENOVÁVEL",
+        "id_ces": "23",
+        "id_nova_ordem": null,
+        "id_floripa": "23",
+        "ods": "7.4.4",
+        "orgao_responsavel": "CELESC/FNR",
+        "indicador": "Energia proveniente de fontes renováveis (porcentagem)",
+        "faixas_semaforizacao": {
+            "verde": "> 50%",
+            "amarelo": "20%–50%",
+            "vermelho": "< 20%"
+        },
+        "dados_anuais": {
+            "2019": null,
+            "2020": "0,63%",
+            "2021": "26,70%",
+            "2022": "1,95%",
+            "2023": "1,95% (2022)",
+            "2024": "3,88%"
+        }
+    },
+    {
+        "tema": "QUALIDADE DO AR",
+        "subtema": "CONTROLE DA QUALIDADE DO AR E CONCENTRAÇÃO DE CONTAMINANTES NO AR",
+        "id_ces": "24",
+        "id_nova_ordem": "26",
+        "id_floripa": "24",
+        "ods": null,
+        "orgao_responsavel": "FLORAM",
+        "indicador": "Índice de qualidade do ar",
+        "faixas_semaforizacao": {
+            "verde": "0–50",
+            "amarelo": "51–100",
+            "vermelho": "> 100"
+        },
+        "dados_anuais": {
+            "2019": "Não informado",
+            "2020": "ND",
+            "2021": "ND",
+            "2022": "ND",
+            "2023": "ND",
+            "2024": "ND"
+        }
+    },
+    {
+        "tema": "QUALIDADE DO AR",
+        "subtema": "CONTROLE DA QUALIDADE DO AR E CONCENTRAÇÃO DE CONTAMINANTES NO AR",
+        "id_ces": "25",
+        "id_nova_ordem": "27",
+        "id_floripa": "25",
+        "ods": "6.4.2",
+        "orgao_responsavel": "FLORAM/FNR",
+        "indicador": "Concentração de Material Particulado (MP) 10",
+        "faixas_semaforizacao": {
+            "verde": "< 50 MP 10 em média em 24 horas em μg/m3",
+            "amarelo": "50–150 MP 10 em média em 24 horas em μg/m3",
+            "vermelho": "> 150 MP 10 em média em 24 horas em μg/m3"
+        },
+        "dados_anuais": {
+            "2019": "Não informado",
+            "2020": "ND",
+            "2021": "ND",
+            "2022": "ND",
+            "2023": "ND",
+            "2024": "ND"
+        }
+    },
+    {
+        "tema": "MITIGAÇÃO DA MUDANÇA CLIMÁTICA",
+        "subtema": "EMISSÕES TOTAIS DE GEE",
+        "id_ces": "26",
+        "id_nova_ordem": "29",
+        "id_floripa": "26",
+        "ods": "6.3.3",
+        "orgao_responsavel": "FLORAM/FNR",
+        "indicador": "Emissões de GEE -Toneladas per capita (População projetada do IBGE)",
+        "faixas_semaforizacao": {
+            "verde": "< 5",
+            "amarelo": "5–10",
+            "vermelho": "> 10"
+        },
+        "dados_anuais": {
+            "2019": "2,17",
+            "2020": "ND",
+            "2021": "ND",
+            "2022": "ND",
+            "2023": "1,7412 toneladas metricas de CO2e per capita",
+            "2024": "ND"
+        }
+    },
+    {
+        "tema": "RUIDO",
+        "subtema": "CONTROLE DE RUIDOS",
+        "id_ces": "27",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "27",
+        "ods": null,
+        "orgao_responsavel": "FLORAM",
+        "indicador": "Média anual (em decibéis) de ruído nos 5 principais pontos críticos da cidade",
+        "faixas_semaforizacao": {
+            "verde": "< 70 decibéis",
+            "amarelo": "70 - 80 decibéis",
+            "vermelho": "> 80 decibéis"
+        },
+        "dados_anuais": {
+            "2019": "Trata-se de uma métrica que o Departamento não acompanha. A métrica que podemos disponbilizar são os bairros com maior percentual de denúncias: Centro 22,8%; Canasvieiras 7,1%, Ingleses 6,8%, Córrego Grande 4,4%, Capoeiras 4,4%, Estreito 3,7%, Saco dos limões 3,7%, do total de 353 denúncias recebidas no Departamento no ano de 2019.",
+            "2020": "Trata-se de uma métrica que o Departamento ainda não consegue acompanhar. A métrica possível é por bairros com maior percentual de denúncias do total de 278 denúncias recebidas no Departamento no ano de 2020: Centro - 24,90%, Campeche - 9,64%, Coqueiros - 9,04%, Canasvieiras - 7,83%, Estreito - 7,23%, Ingleses - 6,63%, Itacorubi - 5,63%, Corrego grande - 5,42%, Morro as pedras - 4,82%, Trindade - 4,22%, Abraão - 3,61%, Saco Grande - 3,01%, Jardim Atlantico - 3,01% , Rio Tavares - 3,01%, Outros - 2%",
+            "2021": "ND",
+            "2022": "ND",
+            "2023": "ND",
+            "2024": "ND"
+        }
+    },
+    {
+        "tema": "VULNERABILIDADE FRENTE A DESASTRES NATURAIS",
+        "subtema": "CAPACIDADE DE ADAPTAÇÃO À MUDANÇA CLIMÁTICA E A EVENTOS NATURAIS EXTREMOS",
+        "id_ces": "28",
+        "id_nova_ordem": "30",
+        "id_floripa": "28",
+        "ods": null,
+        "orgao_responsavel": "SMSP/Defesa Civil",
+        "indicador": "Mapas de risco: porcentagem das áreas sujeitas a riscos decorrentes de deslizamentos, inundações costeiras e fluviais, mapeadas na escala 1:10.000, com grau de risco alto, médio ou baixo risco.",
+        "faixas_semaforizacao": {
+            "verde": "acima de 90%",
+            "amarelo": "de 60 a 89,99%",
+            "vermelho": "abaixo de 60%"
+        },
+        "dados_anuais": {
+            "2019": "100%",
+            "2020": "100%",
+            "2021": "100%",
+            "2022": "100%",
+            "2023": "100%",
+            "2024": "90%"
+        }
+    },
+    {
+        "tema": "VULNERABILIDADE FRENTE A DESASTRES NATURAIS",
+        "subtema": "CAPACIDADE DE ADAPTAÇÃO À MUDANÇA CLIMÁTICA E A EVENTOS NATURAIS EXTREMOS",
+        "id_ces": "29",
+        "id_nova_ordem": "34",
+        "id_floripa": "29",
+        "ods": null,
+        "orgao_responsavel": "SMSP",
+        "indicador": "Porcentagem das áreas de risco e vulnerabilidades da cidade (áreas de risco de deslizamento, de inundação costeira e pluvial, de vulnerabilidade social, de interrupções das pontes, de secas com comprometimento de abastecimento de água, apagões e de congestionamento viário extremo) que possuem planos de contingência adequados e atualizados.",
+        "faixas_semaforizacao": {
+            "verde": "acima de 90%",
+            "amarelo": "de 60 a 89,99%",
+            "vermelho": "abaixo de 60%"
+        },
+        "dados_anuais": {
+            "2019": "100%",
+            "2020": "100%",
+            "2021": "100%",
+            "2022": "100%",
+            "2023": "100%",
+            "2024": "100%"
+        }
+    },
+    {
+        "tema": "VULNERABILIDADE FRENTE A DESASTRES NATURAIS",
+        "subtema": "CAPACIDADE DE ADAPTAÇÃO À MUDANÇA CLIMÁTICA E A EVENTOS NATURAIS EXTREMOS",
+        "id_ces": "30",
+        "id_nova_ordem": "35",
+        "id_floripa": "30",
+        "ods": null,
+        "orgao_responsavel": "SMSP",
+        "indicador": "Porcentagem dos planos de contingência de riscos que possui alerta precoce",
+        "faixas_semaforizacao": {
+            "verde": "acima de 90%",
+            "amarelo": "de 60 a 89,99%",
+            "vermelho": "abaixo de 60%"
+        },
+        "dados_anuais": {
+            "2019": "100%",
+            "2020": "100%",
+            "2021": "100%",
+            "2022": "100%",
+            "2023": "100%",
+            "2024": "100%"
+        }
+    },
+    {
+        "tema": "VULNERABILIDADE FRENTE A DESASTRES NATURAIS",
+        "subtema": "CAPACIDADE DE ADAPTAÇÃO À MUDANÇA CLIMÁTICA E A EVENTOS NATURAIS EXTREMOS",
+        "id_ces": "31",
+        "id_nova_ordem": "38",
+        "id_floripa": "31",
+        "ods": null,
+        "orgao_responsavel": "SMSP",
+        "indicador": "Porcentagem da Lei Orçamentária Anual (LOA) planejados para mitigação dos riscos de desastres naturais e mudanças climáticas",
+        "faixas_semaforizacao": {
+            "verde": "acima de 0,5%",
+            "amarelo": "0,5 a 0,3%",
+            "vermelho": "abaixo de 0,3%"
+        },
+        "dados_anuais": {
+            "2019": "0,42% (Lei 10.672-2019, total do orçamento R$ 2.357.582.046,00)",
+            "2020": "0,076% LOA 2021",
+            "2021": "0,100% LOA 2022 (Lei 10.832/2021)",
+            "2022": "0,125% LOA 2022 Lei 10.832/2021",
+            "2023": "0,120% LOA 2023 (Lei 10.945/2022)",
+            "2024": "0,07 LOA (Lei 11.344/2024)"
+        }
+    },
+    {
+        "tema": "VULNERABILIDADE FRENTE A DESASTRES NATURAIS",
+        "subtema": "SUSTENTABILIDADE A DESASTRES NATURAIS",
+        "id_ces": "32",
+        "id_nova_ordem": null,
+        "id_floripa": "32",
+        "ods": "6.5.2",
+        "orgao_responsavel": "SMSP/Defesa Civil/FRN",
+        "indicador": "Número de edificações em áreas de risco.",
+        "faixas_semaforizacao": {},
+        "dados_anuais": {
+            "2019": null,
+            "2020": null,
+            "2021": null,
+            "2022": "1080 unidades",
+            "2023": "1593 unidades",
+            "2024": "2100 unidades"
+        }
+    },
+    {
+        "tema": "VULNERABILIDADE FRENTE A DESASTRES NATURAIS",
+        "subtema": "DENSIDADE",
+        "id_ces": "33",
+        "id_nova_ordem": "41",
+        "id_floripa": "33",
+        "ods": null,
+        "orgao_responsavel": "IPUF",
+        "indicador": "Porcentagem de crescimento anual da quilometragem da malha urbana",
+        "faixas_semaforizacao": {
+            "verde": "< 3%",
+            "amarelo": "3%–5%",
+            "vermelho": "> 5%"
+        },
+        "dados_anuais": {
+            "2019": "0,56%",
+            "2020": "2,43%",
+            "2021": "1,86%",
+            "2022": "0,84%",
+            "2023": "ND",
+            "2024": "1,41%"
+        }
+    },
+    {
+        "tema": "VULNERABILIDADE FRENTE A DESASTRES NATURAIS",
+        "subtema": "DENSIDADE",
+        "id_ces": "34",
+        "id_nova_ordem": "42",
+        "id_floripa": "34",
+        "ods": null,
+        "orgao_responsavel": "IPUF",
+        "indicador": "Quantidade de população por km² de área urbanizada (exclui-se as áreas de agricultura e açudes de mais de 5 km)",
+        "faixas_semaforizacao": {
+            "verde": "7.000 - 20.000",
+            "amarelo": "4.000–7.000; 20.000–25.000",
+            "vermelho": "< 4.000; > 25.000"
+        },
+        "dados_anuais": {
+            "2019": "De 4.977,24 hab/km² para 5.017,22% hab/km²",
+            "2020": "De 5.055,26 hab/km² para 4.975,08 hab/km²",
+            "2021": "4.958,28 hab/km²",
+            "2022": "5.113,88 hab/km²",
+            "2023": "ND",
+            "2024": "ND"
+        }
+    },
+    {
+        "tema": "VULNERABILIDADE FRENTE A DESASTRES NATURAIS",
+        "subtema": "DENSIDADE",
+        "id_ces": "35",
+        "id_nova_ordem": "L 8",
+        "id_floripa": "35",
+        "ods": null,
+        "orgao_responsavel": "IPUF",
+        "indicador": "Porcentagem de crescimento demográfico",
+        "faixas_semaforizacao": {
+            "verde": "<1%",
+            "amarelo": "1% - 1,5%",
+            "vermelho": "> 1,5%"
+        },
+        "dados_anuais": {
+            "2019": "1,62%",
+            "2020": "1,57%",
+            "2021": "1,51%",
+            "2022": "4,01%",
+            "2023": "ND",
+            "2024": "ND"
+        }
+    },
+    {
+        "tema": "VULNERABILIDADE FRENTE A DESASTRES NATURAIS",
+        "subtema": "DENSIDADE",
+        "id_ces": "36",
+        "id_nova_ordem": null,
+        "id_floripa": "36",
+        "ods": "5.1.4",
+        "orgao_responsavel": "IPUF/FNR",
+        "indicador": "Porcentagem de pessoas vivendo em moradias inadequadas em relação à população total.",
+        "faixas_semaforizacao": {},
+        "dados_anuais": {
+            "2019": "2.52%",
+            "2020": null,
+            "2021": null,
+            "2022": "ND",
+            "2023": "ND",
+            "2024": null
+        }
+    },
+    {
+        "tema": "USO DO SOLO / ORDENAMENTO TERRITORIAL",
+        "subtema": "ÁREAS VERDE E DE RECREAÇÃO",
+        "id_ces": "37",
+        "id_nova_ordem": "44",
+        "id_floripa": "37",
+        "ods": null,
+        "orgao_responsavel": "SMDU",
+        "indicador": "Déficit de moradias quantitativo",
+        "faixas_semaforizacao": {
+            "verde": "< 10%",
+            "amarelo": "10%–20%",
+            "vermelho": "> 20%"
+        },
+        "dados_anuais": {
+            "2019": "Déficit habitacional quantitativo é de 7.872 unidade a necessidade de reassentamentos é de 1.666 habitações",
+            "2020": "ND",
+            "2021": "Estimativa do déficit habitacional quantitativo em ZEIS: 7.842",
+            "2022": "Déficit quantitativo 21.705 famílias = 52%  (Total 41.804 famílias do CadÚnico estão enquadradas nos critérios definidos)",
+            "2023": "Déficit quantitativo 21.705 famílias = 52% (Total 41.804 famílias do CadÚnico estão enquadradas nos critérios)",
+            "2024": "ND"
+        }
+    },
+    {
+        "tema": "USO DO SOLO / ORDENAMENTO TERRITORIAL",
+        "subtema": "ÁREAS VERDE E DE RECREAÇÃO",
+        "id_ces": "38",
+        "id_nova_ordem": "45",
+        "id_floripa": "38",
+        "ods": null,
+        "orgao_responsavel": "IPUF",
+        "indicador": "Quantidade de hectares de áreas verdes permanentes de lazer (de acordo com o Plano Diretor) para cada 100.000 habitantes (população projetada IBGE)",
+        "faixas_semaforizacao": {
+            "verde": "> 50",
+            "amarelo": "20–50",
+            "vermelho": "< 20"
+        },
+        "dados_anuais": {
+            "2019": "De 5786,66 hectares/100.000hab para 6.088,92 hectares/100.000hab",
+            "2020": "De 5.710,10 hectares / 100.000 habitantes para 6.088,77 hectares / 100.000 habitantes",
+            "2021": "5.565,61 hectares/100.000 habitantes",
+            "2022": "5.438,05 hectares/100.000 habitantes",
+            "2023": "ND",
+            "2024": "ND"
+        }
+    },
+    {
+        "tema": "USO DO SOLO / ORDENAMENTO TERRITORIAL",
+        "subtema": "ÁREAS VERDE E DE RECREAÇÃO",
+        "id_ces": "39",
+        "id_nova_ordem": null,
+        "id_floripa": "39",
+        "ods": "1.5.3",
+        "orgao_responsavel": "IPUF/FNR",
+        "indicador": "Espaços livres de lazer e recreação de uso público excluídas áreas de estacionamento (m² per capita)",
+        "faixas_semaforizacao": {},
+        "dados_anuais": {
+            "2019": "2.62 m²/hab",
+            "2020": "ND",
+            "2021": "ND",
+            "2022": "ND",
+            "2023": "ND",
+            "2024": null
+        }
+    },
+    {
+        "tema": "USO DO SOLO / ORDENAMENTO TERRITORIAL",
+        "subtema": "ÁREAS VERDE E DE RECREAÇÃO",
+        "id_ces": "40",
+        "id_nova_ordem": "NOVO",
+        "id_floripa": "40",
+        "ods": null,
+        "orgao_responsavel": "IPUF",
+        "indicador": "Porcentagem das edificações em áreas de conflito ambiental: quantidade de edificações irregulares dividido pelo total das edificações.",
+        "faixas_semaforizacao": {
+            "verde": "< 0,5%",
+            "amarelo": "0,6% - 2%",
+            "vermelho": "> 2%"
+        },
+        "dados_anuais": {
+            "2019": "9,28%",
+            "2020": "10,65%",
+            "2021": "9,24%",
+            "2022": "9,69%",
+            "2023": "ND",
+            "2024": "ND"
+        }
+    },
+    {
+        "tema": "USO DO SOLO / ORDENAMENTO TERRITORIAL",
+        "subtema": "ÁREAS VERDE E DE RECREAÇÃO",
+        "id_ces": "41",
+        "id_nova_ordem": "L 10",
+        "id_floripa": "41",
+        "ods": "6.1.1",
+        "orgao_responsavel": "FLORAM",
+        "indicador": "Áreas naturais protegidas: porcentagem de Unidades de Conservação (UC) com plano de manejo.",
+        "faixas_semaforizacao": {
+            "verde": "acima de 90%",
+            "amarelo": "de 60 a 89,99%",
+            "vermelho": "abaixo de 60%"
+        },
+        "dados_anuais": {
+            "2019": "De 27,95% (considerando todas as UC) 0,30% (considerando somente UC com plano de manejo) para 27,15% (total UC) 2,79% (com plano de manejo)",
+            "2020": "27,15% (total UC) 6,42% (com plano Manejo)",
+            "2021": "41,26% (total das UC) 8,14% (UC com plano de manejo)",
+            "2022": "41,6",
+            "2023": "ND",
+            "2024": "20% (Considerando 10 Ucs de gestão Municipal)"
+        }
+    }
+]
