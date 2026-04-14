@@ -1639,9 +1639,9 @@
             "vermelho": "> 20"
         },
         "dados_anuais": {
-            "2019": "Baixo Risco - Mesmo Dia (4 horas) Outras Categorias de Risco - em até 15 dias",
-            "2020": "1 dia e 19 horas",
-            "2021": "1 dia e 1 hora (Mapa de Empresas, Ministério da Economia)",
+            "2019": "4. Baixo Risco - Mesmo Dia (4 horas) Outras Categorias de Risco - em até 15 dias",
+            "2020": "43. 1 dia e 19 horas",
+            "2021": "43. 1 dia e 1 hora (Mapa de Empresas, Ministério da Economia)",
             "2022": "12 horas",
             "2023": "12 horas",
             "2024": "5 horas"
@@ -1750,7 +1750,7 @@
             "2020": "41.886 (U$ 5,4854)",
             "2021": "45.603 (U$ 5.5748)",
             "2022": "R$ 41.885,53 Fonte: IBGE ano base 2020",
-            "2023": "PIB Per Capita 2021 R$ 45.602,98 / PIB Per Capita 2020 R$ 41.885,53",
+            "2023": "R$ 45.602,98 / PIB Per Capita 2020 R$ 41.885,53",
             "2024": "45.602,98 R$ [2021]"
         }
     },
