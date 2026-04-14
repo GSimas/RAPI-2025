@@ -16,37 +16,29 @@ st.set_page_config(
 )
 
 # Estilização CSS Customizada para um visual Premium
+# Estilização CSS que respeita o Tema (Light/Dark)
 st.markdown("""
     <style>
     .metric-card {
-        background-color: #f8f9fa;
+        /* Usa a cor de fundo secundária do tema atual */
+        background-color: var(--secondary-background-color); 
+        /* Usa a cor de texto padrão do tema atual */
+        color: var(--text-color);
         border-radius: 10px;
         padding: 15px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         border-left: 5px solid #1f77b4;
+        margin-bottom: 10px;
     }
     .titulo-indicador {
-        color: #1f77b4;
+        color: #1f77b4; /* Azul mantém o destaque em ambos */
         font-weight: 700;
-        margin-top: 0;
     }
     .texto-relatorio {
         font-size: 1.1rem;
         line-height: 1.6;
-        color: #333;
+        color: var(--text-color); /* Texto do relatório adapta ao fundo */
         text-align: justify;
-    }
-    .stTabs [data-baseweb="tab-list"] {
-        gap: 24px;
-    }
-    .stTabs [data-baseweb="tab"] {
-        height: 50px;
-        white-space: pre-wrap;
-        background-color: transparent;
-        border-radius: 4px 4px 0px 0px;
-        gap: 1px;
-        padding-top: 10px;
-        padding-bottom: 10px;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -182,8 +174,9 @@ if not df.empty:
 # ==========================================
 # 3. SIDEBAR (FILTROS GLOBAIS)
 # ==========================================
-st.sidebar.image("https://floripamanha.org/wp-content/uploads/2025/08/logo-floripamanha-300.png", use_container_width=True)
+st.sidebar.image("https://floripasustentavel.com.br/novo/wp-content/uploads/2026/01/Design-sem-nome-13-1.png", width='stretch')
 st.sidebar.markdown("---")
+
 
 if not df.empty:
     st.sidebar.title("🔍 Navegação do Dashboard")
@@ -195,6 +188,21 @@ if not df.empty:
 
 st.sidebar.markdown("---")
 st.sidebar.info("**RAPI 2024-2025**\n\nRelatório Anual de Progresso dos Indicadores de Florianópolis.")
+
+st.sidebar.markdown("<br>" * 5, unsafe_allow_html=True) 
+st.sidebar.markdown("---")
+
+# Informações da Fonte
+st.sidebar.markdown("📍 **Fonte de Dados**")
+st.sidebar.markdown(
+    "Dados originais extraídos do [Relatório RAPI 2025](https://materiais.floripamanha.org/rapi-relatorio-anual-progresso-indicadores-25)"
+)
+
+# Créditos de Desenvolvimento
+st.sidebar.markdown("🚀 **Créditos**")
+st.sidebar.markdown(
+    "Plataforma orgulhosamente desenvolvida por [Gustavo Simas da Silva](https://www.linkedin.com/in/simasgs/)"
+)
 
 # ==========================================
 # 4. ESTRUTURA DE ABAS PRINCIPAIS
@@ -272,7 +280,7 @@ with aba_apresentacao:
             template='plotly_white',
             legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
         )
-        st.plotly_chart(fig_sem, use_container_width=True)
+        st.plotly_chart(fig_sem, width='stretch')
 
     st.divider()
     
@@ -386,31 +394,32 @@ with aba_dash:
                 ))
                 
                 # ATUALIZAÇÃO DA LINHA DE TENDÊNCIA:
+                # Dentro de fig.add_trace(go.Scatter(...))
                 fig.add_trace(go.Scatter(
                     x=df_plot['Ano'], 
                     y=df_plot['Valor_Numerico'],
-                    # 1. Altere o mode para incluir '+text'
-                    mode='lines+markers+text', 
-                    # 2. Defina o texto que aparecerá em cada ponto (com formatação brasileira)
+                    mode='lines+markers+text',
                     text=df_plot['Valor_Numerico'].apply(
                         lambda x: f"{x:,.2f}".replace(',', 'v').replace('.', ',').replace('v', '.') if pd.notna(x) else ""
                     ),
-                    # 3. Defina a posição do texto (ex: acima do ponto)
                     textposition='top center',
-                    textfont=dict(size=11, color='#333'),
-                    line=dict(color='#333', width=2, dash='dot'),
+                    # REMOVA a cor fixa aqui ou defina como None
+                    textfont=dict(size=11), 
+                    line=dict(color='#888', width=2, dash='dot'), # Use um cinza médio para a linha
                     name='Tendência'
                 ))
                 
                 fig.update_layout(
-                    title="Evolução Histórica com Rótulos de Dados",
-                    template="plotly_white",
+                    title="Evolução Histórica com Rótulos Adaptáveis",
+                    # template="plotly_white",  <-- REMOVA ESTA LINHA
                     height=450,
                     showlegend=False,
-                    # Aumentar a margem superior para o texto não ser cortado no topo
-                    margin=dict(t=50) 
+                    margin=dict(t=50),
+                    # Isso garante que os títulos dos eixos usem a cor padrão do tema
+                    xaxis=dict(showgrid=False),
+                    yaxis=dict(showgrid=True, gridcolor='rgba(128,128,128,0.2)') 
                 )
-                st.plotly_chart(fig, use_container_width=True)
+                st.plotly_chart(fig, width='stretch', theme="streamlit")
             else:
                 st.warning("⚠️ Não foi possível gerar o gráfico de tendência. Valores em formato de texto ou ND.")
 
@@ -424,7 +433,7 @@ with aba_dash:
                 st.write("Nenhuma regra de semaforização cadastrada para este indicador.")
 
         with aba_tabela:
-            st.dataframe(df_hist, use_container_width=True, hide_index=True)
+            st.dataframe(df_hist, width='stretch', hide_index=True)
 
         st.divider()
 st.markdown("## 📚 Explorador Geral do Relatório RAPI")
@@ -466,7 +475,7 @@ with st.expander("Clique aqui para abrir a tabela de dados completa"):
     # Exibição com ferramenta de busca e download nativa do Streamlit
     st.dataframe(
         df_final, 
-        use_container_width=True, 
+        width='stretch', 
         height=600,
         column_config={
             # Opcional: formata colunas numéricas para não mostrar vírgulas em IDs
