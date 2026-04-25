@@ -1626,7 +1626,7 @@ DADOS DOS INDICADORES (CSV):
             
             # USAMOS O CLIENTE QUE ESTÁ SALVO NA SESSÃO
             st.session_state.chat_session = st.session_state.gemini_client.chats.create(
-                model="gemini-2.5-flash-lite", 
+                model="gemini-3.1-flash-lite-preview", 
                 config=config
             )
             st.session_state.chat_history = []
