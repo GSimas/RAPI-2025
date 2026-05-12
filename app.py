@@ -16,11 +16,12 @@ st.set_page_config(
     page_title="Dashboard RAPI 2024-2025 - Florianópolis",
     page_icon="📊",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="expanded",
 )
 
 # Estilização CSS que respeita o Tema (Light/Dark)
-st.markdown("""
+st.markdown(
+    """
     <style>
     .metric-card {
         /* Usa a cor de fundo secundária do tema atual */
@@ -44,7 +45,10 @@ st.markdown("""
         text-align: justify;
     }
     </style>
-""", unsafe_allow_html=True)
+""",
+    unsafe_allow_html=True,
+)
+
 
 # ==========================================
 # 2. FUNÇÕES DE DADOS E LIMPEZA
@@ -52,60 +56,69 @@ st.markdown("""
 @st.cache_data
 def carregar_dados():
     try:
-        with open('dados_rapi_completo.json', 'r', encoding='utf-8') as f:
+        with open("dados_rapi_completo.json", "r", encoding="utf-8") as f:
             dados = json.load(f)
         return pd.DataFrame(dados)
     except FileNotFoundError:
-        st.error("⚠️ Arquivo 'dados_rapi_completo.json' não encontrado. Certifique-se de que ele está na mesma pasta deste script.")
+        st.error(
+            "⚠️ Arquivo 'dados_rapi_completo.json' não encontrado. Certifique-se de que ele está na mesma pasta deste script."
+        )
         return pd.DataFrame()
+
 
 def extrair_numero(valor):
     """
     Função avançada para extrair números de strings sujas.
     Lida com memórias de cálculo, decimais, milhares e números inteiros longos.
     """
-    if pd.isna(valor) or valor is None or str(valor).strip().upper() == 'ND' or str(valor).strip() == '':
+    if (
+        pd.isna(valor)
+        or valor is None
+        or str(valor).strip().upper() == "ND"
+        or str(valor).strip() == ""
+    ):
         return None
-    
+
     valor_str = str(valor).strip()
-    
+
     # Se houver um sinal de igual, o valor real do indicador está APÓS o igual
-    if '=' in valor_str:
-        valor_str = valor_str.split('=')[-1]
-        
+    if "=" in valor_str:
+        valor_str = valor_str.split("=")[-1]
+
     # Remove qualquer coisa que esteja dentro de parênteses (ex: notas de rodapé)
-    valor_str = valor_str.split('(')[0].strip() 
-    
+    valor_str = valor_str.split("(")[0].strip()
+
     # NOVA REGRA REGEX:
     # 1º tenta achar formato de milhares (ex: 1.282,34 ou 212.303)
     # 2º se não achar, captura números inteiros normais ou com decimal simples (ex: 1080, 2100, 10.18, 173,5)
-    match = re.search(r'-?\d{1,3}(?:\.\d{3})+(?:,\d+)?|-?\d+(?:[.,]\d+)?', valor_str)
-    
+    match = re.search(r"-?\d{1,3}(?:\.\d{3})+(?:,\d+)?|-?\d+(?:[.,]\d+)?", valor_str)
+
     if match:
         num_str = match.group(0)
-        
+
         # 1. Tem Ponto e Vírgula (Ex: 1.282,34 -> 1282.34)
-        if ',' in num_str and '.' in num_str:
-            num_str = num_str.replace('.', '').replace(',', '.')
-            
+        if "," in num_str and "." in num_str:
+            num_str = num_str.replace(".", "").replace(",", ".")
+
         # 2. Tem apenas Vírgula (Ex: 173,5 -> 173.5)
-        elif ',' in num_str:
-            num_str = num_str.replace(',', '.')
-            
+        elif "," in num_str:
+            num_str = num_str.replace(",", ".")
+
         # 3. Tem apenas Ponto (Pode ser decimal 10.18 ou milhares 212.303)
-        elif '.' in num_str:
-            partes = num_str.split('.')
+        elif "." in num_str:
+            partes = num_str.split(".")
             # Se todas as partes após o ponto tiverem exatamente 3 dígitos, é milhar! (Ex: 212.303)
             if all(len(p) == 3 for p in partes[1:]):
-                num_str = num_str.replace('.', '')
+                num_str = num_str.replace(".", "")
             # Caso contrário, mantém o ponto pois é um decimal (Ex: 10.18)
-        
+
         try:
             return float(num_str)
         except ValueError:
             return None
-            
+
     return None
+
 
 def avaliar_cor_semaforo(valor, faixas):
     """
@@ -113,66 +126,80 @@ def avaliar_cor_semaforo(valor, faixas):
     como intervalos (A-B) e múltiplas condições separadas por 'ou'.
     """
     if valor is None or not faixas:
-        return 'rgba(128, 128, 128, 0.5)' # Cinza para ND ou ausência de dados
-    
+        return "rgba(128, 128, 128, 0.5)"  # Cinza para ND ou ausência de dados
+
     try:
         v = float(valor)
     except ValueError:
-        return 'rgba(128, 128, 128, 0.5)'
-        
+        return "rgba(128, 128, 128, 0.5)"
+
     def avalia_condicao(regra_texto):
-        if not regra_texto or str(regra_texto).strip() == '':
+        if not regra_texto or str(regra_texto).strip() == "":
             return False
-            
+
         # Padroniza texto: minúsculo, remove '%', troca vírgulas por pontos
-        regra = str(regra_texto).lower().replace(',', '.').replace('%', '')
-        
+        regra = str(regra_texto).lower().replace(",", ".").replace("%", "")
+
         # Unifica todos os tipos de separadores de intervalo para um hífen simples
-        regra = regra.replace('–', '-').replace('—', '-').replace(' a ', '-').replace(' até ', '-')
-        
+        regra = (
+            regra.replace("–", "-")
+            .replace("—", "-")
+            .replace(" a ", "-")
+            .replace(" até ", "-")
+        )
+
         # Divide regras compostas (Ex: "< 80 ou > 250" vira duas regras separadas)
-        condicoes = regra.split(' ou ')
-        
+        condicoes = regra.split(" ou ")
+
         for cond in condicoes:
             # Extrai apenas os números contidos na condição atual
             nums = [float(n) for n in re.findall(r"\d+\.\d+|\d+", cond)]
             if not nums:
                 continue
-                
+
             # 1. Lógica para INTERVALOS (achou 2 ou mais números na mesma condição)
             if len(nums) >= 2:
                 if min(nums[0], nums[1]) <= v <= max(nums[0], nums[1]):
                     return True
-            
+
             # 2. Lógica para OPERADORES com 1 número (Ex: > 250, < 80)
             elif len(nums) == 1:
                 limite = nums[0]
-                if '<=' in cond or '≤' in cond or 'máximo' in cond:
-                    if v <= limite: return True
-                elif '<' in cond or 'abaixo' in cond or 'menor' in cond:
-                    if v < limite: return True
-                elif '>=' in cond or '≥' in cond or 'mínimo' in cond:
-                    if v >= limite: return True
-                elif '>' in cond or 'acima' in cond or 'maior' in cond:
-                    if v > limite: return True
-                elif 'igual' in cond or '==' in cond:
-                    if v == limite: return True
-        
+                if "<=" in cond or "≤" in cond or "máximo" in cond:
+                    if v <= limite:
+                        return True
+                elif "<" in cond or "abaixo" in cond or "menor" in cond:
+                    if v < limite:
+                        return True
+                elif ">=" in cond or "≥" in cond or "mínimo" in cond:
+                    if v >= limite:
+                        return True
+                elif ">" in cond or "acima" in cond or "maior" in cond:
+                    if v > limite:
+                        return True
+                elif "igual" in cond or "==" in cond:
+                    if v == limite:
+                        return True
+
         return False
 
     # Testa as regras na ordem (se atender, já retorna a cor)
-    if avalia_condicao(faixas.get('verde')): return '#2ca02c'
-    if avalia_condicao(faixas.get('amarelo')): return '#ff7f0e'
-    if avalia_condicao(faixas.get('vermelho')): return '#d62728'
-    
+    if avalia_condicao(faixas.get("verde")):
+        return "#2ca02c"
+    if avalia_condicao(faixas.get("amarelo")):
+        return "#ff7f0e"
+    if avalia_condicao(faixas.get("vermelho")):
+        return "#d62728"
+
     # Se não se enquadrar em nenhuma (ou for regra de texto puro), volta ao azul original
-    return 'rgba(31, 119, 180, 0.4)'
+    return "rgba(31, 119, 180, 0.4)"
+
 
 df = carregar_dados()
 
 if not df.empty:
-    df['tema'] = df['tema'].fillna('Geral')
-    df['subtema'] = df['subtema'].fillna('Geral')
+    df["tema"] = df["tema"].fillna("Geral")
+    df["subtema"] = df["subtema"].fillna("Geral")
 
 
 # ==========================================
@@ -1562,48 +1589,55 @@ fonte Rede Ver a Cidade Floripa, 2024-2025.
 Outubro de 2025
 """
 
+
 def buscar_contexto_relevante(pergunta, texto_completo, top_n=3):
     """
     Motor de busca leve (RAG). Compara palavras da pergunta com os parágrafos do texto.
     """
     import re
+
     # Divide o relatório gigante em parágrafos
-    paragrafos = [p.strip() for p in texto_completo.split('\n\n') if len(p.strip()) > 50]
-    
+    paragrafos = [
+        p.strip() for p in texto_completo.split("\n\n") if len(p.strip()) > 50
+    ]
+
     # Extrai palavras-chave da pergunta (ignora palavras curtas como 'de', 'o', 'na')
-    palavras_pergunta = set(re.findall(r'\b\w{4,}\b', pergunta.lower()))
-    
+    palavras_pergunta = set(re.findall(r"\b\w{4,}\b", pergunta.lower()))
+
     if not palavras_pergunta:
-        return "" # Se não houver palavras-chave, não envia contexto extra
-        
+        return ""  # Se não houver palavras-chave, não envia contexto extra
+
     # Pontua cada parágrafo com base na intersecção de palavras
     scores = []
     for p in paragrafos:
-        palavras_p = set(re.findall(r'\b\w{4,}\b', p.lower()))
+        palavras_p = set(re.findall(r"\b\w{4,}\b", p.lower()))
         score = len(palavras_pergunta.intersection(palavras_p))
         scores.append((score, p))
-        
+
     # Ordena os parágrafos pelos que tiveram mais "matches"
     melhores = sorted(scores, key=lambda x: x[0], reverse=True)
-    
+
     # Pega apenas os textos dos top_n parágrafos que tiveram pelo menos 1 match
     trechos_relevantes = [p for score, p in melhores[:top_n] if score > 0]
-    
+
     return "\n...\n".join(trechos_relevantes)
+
 
 # Função para iniciar a sessão do chat com o contexto do RAPI
 def inicializar_chatbot(df_completo):
     if "chat_session" not in st.session_state:
         # 1. Otimização Free Tier: Converter DF para CSV (Usa muito menos tokens que JSON)
         # Selecionamos apenas as colunas essenciais para a IA entender o contexto
-        colunas_ia = ['tema', 'indicador', '2023', '2024']
+        colunas_ia = ["tema", "indicador", "2023", "2024"]
         df_ia = df_completo.copy()
-        
-        for ano in ['2023', '2024']:
-            df_ia[ano] = df_ia['dados_anuais'].apply(lambda x: x.get(ano) if isinstance(x, dict) else "")
-            
-        csv_contexto = df_ia[colunas_ia].to_csv(index=False, sep=';')
-        
+
+        for ano in ["2023", "2024"]:
+            df_ia[ano] = df_ia["dados_anuais"].apply(
+                lambda x: x.get(ano) if isinstance(x, dict) else ""
+            )
+
+        csv_contexto = df_ia[colunas_ia].to_csv(index=False, sep=";")
+
         # 2. Configurar as Instruções do Sistema
         instrucoes = f"""Você é o Especialista Analítico do RAPI 2024-2025 de Florianópolis.
 REGRAS:
@@ -1617,21 +1651,23 @@ DADOS DOS INDICADORES (CSV):
         # 3. Inicializar Cliente do novo SDK google-genai
         try:
             # SALVAMOS O CLIENTE NO SESSION_STATE PARA ELE NÃO SER FECHADO
-            st.session_state.gemini_client = genai.Client(api_key=st.secrets["GEMINI_API_KEY"])
-            
+            st.session_state.gemini_client = genai.Client(
+                api_key=st.secrets["GEMINI_API_KEY"]
+            )
+
             config = types.GenerateContentConfig(
                 system_instruction=instrucoes,
-                temperature=0.2, 
+                temperature=0.2,
             )
-            
+
             # USAMOS O CLIENTE QUE ESTÁ SALVO NA SESSÃO
             st.session_state.chat_session = st.session_state.gemini_client.chats.create(
-                model="gemini-3.1-flash-lite-preview", 
-                config=config
+                model="gemini-3.1-flash-lite", config=config
             )
             st.session_state.chat_history = []
         except Exception as e:
             st.error(f"Erro ao conectar com o Gemini: {e}. Verifique sua chave API.")
+
 
 # Chama a função passando o seu DataFrame principal
 if not df.empty:
@@ -1640,22 +1676,33 @@ if not df.empty:
 # ==========================================
 # 3. SIDEBAR (FILTROS GLOBAIS)
 # ==========================================
-st.sidebar.image("https://floripasustentavel.com.br/novo/wp-content/uploads/2026/01/Design-sem-nome-13-1.png", width='stretch')
+st.sidebar.image(
+    "https://floripasustentavel.com.br/novo/wp-content/uploads/2026/01/Design-sem-nome-13-1.png",
+    width="stretch",
+)
 st.sidebar.markdown("---")
 
 
 if not df.empty:
     st.sidebar.title("🔍 Navegação do Dashboard")
-    tema_selecionado = st.sidebar.selectbox("1. Selecione o Tema", df['tema'].unique())
-    subtemas_disponiveis = df[df['tema'] == tema_selecionado]['subtema'].unique()
-    subtema_selecionado = st.sidebar.selectbox("2. Selecione o Subtema", subtemas_disponiveis)
-    indicadores_disponiveis = df[(df['tema'] == tema_selecionado) & (df['subtema'] == subtema_selecionado)]['indicador'].unique()
-    indicador_selecionado = st.sidebar.selectbox("3. Selecione o Indicador", indicadores_disponiveis)
+    tema_selecionado = st.sidebar.selectbox("1. Selecione o Tema", df["tema"].unique())
+    subtemas_disponiveis = df[df["tema"] == tema_selecionado]["subtema"].unique()
+    subtema_selecionado = st.sidebar.selectbox(
+        "2. Selecione o Subtema", subtemas_disponiveis
+    )
+    indicadores_disponiveis = df[
+        (df["tema"] == tema_selecionado) & (df["subtema"] == subtema_selecionado)
+    ]["indicador"].unique()
+    indicador_selecionado = st.sidebar.selectbox(
+        "3. Selecione o Indicador", indicadores_disponiveis
+    )
 
 st.sidebar.markdown("---")
-st.sidebar.info("**RAPI 2024-2025**\n\nRelatório Anual de Progresso dos Indicadores de Florianópolis.")
+st.sidebar.info(
+    "**RAPI 2024-2025**\n\nRelatório Anual de Progresso dos Indicadores de Florianópolis."
+)
 
-st.sidebar.markdown("<br>" * 5, unsafe_allow_html=True) 
+st.sidebar.markdown("<br>" * 5, unsafe_allow_html=True)
 st.sidebar.markdown("---")
 
 # Informações da Fonte
@@ -1684,39 +1731,63 @@ st.sidebar.markdown(creditos_html, unsafe_allow_html=True)
 # ==========================================
 # 4. ESTRUTURA DE ABAS PRINCIPAIS
 # ==========================================
-aba_apresentacao, aba_dash, aba_relatorio, aba_ia = st.tabs([
-    "📖 Apresentação", "📊 Dashboard Interativo", "📝 Relatório e Análises", "🤖 Assistente IA"
-])
+aba_apresentacao, aba_dash, aba_relatorio, aba_ia = st.tabs(
+    [
+        "📖 Apresentação",
+        "📊 Dashboard Interativo",
+        "📝 Relatório e Análises",
+        "🤖 Assistente IA",
+    ]
+)
 
 # ==========================================
 # ABA 0: APRESENTAÇÃO (PÁGINA INICIAL)
 # ==========================================
 with aba_apresentacao:
     st.title("Relatório Anual de Progresso dos Indicadores (RAPI) 2024-2025")
-    
+
     col_texto, col_grafico = st.columns([1.2, 1])
-    
+
     with col_texto:
-        st.markdown("<h3 style='color:#1f77b4;'>1. Apresentação</h3>", unsafe_allow_html=True)
-        st.markdown("""<div class='texto-relatorio'>
+        st.markdown(
+            "<h3 style='color:#1f77b4;'>1. Apresentação</h3>", unsafe_allow_html=True
+        )
+        st.markdown(
+            """<div class='texto-relatorio'>
         O 9º Relatório Anual de Progresso dos Indicadores de Florianópolis (RAPI) é o resultado da coleta e análise de indicadores de sustentabilidade ambiental, urbana e fiscal, bem como um conjunto de recomendações aos entes públicos. O documento dá visibilidade a um conjunto de <b>205 indicadores</b>, e se baseia na metodologia do Programa Cidades Emergentes e Sustentáveis (CES), do Banco Interamericano de Desenvolvimento (BID).
         <br><br>
         Esse trabalho coletivo envolve, desde 2017, diferentes organizações e tem como objetivo acompanhar, de forma técnica e imparcial, o desenvolvimento da cidade em questões que impactam a sua sustentabilidade e a qualidade de vida de seus cidadãos. O Grupo de Trabalho é composto pela <b>Associação FloripAmanhã, a Universidade Federal de Santa Catarina (UFSC) e o Observatório Social do Brasil – Florianópolis.</b>
-        </div>""", unsafe_allow_html=True)
-        
-        st.markdown("<h3 style='color:#1f77b4;'>2. Contexto</h3>", unsafe_allow_html=True)
-        st.markdown("""<div class='texto-relatorio'>
+        </div>""",
+            unsafe_allow_html=True,
+        )
+
+        st.markdown(
+            "<h3 style='color:#1f77b4;'>2. Contexto</h3>", unsafe_allow_html=True
+        )
+        st.markdown(
+            """<div class='texto-relatorio'>
         O RAPI apresenta-se como importante ferramenta para que o poder público, as entidades da sociedade civil e os cidadãos em geral avaliem as questões urbanas a partir do real conhecimento de dados confiáveis e atualizados. Além disso, à medida em que o cidadão se apropria de informações confiáveis sobre seu território, o debate político se torna mais rico, mais participativo e com melhores resultados para toda a população.
-        </div>""", unsafe_allow_html=True)
-        
-        st.markdown("<h3 style='color:#1f77b4;'>3. Objetivo</h3>", unsafe_allow_html=True)
-        st.markdown("""<div class='texto-relatorio'>
+        </div>""",
+            unsafe_allow_html=True,
+        )
+
+        st.markdown(
+            "<h3 style='color:#1f77b4;'>3. Objetivo</h3>", unsafe_allow_html=True
+        )
+        st.markdown(
+            """<div class='texto-relatorio'>
         Auxiliar o governo e a sociedade a estabelecerem e seguirem prioridades com metas claras e mensuráveis, para o desenvolvimento sustentável da cidade, e contribuir para a avaliação das políticas públicas urbanas, a partir de uma visão técnica, objetiva e metodologicamente embasada. Em nosso 9º exercício de monitoramento, trazemos a público um “raio-x” de temas como mobilidade, saneamento básico, saúde, educação, segurança e uso adequado do solo.
-        </div>""", unsafe_allow_html=True)
+        </div>""",
+            unsafe_allow_html=True,
+        )
 
     with col_grafico:
-        st.markdown("<h3 style='color:#1f77b4;'>5. Semaforização dos Indicadores</h3>", unsafe_allow_html=True)
-        st.markdown("""<div class='texto-relatorio'>
+        st.markdown(
+            "<h3 style='color:#1f77b4;'>5. Semaforização dos Indicadores</h3>",
+            unsafe_allow_html=True,
+        )
+        st.markdown(
+            """<div class='texto-relatorio'>
         Numa visão geral, os 205 indicadores de 2024-2025 foram classificados da seguinte forma:
         <ul>
             <li>🟢 <b>Verde (40)</b>: A cidade atingiu resultados satisfatórios.</li>
@@ -1725,73 +1796,97 @@ with aba_apresentacao:
             <li>⚪ <b>Cinza (36)</b>: Sem dados informados ou fora dos parâmetros.</li>
             <li>🔵 <b>Azul (69)</b>: Indicadores novos não semaforizados.</li>
         </ul>
-        </div>""", unsafe_allow_html=True)
-        
+        </div>""",
+            unsafe_allow_html=True,
+        )
+
         # Dados da Tabela 5.1 para gerar o Gráfico Interativo
         dados_semaforo = {
-            'Ano': ['2020', '2021', '2022', '2023', '2024'],
-            'Azul (Novos)': [62, 56, 72, 75, 69],
-            'Cinza (Sem Dados)': [39, 42, 17, 21, 36],
-            'Vermelho (Crítico)': [29, 28, 31, 29, 26],
-            'Amarelo (Atenção)': [17, 19, 23, 37, 34],
-            'Verde (Satisfatório)': [36, 38, 40, 40, 40]
+            "Ano": ["2020", "2021", "2022", "2023", "2024"],
+            "Azul (Novos)": [62, 56, 72, 75, 69],
+            "Cinza (Sem Dados)": [39, 42, 17, 21, 36],
+            "Vermelho (Crítico)": [29, 28, 31, 29, 26],
+            "Amarelo (Atenção)": [17, 19, 23, 37, 34],
+            "Verde (Satisfatório)": [36, 38, 40, 40, 40],
         }
         df_sem = pd.DataFrame(dados_semaforo)
-        
+
         fig_sem = go.Figure()
-        cores = {'Azul (Novos)': '#1f77b4', 'Cinza (Sem Dados)': '#7f7f7f', 
-                 'Vermelho (Crítico)': '#d62728', 'Amarelo (Atenção)': '#ff7f0e', 
-                 'Verde (Satisfatório)': '#2ca02c'}
-                 
+        cores = {
+            "Azul (Novos)": "#1f77b4",
+            "Cinza (Sem Dados)": "#7f7f7f",
+            "Vermelho (Crítico)": "#d62728",
+            "Amarelo (Atenção)": "#ff7f0e",
+            "Verde (Satisfatório)": "#2ca02c",
+        }
+
         for coluna in cores.keys():
-            fig_sem.add_trace(go.Bar(
-                x=df_sem['Ano'],
-                y=df_sem[coluna],
-                name=coluna,
-                marker_color=cores[coluna]
-            ))
-            
+            fig_sem.add_trace(
+                go.Bar(
+                    x=df_sem["Ano"],
+                    y=df_sem[coluna],
+                    name=coluna,
+                    marker_color=cores[coluna],
+                )
+            )
+
         fig_sem.update_layout(
-            barmode='stack',
-            title='Evolução Histórica da Semaforização',
-            xaxis_title='Ano de Avaliação',
-            yaxis_title='Qtd. de Indicadores',
-            template='plotly_white',
-            legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
+            barmode="stack",
+            title="Evolução Histórica da Semaforização",
+            xaxis_title="Ano de Avaliação",
+            yaxis_title="Qtd. de Indicadores",
+            template="plotly_white",
+            legend=dict(
+                orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1
+            ),
         )
-        st.plotly_chart(fig_sem, width='stretch')
+        st.plotly_chart(fig_sem, width="stretch")
 
     st.divider()
-    
+
     # Seção 4. Estrutura (em expansores para não ficar um bloco gigante de texto)
-    st.markdown("<h3 style='color:#1f77b4;'>4. Estrutura Analítica do RAPI 2024-2025</h3>", unsafe_allow_html=True)
-    st.markdown("O relatório é dividido em 3 Grandes Dimensões, subdivididas em 12 pilares e 25 temas.")
-    
+    st.markdown(
+        "<h3 style='color:#1f77b4;'>4. Estrutura Analítica do RAPI 2024-2025</h3>",
+        unsafe_allow_html=True,
+    )
+    st.markdown(
+        "O relatório é dividido em 3 Grandes Dimensões, subdivididas em 12 pilares e 25 temas."
+    )
+
     c1, c2, c3 = st.columns(3)
     with c1:
         with st.expander("🌱 Dimensão Ambiental (32 indicadores)"):
-            st.markdown("""
+            st.markdown(
+                """
             <b>Manejo Ambiental e Consumo (23):</b><br> Água (6), Saneamento/Drenagem (3), Resíduos Sólidos (8), Energia (6).<br><br>
             <b>Mitigação de Gases e Contaminação (4):</b><br> Qualidade do Ar (2), Mudanças Climáticas (1), Ruído (1).<br><br>
             <b>Vulnerabilidade e Desastres Naturais (5)</b>
-            """, unsafe_allow_html=True)
+            """,
+                unsafe_allow_html=True,
+            )
     with c2:
         with st.expander("🏙️ Dimensão Urbana (142 indicadores)"):
-            st.markdown("""
+            st.markdown(
+                """
             <b>Controle do Crescimento (18):</b><br> Uso do Solo (11), Desigualdade (7).<br><br>
             <b>Mobilidade e Transporte Sustentável (23)</b><br><br>
             <b>Desenvolvimento Econômico (12):</b><br> Ambiente de Negócios (1), Tecido Produtivo (8), Mercado Laboral (3).<br><br>
             <b>Serviços Sociais (72):</b><br> Educação (19), Segurança (10), Saúde (43).<br><br>
             <b>Competitividade (17):</b><br> Capital Humano (2), Tecido Empresarial (15).
-            """, unsafe_allow_html=True)
+            """,
+                unsafe_allow_html=True,
+            )
     with c3:
         with st.expander("⚖️ Dimensão Fiscal (31 indicadores)"):
-            st.markdown("""
+            st.markdown(
+                """
             <b>Mecanismos de Governo (11):</b><br> Gestão Participativa (1), Gestão Moderna (9), Transparência (1).<br><br>
             <b>Gestão Adequada da Receita (11):</b><br> Impostos e Autonomia (11).<br><br>
             <b>Gestão Adequada da Despesa (5)</b><br><br>
             <b>Gestão Adequada da Dívida (4)</b>
-            """, unsafe_allow_html=True)
+            """,
+                unsafe_allow_html=True,
+            )
 
 
 # ==========================================
@@ -1799,22 +1894,28 @@ with aba_apresentacao:
 # ==========================================
 with aba_dash:
     if not df.empty:
-        dados_ind = df[df['indicador'] == indicador_selecionado].iloc[0]
-        dados_anuais = dados_ind.get('dados_anuais', {})
-        anos = ['2019', '2020', '2021', '2022', '2023', '2024']
+        dados_ind = df[df["indicador"] == indicador_selecionado].iloc[0]
+        dados_anuais = dados_ind.get("dados_anuais", {})
+        anos = ["2019", "2020", "2021", "2022", "2023", "2024"]
 
-        df_hist = pd.DataFrame({
-            'Ano': anos,
-            'Valor_Original': [dados_anuais.get(ano) for ano in anos]
-        })
-        df_hist['Valor_Numerico'] = df_hist['Valor_Original'].apply(extrair_numero)
+        df_hist = pd.DataFrame(
+            {"Ano": anos, "Valor_Original": [dados_anuais.get(ano) for ano in anos]}
+        )
+        df_hist["Valor_Numerico"] = df_hist["Valor_Original"].apply(extrair_numero)
 
-        valor_2024_orig = df_hist.loc[df_hist['Ano'] == '2024', 'Valor_Original'].values[0]
-        valor_2023_orig = df_hist.loc[df_hist['Ano'] == '2023', 'Valor_Original'].values[0]
-        num_2024 = df_hist.loc[df_hist['Ano'] == '2024', 'Valor_Numerico'].values[0]
-        num_2023 = df_hist.loc[df_hist['Ano'] == '2023', 'Valor_Numerico'].values[0]
+        valor_2024_orig = df_hist.loc[
+            df_hist["Ano"] == "2024", "Valor_Original"
+        ].values[0]
+        valor_2023_orig = df_hist.loc[
+            df_hist["Ano"] == "2023", "Valor_Original"
+        ].values[0]
+        num_2024 = df_hist.loc[df_hist["Ano"] == "2024", "Valor_Numerico"].values[0]
+        num_2023 = df_hist.loc[df_hist["Ano"] == "2023", "Valor_Numerico"].values[0]
 
-        st.markdown(f"<h2 class='titulo-indicador'>{indicador_selecionado}</h2>", unsafe_allow_html=True)
+        st.markdown(
+            f"<h2 class='titulo-indicador'>{indicador_selecionado}</h2>",
+            unsafe_allow_html=True,
+        )
 
         col_head1, col_head2 = st.columns(2)
         with col_head1:
@@ -1830,7 +1931,10 @@ with aba_dash:
         col1, col2, col3 = st.columns(3)
         with col1:
             st.markdown("<div class='metric-card'>", unsafe_allow_html=True)
-            st.metric(label="Resultado (2023)", value=valor_2023_orig if pd.notna(valor_2023_orig) else "ND")
+            st.metric(
+                label="Resultado (2023)",
+                value=valor_2023_orig if pd.notna(valor_2023_orig) else "ND",
+            )
             st.markdown("</div>", unsafe_allow_html=True)
         with col2:
             st.markdown("<div class='metric-card'>", unsafe_allow_html=True)
@@ -1838,14 +1942,18 @@ with aba_dash:
             if pd.notna(num_2024) and pd.notna(num_2023) and num_2023 != 0:
                 variacao = ((num_2024 - num_2023) / abs(num_2023)) * 100
                 delta_str = f"{variacao:.1f}% vs 2023"
-            st.metric(label="Resultado Atual (2024)", value=valor_2024_orig if pd.notna(valor_2024_orig) else "ND", delta=delta_str)
+            st.metric(
+                label="Resultado Atual (2024)",
+                value=valor_2024_orig if pd.notna(valor_2024_orig) else "ND",
+                delta=delta_str,
+            )
             st.markdown("</div>", unsafe_allow_html=True)
         with col3:
             st.markdown("<div class='metric-card'>", unsafe_allow_html=True)
-            faixas = dados_ind.get('faixas_semaforizacao', {})
-            if faixas and 'verde' in faixas:
+            faixas = dados_ind.get("faixas_semaforizacao", {})
+            if faixas and "verde" in faixas:
                 st.markdown("**Referência Ideal (Verde):**")
-                st.success(faixas['verde'])
+                st.success(faixas["verde"])
             else:
                 st.markdown("**Referência:**")
                 st.info("Sem valor de referência ou métrica qualitativa.")
@@ -1854,40 +1962,61 @@ with aba_dash:
         st.write("")
 
         # Abas internas do Dashboard
-        aba_grafico, aba_regras, aba_tabela = st.tabs(["📈 Evolução Histórica", "🚦 Regras de Semaforização", "🗄️ Dados Brutos do Indicador"])
+        aba_grafico, aba_regras, aba_tabela = st.tabs(
+            [
+                "📈 Evolução Histórica",
+                "🚦 Regras de Semaforização",
+                "🗄️ Dados Brutos do Indicador",
+            ]
+        )
 
         with aba_grafico:
             df_plot = df_hist.copy()
-            if not df_plot.dropna(subset=['Valor_Numerico']).empty:
+            if not df_plot.dropna(subset=["Valor_Numerico"]).empty:
                 # Criar lista de cores para cada barra
-                lista_cores = [avaliar_cor_semaforo(row['Valor_Numerico'], faixas) for _, row in df_plot.iterrows()]
-                
+                lista_cores = [
+                    avaliar_cor_semaforo(row["Valor_Numerico"], faixas)
+                    for _, row in df_plot.iterrows()
+                ]
+
                 fig = go.Figure()
-                
+
                 # Barras com cores dinâmicas (mantido)
-                fig.add_trace(go.Bar(
-                    x=df_plot['Ano'], 
-                    y=df_plot['Valor_Numerico'],
-                    marker_color=lista_cores,
-                    name='Valor'
-                ))
-                
+                fig.add_trace(
+                    go.Bar(
+                        x=df_plot["Ano"],
+                        y=df_plot["Valor_Numerico"],
+                        marker_color=lista_cores,
+                        name="Valor",
+                    )
+                )
+
                 # ATUALIZAÇÃO DA LINHA DE TENDÊNCIA:
                 # Dentro de fig.add_trace(go.Scatter(...))
-                fig.add_trace(go.Scatter(
-                    x=df_plot['Ano'], 
-                    y=df_plot['Valor_Numerico'],
-                    mode='lines+markers+text',
-                    text=df_plot['Valor_Numerico'].apply(
-                        lambda x: f"{x:,.2f}".replace(',', 'v').replace('.', ',').replace('v', '.') if pd.notna(x) else ""
-                    ),
-                    textposition='top center',
-                    # REMOVA a cor fixa aqui ou defina como None
-                    textfont=dict(size=11), 
-                    line=dict(color='#888', width=2, dash='dot'), # Use um cinza médio para a linha
-                    name='Tendência'
-                ))
-                
+                fig.add_trace(
+                    go.Scatter(
+                        x=df_plot["Ano"],
+                        y=df_plot["Valor_Numerico"],
+                        mode="lines+markers+text",
+                        text=df_plot["Valor_Numerico"].apply(
+                            lambda x: (
+                                f"{x:,.2f}".replace(",", "v")
+                                .replace(".", ",")
+                                .replace("v", ".")
+                                if pd.notna(x)
+                                else ""
+                            )
+                        ),
+                        textposition="top center",
+                        # REMOVA a cor fixa aqui ou defina como None
+                        textfont=dict(size=11),
+                        line=dict(
+                            color="#888", width=2, dash="dot"
+                        ),  # Use um cinza médio para a linha
+                        name="Tendência",
+                    )
+                )
+
                 fig.update_layout(
                     title="Evolução Histórica com Rótulos Adaptáveis",
                     # template="plotly_white",  <-- REMOVA ESTA LINHA
@@ -1896,86 +2025,116 @@ with aba_dash:
                     margin=dict(t=50),
                     # Isso garante que os títulos dos eixos usem a cor padrão do tema
                     xaxis=dict(showgrid=False),
-                    yaxis=dict(showgrid=True, gridcolor='rgba(128,128,128,0.2)') 
+                    yaxis=dict(showgrid=True, gridcolor="rgba(128,128,128,0.2)"),
                 )
-                st.plotly_chart(fig, width='stretch', theme="streamlit")
+                st.plotly_chart(fig, width="stretch", theme="streamlit")
             else:
-                st.warning("⚠️ Não foi possível gerar o gráfico de tendência. Valores em formato de texto ou ND.")
+                st.warning(
+                    "⚠️ Não foi possível gerar o gráfico de tendência. Valores em formato de texto ou ND."
+                )
 
         with aba_regras:
             if faixas:
                 cs1, cs2, cs3 = st.columns(3)
-                with cs1: st.success(f"🟢 **Verde:** \n\n{faixas.get('verde', 'N/A')}")
-                with cs2: st.warning(f"🟡 **Amarelo:** \n\n{faixas.get('amarelo', 'N/A')}")
-                with cs3: st.error(f"🔴 **Vermelho:** \n\n{faixas.get('vermelho', 'N/A')}")
+                with cs1:
+                    st.success(f"🟢 **Verde:** \n\n{faixas.get('verde', 'N/A')}")
+                with cs2:
+                    st.warning(f"🟡 **Amarelo:** \n\n{faixas.get('amarelo', 'N/A')}")
+                with cs3:
+                    st.error(f"🔴 **Vermelho:** \n\n{faixas.get('vermelho', 'N/A')}")
             else:
-                st.write("Nenhuma regra de semaforização cadastrada para este indicador.")
+                st.write(
+                    "Nenhuma regra de semaforização cadastrada para este indicador."
+                )
 
         with aba_tabela:
-            st.dataframe(df_hist, width='stretch', hide_index=True)
+            st.dataframe(df_hist, width="stretch", hide_index=True)
 
         st.divider()
     st.markdown("## 📚 Explorador Geral do Relatório RAPI")
-    st.markdown("Abaixo pode explorar, filtrar e descarregar a base de dados completa (incluindo valores originais e numéricos extraídos).")
+    st.markdown(
+        "Abaixo pode explorar, filtrar e descarregar a base de dados completa (incluindo valores originais e numéricos extraídos)."
+    )
 
     with st.expander("Clique aqui para abrir a tabela de dados completa"):
         # Criamos uma cópia para não afetar o DataFrame principal do dashboard
         df_tabela = df.copy()
-        
+
         # Expandir as colunas anuais: Original e Numérica
         for ano in anos:
             # 1. Extrai o texto original do dicionário 'dados_anuais'
-            df_tabela[f"{ano} (Original)"] = df_tabela['dados_anuais'].apply(lambda x: x.get(ano) if isinstance(x, dict) else None)
-            
+            df_tabela[f"{ano} (Original)"] = df_tabela["dados_anuais"].apply(
+                lambda x: x.get(ano) if isinstance(x, dict) else None
+            )
+
             # 2. Aplica a função de extração para criar a versão numérica
-            df_tabela[f"{ano} (Numérico)"] = df_tabela[f"{ano} (Original)"].apply(extrair_numero)
-        
+            df_tabela[f"{ano} (Numérico)"] = df_tabela[f"{ano} (Original)"].apply(
+                extrair_numero
+            )
+
         # Expandir as faixas de semaforização para colunas legíveis
-        df_tabela['Faixa_Verde'] = df_tabela['faixas_semaforizacao'].apply(lambda x: x.get('verde') if isinstance(x, dict) else None)
-        df_tabela['Faixa_Amarela'] = df_tabela['faixas_semaforizacao'].apply(lambda x: x.get('amarelo') if isinstance(x, dict) else None)
-        df_tabela['Faixa_Vermelha'] = df_tabela['faixas_semaforizacao'].apply(lambda x: x.get('vermelho') if isinstance(x, dict) else None)
-        
+        df_tabela["Faixa_Verde"] = df_tabela["faixas_semaforizacao"].apply(
+            lambda x: x.get("verde") if isinstance(x, dict) else None
+        )
+        df_tabela["Faixa_Amarela"] = df_tabela["faixas_semaforizacao"].apply(
+            lambda x: x.get("amarelo") if isinstance(x, dict) else None
+        )
+        df_tabela["Faixa_Vermelha"] = df_tabela["faixas_semaforizacao"].apply(
+            lambda x: x.get("vermelho") if isinstance(x, dict) else None
+        )
+
         # Removemos as colunas de dicionários originais (complexas) para limpar a visualização
-        df_tabela = df_tabela.drop(columns=['dados_anuais', 'faixas_semaforizacao'], errors='ignore')
-        
+        df_tabela = df_tabela.drop(
+            columns=["dados_anuais", "faixas_semaforizacao"], errors="ignore"
+        )
+
         # Organização das colunas para uma leitura lógica:
         # Identificação -> Dados 2024 -> Dados 2023 ... -> Regras
-        cols_base = ['tema', 'subtema', 'orgao_responsavel', 'indicador']
+        cols_base = ["tema", "subtema", "orgao_responsavel", "indicador"]
         cols_anos = []
         # Criar lista intercalada: 2024 (Original), 2024 (Numérico), 2023 (Original)...
-        for ano in reversed(anos): # Começa pelo mais recente (2024)
+        for ano in reversed(anos):  # Começa pelo mais recente (2024)
             cols_anos.extend([f"{ano} (Original)", f"{ano} (Numérico)"])
-            
-        cols_regras = ['Faixa_Verde', 'Faixa_Amarela', 'Faixa_Vermelha']
-        
+
+        cols_regras = ["Faixa_Verde", "Faixa_Amarela", "Faixa_Vermelha"]
+
         # Reordenar o DataFrame final
         df_final = df_tabela[cols_base + cols_anos + cols_regras]
-        
+
         # Exibição com ferramenta de busca e download nativa do Streamlit
         st.dataframe(
-            df_final, 
-            width='stretch', 
+            df_final,
+            width="stretch",
             height=600,
             column_config={
                 # Opcional: formata colunas numéricas para não mostrar vírgulas em IDs
                 "id_floripa": st.column_config.NumberColumn(format="%d")
-            }
+            },
         )
-        
-        st.caption("💡 Dica: Pode clicar nos cabeçalhos das colunas para ordenar e usar o botão de download (canto superior direito da tabela) para exportar para CSV.")
+
+        st.caption(
+            "💡 Dica: Pode clicar nos cabeçalhos das colunas para ordenar e usar o botão de download (canto superior direito da tabela) para exportar para CSV."
+        )
 
 # ==========================================
 # ABA 2: RELATÓRIO E ANÁLISES
 # ==========================================
 with aba_relatorio:
-    st.markdown("<h2 style='color:#1f77b4;'>7. Considerações e Recomendações</h2>", unsafe_allow_html=True)
-    st.markdown("""<div class='texto-relatorio'>
+    st.markdown(
+        "<h2 style='color:#1f77b4;'>7. Considerações e Recomendações</h2>",
+        unsafe_allow_html=True,
+    )
+    st.markdown(
+        """<div class='texto-relatorio'>
     Tomando por base os valores levantados em 2025 e sua série histórica para cada indicador, seguem abaixo as considerações e recomendações referentes aos itens que mais necessitam de atenção e providências. Deixamos de registrar comentários sobre a maioria dos aspectos em “verde” por já terem alcançado níveis satisfatórios.
-    </div>""", unsafe_allow_html=True)
+    </div>""",
+        unsafe_allow_html=True,
+    )
     st.write("")
 
     with st.expander("🌍 7.1 Dimensão Ambiental", expanded=False):
-        st.markdown("""<div class='texto-relatorio'>
+        st.markdown(
+            """<div class='texto-relatorio'>
         <b>7.1.1. Tema: Água - 06 indicadores</b><br>
         a) O indicador Consumo de Água Per Capita por Dia é essencial para avaliar o uso sustentável dos recursos hídricos. Nos últimos cinco anos, Florianópolis apresentou uma média de 173,1 litros/pessoa/dia. Pela semaforização atualmente aplicada, o município se encontra em condição verde. No entanto, quando comparado ao referencial internacional estabelecido pela ONU, de 110 litros/dia/pessoa, observa-se que o consumo em Florianópolis permanece consistentemente acima do recomendado.<br><br>
         b) O indicador de Qualidade da Água apresentou em 2024 o valor de 96,8%, uma ligeira redução em relação a 2023. Esse resultado enquadra-se na faixa amarela. Além disso, persiste uma lacuna significativa: a ausência de regulamentação para contaminantes por metais pesados e agrotóxicos.<br><br>
@@ -2002,10 +2161,13 @@ with aba_relatorio:
 
         <b>7.1.8 Tema: Vulnerabilidade Frente aos Desastres Naturais – 05 indicadores</b><br>
         O orçamento destinado à mitigação de riscos de desastres naturais apresentou uma queda preocupante (apenas 0,07%). Além disso, o número de unidades em áreas de risco subiu para 2.100, uma expansão descontrolada que exige fiscalização urgente.
-        </div>""", unsafe_allow_html=True)
+        </div>""",
+            unsafe_allow_html=True,
+        )
 
     with st.expander("🏙️ 7.2 Dimensão Urbana", expanded=False):
-        st.markdown("""<div class='texto-relatorio'>
+        st.markdown(
+            """<div class='texto-relatorio'>
         <b>7.2.1 Tema: Uso do Solo e Ordenamento Territorial</b><br>
         O crescimento da malha viária foi de 1,41% em 2024, mantendo o percentual na faixa verde. No entanto, a população alcançou aproximadamente 576 mil habitantes (aumento anual de 1,9%), o que coloca o crescimento demográfico na faixa vermelha. A densidade populacional também sofre aumento contínuo, demandando planejamento ordenado.<br><br>
         O déficit habitacional quantitativo pintou um quadro alarmante (21.705 famílias, ou 52% do CadÚnico, segundo últimos dados de 2022/2023). Outro dado crítico é a proteção das Unidades de Conservação: apenas 20% das UCs municipais tinham seu plano de manejo em 2024, um retrocesso drástico em relação aos 41,6% de 2022.<br><br>
@@ -2030,10 +2192,13 @@ with aba_relatorio:
 
         <b>7.2.11 Tema: Tecido Empresarial</b><br>
         O número de empresas ativas saltou para 24.779 em 2024. As exportações cresceram para US$ 65,23 milhões, e o faturamento do setor de tecnologia aumentou 28,39%.
-        </div>""", unsafe_allow_html=True)
+        </div>""",
+            unsafe_allow_html=True,
+        )
 
     with st.expander("⚖️ 7.3 Dimensão Fiscal e Governança", expanded=False):
-        st.markdown("""<div class='texto-relatorio'>
+        st.markdown(
+            """<div class='texto-relatorio'>
         <b>7.3.2 Tema: Gestão Pública Moderna</b><br>
         Florianópolis alcançou 88% de processos digitais concluídos. O Índice de Transparência manteve-se em 98% (faixa verde). Nas compras públicas, o pregão eletrônico dominou (53,62%), mas o alerta vai para o crescimento expressivo das compras por contratação direta, que subiram de 2,27% em 2020 para 20,55% em 2024.<br><br>
 
@@ -2042,11 +2207,17 @@ with aba_relatorio:
 
         <b>7.3.5 Tema: Gestão do Gasto Público e Dívida</b><br>
         Os gastos correntes representaram 86,21% dos gastos totais. Quase não existe sobra de recursos para investimentos em obras, o que fomenta o endividamento. O gasto com pessoal ficou em 48,46% da receita corrente líquida, um valor elevado, limitando a capacidade de investimento da prefeitura.
-        </div>""", unsafe_allow_html=True)
+        </div>""",
+            unsafe_allow_html=True,
+        )
 
     st.write("")
-    st.markdown("<h2 style='color:#1f77b4;'>8. Considerações Finais</h2>", unsafe_allow_html=True)
-    st.markdown("""<div class='texto-relatorio'>
+    st.markdown(
+        "<h2 style='color:#1f77b4;'>8. Considerações Finais</h2>",
+        unsafe_allow_html=True,
+    )
+    st.markdown(
+        """<div class='texto-relatorio'>
     Nesta 9ª edição do Relatório dos Indicadores de Sustentabilidade de Florianópolis (RAPI), o panorama geral reflete uma cidade de contrastes, com avanços notáveis em alguns setores, mas com desafios persistentes em áreas-chave para a sua sustentabilidade. 
     <br><br>
     A cidade consolida-se como líder em governo digital e excelência em transparência. No Meio Ambiente, o cenário é misto: crescimento planejado da malha urbana contrasta com o consumo de água acima das recomendações, perdas críticas por vazamentos, e ausência de saneamento básico abrangente (que ainda está muito abaixo do necessário). 
@@ -2054,12 +2225,18 @@ with aba_relatorio:
     Do ponto de vista econômico, a cidade demonstra resiliência, liderança em PIB per capita e pujança no tecido empresarial. No aspecto fiscal, o relatório aponta grandes preocupações. Há quase nenhuma sobra de recursos para investimentos em obras estruturantes, resultando em crescente endividamento.
     <br><br>
     O desafio para o futuro é grande, mas as informações do relatório fornecem o caminho para que Florianópolis se torne uma sociedade verdadeiramente inclusiva, sustentável e equitativa.
-    </div>""", unsafe_allow_html=True)
-    
+    </div>""",
+        unsafe_allow_html=True,
+    )
+
     st.divider()
 
-    st.markdown("<h2 style='color:#1f77b4;'>9. Agradecimentos e Créditos</h2>", unsafe_allow_html=True)
-    st.markdown("""<div class='texto-relatorio'>
+    st.markdown(
+        "<h2 style='color:#1f77b4;'>9. Agradecimentos e Créditos</h2>",
+        unsafe_allow_html=True,
+    )
+    st.markdown(
+        """<div class='texto-relatorio'>
     Agradecemos ao Prefeito de Florianópolis, Topázio Neto, seus secretários municipais, gestores e servidores da administração pública, bem como secretarias estaduais, empresas públicas e autarquias por seus esforços e contribuições no fornecimento dos dados solicitados.
     <br><br>
     <b>Grupo de Trabalho de Indicadores (RAPI 2024-2025):</b><br>
@@ -2069,34 +2246,43 @@ with aba_relatorio:
         <li><b>Universidade Federal de Santa Catarina (UFSC):</b> Clarissa Stefani Teixeira, Hans Michael Van Bellen</li>
     </ul>
     <i>É permitida a reprodução parcial ou total deste material desde que citada a fonte Rede Ver a Cidade Floripa, 2024-2025. Outubro de 2025.</i>
-    </div>""", unsafe_allow_html=True)
+    </div>""",
+        unsafe_allow_html=True,
+    )
 
 # ==========================================
 # ABA 4: ASSISTENTE DE INTELIGÊNCIA ARTIFICIAL
 # ==========================================
 with aba_ia:
-    st.markdown("<h2 style='color:#1f77b4;'>🤖 Consultor RAPI com IA Gemini</h2>", unsafe_allow_html=True)
-    st.markdown("Pergunte qualquer coisa sobre os dados, cruzamentos de indicadores ou resumos do relatório. (Modelo utilizado Gemini 2.5 Flash Lite, sempre confira as respostas com o relatório, a IA pode prover informações imprecisas)")
-    
+    st.markdown(
+        "<h2 style='color:#1f77b4;'>🤖 Consultor RAPI com IA Gemini</h2>",
+        unsafe_allow_html=True,
+    )
+    st.markdown(
+        "Pergunte qualquer coisa sobre os dados, cruzamentos de indicadores ou resumos do relatório. (Modelo utilizado Gemini 3.1 Flash Lite, sempre confira as respostas com o relatório, a IA pode prover informações imprecisas)"
+    )
+
     if "chat_session" in st.session_state:
         # 1. Exibir o histórico de mensagens na tela
         for msg in st.session_state.chat_history:
             with st.chat_message(msg["role"]):
                 st.markdown(msg["content"])
-        
+
         # 2. Capturar entrada do usuário
-        prompt = st.chat_input("Ex: Qual o valor do consumo de água em 2024 e o que o relatório recomenda?")
-        
+        prompt = st.chat_input(
+            "Ex: Qual o valor do consumo de água em 2024 e o que o relatório recomenda?"
+        )
+
         if prompt:
             # Mostra na tela SÓ a pergunta limpa para o usuário
             with st.chat_message("user"):
                 st.markdown(prompt)
             st.session_state.chat_history.append({"role": "user", "content": prompt})
-            
+
             # --- (RAG) ---
             # Busca no texto gigante apenas os parágrafos que cruzam com a pergunta
             trecho_encontrado = buscar_contexto_relevante(prompt, TEXTO_RAPI_COMPLETO)
-            
+
             # Monta o "Prompt Enriquecido" que vai escondido para a IA
             if trecho_encontrado:
                 prompt_ia = f"Pergunta: {prompt}\n\n[TRECHOS DO RELATÓRIO PARA TE AJUDAR NA RESPOSTA]:\n{trecho_encontrado}"
@@ -2110,10 +2296,14 @@ with aba_ia:
                         # Envia o prompt turbinado para a IA
                         resposta = st.session_state.chat_session.send_message(prompt_ia)
                         st.markdown(resposta.text)
-                        
+
                         # Salva no histórico a resposta
-                        st.session_state.chat_history.append({"role": "assistant", "content": resposta.text})
+                        st.session_state.chat_history.append(
+                            {"role": "assistant", "content": resposta.text}
+                        )
                     except Exception as e:
                         st.error(f"Ops! Tivemos um problema. Detalhe técnico: {e}")
     else:
-        st.warning("⚠️ Assistente indisponível. Verifique a configuração da chave API do Google Gemini.")
+        st.warning(
+            "⚠️ Assistente indisponível. Verifique a configuração da chave API do Google Gemini."
+        )
