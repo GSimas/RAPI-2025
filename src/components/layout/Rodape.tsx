@@ -8,7 +8,7 @@
  */
 
 import type { JSX } from 'react';
-import { LINK_LINKEDIN, LINK_RELATORIO } from '@/content/links';
+import { LINK_GUSTAVO_SIMAS, LINK_RELATORIO, LINK_SCIENTATA } from '@/content/links';
 
 /**
  * Rodapé com fonte dos dados, autoria e aviso de licença.
@@ -39,16 +39,26 @@ export function Rodape(): JSX.Element {
           <div>
             <p className="rotulo-campo">Desenvolvimento</p>
             <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-400">
-              Orgulhosamente desenvolvida por{' '}
+              Desenvolvido por{' '}
               <a
-                href={LINK_LINKEDIN}
+                href={LINK_SCIENTATA}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-medium text-rapi-600 underline decoration-rapi-300 underline-offset-2 hover:text-rapi-700 dark:text-rapi-400 dark:hover:text-rapi-300"
               >
-                Gustavo Simas da Silva
+                Scientata
               </a>
-              .
+              <span aria-hidden="true" className="mx-1.5 text-slate-300 dark:text-slate-600">
+                |
+              </span>
+              <a
+                href={LINK_GUSTAVO_SIMAS}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-rapi-600 underline decoration-rapi-300 underline-offset-2 hover:text-rapi-700 dark:text-rapi-400 dark:hover:text-rapi-300"
+              >
+                Gustavo Simas
+              </a>
             </p>
           </div>
         </div>
