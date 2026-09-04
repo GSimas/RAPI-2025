@@ -1,0 +1,51 @@
+# ==========================================================
+# Netlify - Dashboard RAPI 2024-2025 (Vite + React + TS)
+# ==========================================================
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+  functions = "netlify/functions"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Bundler moderno para as functions em TypeScript.
+[functions]
+  node_bundler = "esbuild"
+
+[functions."chat"]
+  # A chamada ao Gemini pode levar alguns segundos.
+  included_files = ["dados_rapi_completo.json"]
+
+# ----------------------------------------------------------
+# Redirecionamentos
+# ----------------------------------------------------------
+
+# Rota amigavel para a funcao serverless do assistente.
+[[redirects]]
+  from = "/api/chat"
+  to = "/.netlify/functions/chat"
+  status = 200
+  force = true
+
+# Fallback de SPA: qualquer rota nao encontrada devolve o index.html.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# ----------------------------------------------------------
+# Cabecalhos
+# ----------------------------------------------------------
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+    Referrer-Policy = "strict-origin-when-cross-origin"

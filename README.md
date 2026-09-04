@@ -1,62 +1,204 @@
-# 📊 Dashboard RAPI Florianópolis 2024-2025
+# Dashboard RAPI 2024-2025 · Florianópolis
 
-![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
-![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![Plotly](https://img.shields.io/badge/Plotly-239120?style=for-the-badge&logo=plotly&logoColor=white)
-![Gemini](https://img.shields.io/badge/Gemini_3.1_Flash_Lite-8E75B2?style=for-the-badge&logo=googlebard&logoColor=white)
+Aplicação web (SPA) que dá visibilidade aos **205 indicadores** do Relatório Anual de
+Progresso dos Indicadores (RAPI) de Florianópolis — 9ª edição, baseada na metodologia do
+Programa Cidades Emergentes e Sustentáveis (CES) do BID.
 
-Uma aplicação web interativa e inteligente desenvolvida para visualizar, analisar e interagir com o **9º Relatório Anual de Progresso dos Indicadores de Florianópolis (RAPI)**. O relatório monitora o desenvolvimento sustentável da cidade através de 205 indicadores ambientais, urbanos e fiscais, com base na metodologia do Programa Cidades Emergentes e Sustentáveis (CES) do BID.
+Construída com **Vite + React + TypeScript + Tailwind CSS**, com backend serverless em
+**Netlify Functions**.
 
-## ✨ Principais Funcionalidades
+> Migração da versão anterior em Python/Streamlit (`app.py`), preservando integralmente as
+> regras de negócio: extração numérica, semaforização dinâmica e o assistente com IA.
 
-- 📈 **Exploração Gráfica Interativa:** Gráficos Plotly dinâmicos que exibem a evolução histórica dos indicadores com rótulos adaptáveis e formatação numérica no padrão brasileiro.
-- 🚦 **Semaforização Automatizada:** Lógica avançada em Python para interpretar regras de texto complexas (ex: `> 90 ou 120-200`) e colorir automaticamente as barras dos gráficos em Verde (Satisfatório), Amarelo (Atenção) ou Vermelho (Crítico).
-- 🤖 **Consultor IA Integrado (Gemini 3.1 Flash-Lite):** Um chatbot nativo na aplicação capaz de cruzar dados e responder perguntas sobre o relatório.
-  - *Arquitetura RAG (Retrieval-Augmented Generation):* Motor de busca leve embutido que fatia o texto completo do relatório e envia apenas o contexto relevante para a API, garantindo altíssima precisão, respostas rápidas e otimização extrema do consumo de tokens (Free Tier friendly).
-- 🧹 **Tratamento de Dados Complexos (ETL):** Expressões regulares (RegEx) personalizadas para converter textos não-estruturados e memórias de cálculo (ex: `0,1631 m3 = 163,1 l/hab`) em dados numéricos limpos.
-- 🌓 **Design Responsivo Light/Dark:** Interface 100% responsiva que se adapta automaticamente às preferências de tema do usuário no sistema operacional.
-- 📥 **Exportação de Dados:** Tabela exploratória completa permitindo o download em CSV para auditorias e análises externas.
+---
 
-## 🛠️ Tecnologias Utilizadas
+## Stack
 
-- **Linguagem:** Python 3.10+
-- **Frontend/Framework:** Streamlit
-- **Visualização de Dados:** Plotly Express & Plotly Graph Objects
-- **Manipulação de Dados:** Pandas
-- **Inteligência Artificial:** SDK `google-genai` (Modelo: `gemini-3.1-flash-lite-preview`)
+| Camada       | Tecnologia                                              |
+| ------------ | ------------------------------------------------------- |
+| Build        | Vite 7                                                  |
+| UI           | React 19 + TypeScript 5.9 (modo estrito)                |
+| Estilos      | Tailwind CSS v4 (configuração CSS-first), tema claro/escuro |
+| Gráficos     | Recharts 3                                              |
+| Backend      | Netlify Functions (TypeScript)                          |
+| IA           | `@google/genai` — Gemini 3.1 Flash Lite (preview)       |
 
-## 🚀 Como Executar O Projeto Localmente
+---
 
-### 1. Clone o repositório
+## Estrutura do projeto
+
+```
+.
+├── dados_rapi_completo.json        # Base dos 206 registros (fonte única)
+├── index.html                      # Entrada da SPA (+ script anti-flash de tema)
+├── netlify.toml                    # Build, functions e redirects
+├── .env.example                    # Variáveis de ambiente documentadas
+│
+├── netlify/functions/
+│   ├── chat.ts                     # POST /api/chat — assistente Gemini
+│   └── _lib/
+│       ├── corpus.ts               # Texto integral do relatório (base do RAG)
+│       ├── rag.ts                  # Busca por relevância de palavras-chave
+│       └── indicadoresCsv.ts       # CSV enxuto dos indicadores (economia de tokens)
+│
+└── src/
+    ├── types/rapi.ts               # IndicadorRAPI, FaixasSemaforizacao, DadosAnuais…
+    ├── lib/
+    │   ├── numeroParser.ts         # Porte de `extrair_numero`
+    │   ├── semaforo.ts             # Porte de `avaliar_cor_semaforo`
+    │   ├── taxonomia.ts            # 3 dimensões → 12 pilares → 25 temas
+    │   ├── dataset.ts              # Carga, normalização e filtros
+    │   ├── serie.ts                # Série histórica de um indicador
+    │   ├── format.ts               # Formatação pt-BR
+    │   ├── paletaGrafico.ts        # Cores dos gráficos por tema
+    │   ├── csv.ts                  # Exportação CSV no cliente
+    │   └── chatApi.ts              # Cliente de `/api/chat`
+    ├── hooks/                      # useTheme, useFiltros
+    ├── content/                    # Texto editorial das seções do relatório
+    └── components/
+        ├── layout/                 # Abas, Sidebar, Rodapé, SeletorTema, Créditos
+        ├── apresentacao/           # Aba 1
+        ├── dashboard/              # Aba 2
+        ├── relatorio/              # Aba 3
+        ├── explorador/             # Aba 4
+        ├── chat/                   # Aba 5
+        └── ui/                     # Select, CartaoExpansivel, TextoRico
+```
+
+---
+
+## Rodando localmente
+
+### 1. Instalar dependências
+
 ```bash
-git clone [https://github.com/GSimas/RAPI-2025.git](https://github.com/GSimas/RAPI-2025.git)
-cd RAPI-2025
+npm install
 ```
 
-### 2. Instale as dependências
-Crie um ambiente virtual (opcional, mas recomendado) e instale os pacotes necessários:
+### 2. Configurar a chave da API
+
 ```bash
-pip install streamlit pandas plotly google-genai
+cp .env.example .env
 ```
 
-### 3. Configure as Variáveis de Ambiente (API Key)
-Para que o Chatbot com IA funcione, você precisa de uma chave de API do Google AI Studio.
-Crie uma pasta oculta chamada `.streamlit` na raiz do projeto e dentro dela crie um arquivo chamado `secrets.toml`:
+Edite `.env` e informe sua `GEMINI_API_KEY` (obtida em <https://aistudio.google.com/apikey>).
 
-```toml
-# Arquivo: .streamlit/secrets.toml
-GEMINI_API_KEY = "SUA_CHAVE_DE_API_AQUI"
-```
+### 3. Servidor de desenvolvimento
 
-### 4. Execute a aplicação
+Com a Netlify CLI (recomendado — sobe o frontend **e** as functions):
+
 ```bash
-streamlit run dashboard.py
+netlify dev
 ```
-O servidor será iniciado e a aplicação abrirá automaticamente no seu navegador padrão (normalmente em `http://localhost:8501`).
 
-## 📍 Fonte dos Dados
-Os dados originais foram extraídos do [Relatório RAPI 2024-2025](https://materiais.floripamanha.org/rapi-relatorio-anual-progresso-indicadores-25), uma iniciativa conjunta entre a Associação FloripAmanhã, a Universidade Federal de Santa Catarina (UFSC) e o Observatório Social do Brasil – Florianópolis.
+Aplicação em <http://localhost:8888>.
 
-## 👨‍💻 Créditos
-Dashboard desenvolvida por **Gustavo Simas da Silva**. 
-- [LinkedIn](https://www.linkedin.com/in/simasgs/)
+Somente o frontend (as chamadas a `/api` são encaminhadas para a porta 8888):
+
+```bash
+npm run dev
+```
+
+### 4. Build de produção
+
+```bash
+npm run build
+```
+
+O script executa `tsc -b` antes do `vite build`: **qualquer erro de tipagem falha o build**.
+A saída fica em `dist/`.
+
+Para checar apenas os tipos:
+
+```bash
+npm run typecheck
+```
+
+---
+
+## Deploy no Netlify
+
+O `netlify.toml` já traz tudo configurado:
+
+- `command = "npm run build"` · `publish = "dist"` · `functions = "netlify/functions"`
+- redirect `/api/chat` → `/.netlify/functions/chat`
+- fallback de SPA: `/*` → `/index.html` (status 200)
+
+Passos:
+
+1. Conecte o repositório no Netlify (as configurações são lidas do `netlify.toml`).
+2. Em **Site configuration → Environment variables**, cadastre `GEMINI_API_KEY`.
+3. Faça o deploy.
+
+> A chave **nunca** é exposta ao navegador: o frontend fala apenas com `/api/chat`, e só a
+> função serverless conhece a `GEMINI_API_KEY`.
+
+---
+
+## As cinco abas
+
+| Aba                     | Conteúdo                                                                                 |
+| ----------------------- | ---------------------------------------------------------------------------------------- |
+| 📖 Apresentação         | Seções 1–5 do relatório e gráfico de barras empilhadas da semaforização (2020-2024)       |
+| 📊 Dashboard Interativo | Filtros encadeados, cartões de métricas, evolução histórica, faixas e dados brutos        |
+| 📝 Relatório e Análises | Seções 7, 8 e 9 — considerações, recomendações e créditos                                  |
+| 🗂️ Explorador Geral     | Tabela dos 206 registros com busca global, ordenação e exportação CSV                      |
+| 🤖 Assistente IA        | Chat com o Gemini sobre os indicadores e o texto do relatório                              |
+
+---
+
+## Regras de negócio preservadas
+
+### Extração numérica (`src/lib/numeroParser.ts`)
+
+Porte fiel de `extrair_numero`. Os valores do relatório chegam "sujos" e a função:
+
+1. descarta vazios e o literal `ND`;
+2. isola o trecho **após** o `=` em memórias de cálculo;
+3. remove notas de rodapé entre parênteses;
+4. captura o primeiro número (milhar brasileiro ou decimal simples);
+5. desambigua os separadores: ponto é milhar apenas quando todos os grupos têm 3 dígitos.
+
+```
+'178,9 litros'          → 178.9
+'1080 unidades'         → 1080
+'212.303'               → 212303
+'1.282,34'              → 1282.34
+'10.18%'                → 10.18
+'4.523/18.800 = 24,05%' → 24.05
+'334,3 km/(base 2022)'  → 334.3
+'ND'                    → null
+```
+
+### Semaforização dinâmica (`src/lib/semaforo.ts`)
+
+Porte fiel de `avaliar_cor_semaforo`. Interpreta as faixas escritas em linguagem natural:
+
+- intervalos: `120–200`, `75% a 90%`, `10 até 20`;
+- operadores: `<`, `<=`, `≤`, `>`, `>=`, `≥`, `abaixo`, `acima`, `menor`, `maior`, `mínimo`, `máximo`;
+- condições compostas: `< 80 ou > 250`.
+
+Cores: verde `#2ca02c` · amarelo `#ff7f0e` · vermelho `#d62728` · neutro (rgba cinza/azul).
+
+> Ambos os portes foram validados contra a implementação Python original em todas as
+> **1.236** combinações indicador × ano do dataset, com **zero divergências**.
+
+### RAG leve (`netlify/functions/_lib/rag.ts`)
+
+O corpus (84 mil caracteres) é fragmentado pelos títulos numerados do relatório e pontuado
+por interseção de palavras-chave (4+ letras, sem acento) com a pergunta. Só os **3 trechos
+mais relevantes** — limitados a ~4.500 caracteres — são injetados no prompt, junto de um CSV
+enxuto dos indicadores. Isso mantém o consumo dentro do *Free Tier* do Gemini.
+
+---
+
+## Fonte e créditos
+
+- Dados originais extraídos do
+  [Relatório RAPI 2025](https://materiais.floripamanha.org/rapi-relatorio-anual-progresso-indicadores-25)
+  — Associação FloripAmanhã, UFSC e Observatório Social do Brasil (Florianópolis).
+- Orgulhosamente desenvolvida por
+  [Gustavo Simas da Silva](https://www.linkedin.com/in/simasgs/).
+
+É permitida a reprodução parcial ou total deste material desde que citada a fonte
+Rede Ver a Cidade Floripa, 2024-2025.

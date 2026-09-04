@@ -1,0 +1,152 @@
+/**
+ * ==========================================================
+ * Estilos globais - Dashboard RAPI 2024-2025
+ * ==========================================================
+ *
+ * Tailwind CSS v4 com configuracao CSS-first (`@theme`).
+ * O modo escuro usa a estrategia de classe (`.dark` na tag <html>),
+ * controlada por `useTheme` e pelo script anti-flash do index.html.
+ */
+
+@import 'tailwindcss';
+
+/* Habilita o variante `dark:` baseado na classe `.dark` do <html>. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* --- Paleta institucional -------------------------------------------- */
+  /* Azul RAPI, herdado do dashboard Streamlit original (#1f77b4). */
+  --color-rapi-50: #eff8ff;
+  --color-rapi-100: #dbeefe;
+  --color-rapi-200: #bfe2fe;
+  --color-rapi-300: #93d0fd;
+  --color-rapi-400: #60b4fa;
+  --color-rapi-500: #3b96f6;
+  --color-rapi-600: #1f77b4;
+  --color-rapi-700: #1a5f92;
+  --color-rapi-800: #1b5179;
+  --color-rapi-900: #1c4565;
+  --color-rapi-950: #142c43;
+
+  /* --- Cores da semaforizacao ------------------------------------------ */
+  --color-semaforo-verde: #2ca02c;
+  --color-semaforo-amarelo: #ff7f0e;
+  --color-semaforo-vermelho: #d62728;
+  --color-semaforo-cinza: #7f7f7f;
+  --color-semaforo-azul: #1f77b4;
+
+  /* --- Tipografia ------------------------------------------------------- */
+  --font-sans:
+    'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue',
+    Arial, sans-serif;
+
+  /* --- Animacoes -------------------------------------------------------- */
+  --animate-fade-in: fade-in 0.3s ease-out;
+  --animate-slide-up: slide-up 0.35s ease-out;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ==========================================================
+   Camada base
+   ========================================================== */
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  .dark {
+    color-scheme: dark;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-slate-50 text-slate-800 antialiased;
+    @apply dark:bg-slate-950 dark:text-slate-200;
+    font-family: var(--font-sans);
+  }
+
+  /* Foco visível e consistente para navegação por teclado. */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-rapi-600 dark:outline-rapi-400;
+  }
+
+  /* Barra de rolagem discreta, adaptada aos dois temas. */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-slate-400) transparent;
+  }
+
+  .dark * {
+    scrollbar-color: var(--color-slate-600) transparent;
+  }
+
+  /* Respeita quem prefere menos movimento. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ==========================================================
+   Componentes reutilizaveis
+   ========================================================== */
+@layer components {
+  /* Cartao padrao: superficie elevada que funciona nos dois temas. */
+  .cartao {
+    @apply rounded-xl border border-slate-200 bg-white shadow-sm;
+    @apply dark:border-slate-800 dark:bg-slate-900;
+  }
+
+  /* Texto corrido do relatorio, justificado como no original. */
+  .texto-relatorio {
+    @apply text-[1.0625rem] leading-relaxed text-slate-700 dark:text-slate-300;
+    text-align: justify;
+    text-wrap: pretty;
+    hyphens: auto;
+  }
+
+  /* Titulo de secao em azul institucional. */
+  .titulo-secao {
+    @apply text-xl font-bold text-rapi-600 dark:text-rapi-400 sm:text-2xl;
+  }
+
+  /* Rotulo pequeno em caixa alta, usado sobre metricas e filtros. */
+  .rotulo-campo {
+    @apply text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400;
+  }
+
+  /* Campo de formulario (select / input) padronizado. */
+  .campo {
+    @apply w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 shadow-sm transition;
+    @apply focus:border-rapi-500 focus:ring-2 focus:ring-rapi-500/30 focus:outline-none;
+    @apply dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100;
+  }
+}

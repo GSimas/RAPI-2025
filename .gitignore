@@ -1,3 +1,34 @@
+# ----- Node / Vite -----
+node_modules/
+dist/
+dist-ssr/
+*.local
+.vite/
+
+# ----- Netlify -----
+.netlify/
+
+# ----- Variaveis de ambiente (NUNCA versionar chaves) -----
+.env
+.env.*
+!.env.example
+
+# ----- Logs -----
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+logs/
+*.log
+
+# ----- Editores / SO -----
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+
+# ----- Legado Python (Streamlit) -----
 .streamlit/
 .venv/
-__pycache__
+__pycache__/
