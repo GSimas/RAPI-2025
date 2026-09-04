@@ -3,15 +3,14 @@
  * <Sidebar /> - barra lateral institucional
  * ==========================================================
  *
- * Transpõe a `st.sidebar` do Streamlit: identidade visual, resumo do
- * relatório, fonte oficial dos dados e créditos de autoria.
+ * Transpõe a `st.sidebar` do Streamlit: identidade visual e resumo do
+ * relatório. A fonte dos dados e os créditos vivem apenas no rodapé.
  *
  * Em telas pequenas vira uma gaveta sobreposta, controlada pelo cabeçalho.
  */
 
 import type { JSX } from 'react';
 import { TOTAL_INDICADORES } from '@/lib/dataset';
-import { LINK_LINKEDIN, LINK_RELATORIO, Creditos } from './Creditos';
 
 interface SidebarProps {
   /** Se a gaveta está aberta (apenas em telas pequenas). */
@@ -107,44 +106,10 @@ export function Sidebar({ aberta, onFechar }: SidebarProps): JSX.Element {
           </dl>
         </div>
 
-        {/* --- Fonte dos dados ---------------------------------------- */}
-        <div className="mt-auto space-y-4 border-t border-slate-200 px-5 py-5 dark:border-slate-800">
-          <div>
-            <p className="rotulo-campo flex items-center gap-1.5">
-              <span aria-hidden="true">📍</span> Fonte de Dados
-            </p>
-            <p className="mt-2 text-xs leading-relaxed text-slate-600 dark:text-slate-400">
-              Dados originais extraídos do{' '}
-              <a
-                href={LINK_RELATORIO}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-medium text-rapi-600 underline decoration-rapi-300 underline-offset-2 hover:text-rapi-700 dark:text-rapi-400 dark:hover:text-rapi-300"
-              >
-                Relatório RAPI 2025
-              </a>
-              .
-            </p>
-          </div>
-
-          <div>
-            <p className="rotulo-campo">Desenvolvimento</p>
-            <p className="mt-2 text-xs leading-relaxed text-slate-600 dark:text-slate-400">
-              Orgulhosamente desenvolvida por{' '}
-              <a
-                href={LINK_LINKEDIN}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-medium text-rapi-600 underline decoration-rapi-300 underline-offset-2 hover:text-rapi-700 dark:text-rapi-400 dark:hover:text-rapi-300"
-              >
-                Gustavo Simas da Silva
-              </a>
-              .
-            </p>
-          </div>
-
-          <Creditos />
-        </div>
+        {/*
+          A fonte dos dados e os créditos de autoria ficam apenas no rodapé,
+          evitando a duplicação que existia entre as duas áreas.
+        */}
       </aside>
     </>
   );

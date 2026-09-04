@@ -3,12 +3,12 @@
  * <Rodape /> - rodapé global
  * ==========================================================
  *
- * Repete, ao final de qualquer aba, os créditos obrigatórios da fonte
- * oficial e da autoria — os mesmos exibidos na barra lateral.
+ * Reúne, ao final de qualquer aba, a fonte oficial dos dados, a autoria da
+ * aplicação e o aviso de licença.
  */
 
 import type { JSX } from 'react';
-import { LINK_LINKEDIN, LINK_RELATORIO, Creditos } from './Creditos';
+import { LINK_LINKEDIN, LINK_RELATORIO } from '@/content/links';
 
 /**
  * Rodapé com fonte dos dados, autoria e aviso de licença.
@@ -53,11 +53,7 @@ export function Rodape(): JSX.Element {
           </div>
         </div>
 
-        <div className="mt-6">
-          <Creditos />
-        </div>
-
-        <p className="mt-4 text-center text-xs text-slate-400 dark:text-slate-500">
+        <p className="mt-6 border-t border-slate-200 pt-4 text-center text-xs text-slate-400 dark:border-slate-800 dark:text-slate-500">
           É permitida a reprodução parcial ou total deste material desde que citada a fonte Rede
           Ver a Cidade Floripa, 2024-2025.
         </p>
