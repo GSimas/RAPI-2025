@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="pt-BR" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#1f77b4" />
+    <meta
+      name="description"
+      content="Dashboard interativo do RAPI 2024-2025 - Relatório Anual de Progresso dos Indicadores de Florianópolis. 205 indicadores de sustentabilidade ambiental, urbana e fiscal."
+    />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>Dashboard RAPI 2024-2025 · Florianópolis</title>
+
+    <!--
+      Aplica o tema salvo antes da primeira pintura, evitando o "flash"
+      de tema claro em usuários que escolheram o modo escuro.
+      Mantido inline de propósito: precisa rodar antes do bundle React.
+    -->
+    <script>
+      (function () {
+        try {
+          var salvo = localStorage.getItem('rapi-tema');
+          var prefereEscuro = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (salvo === 'dark' || (salvo === null && prefereEscuro)) {
+            document.documentElement.classList.add('dark');
+          }
+        } catch (e) {
+          /* localStorage indisponível (modo privado): segue com o tema claro. */
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
