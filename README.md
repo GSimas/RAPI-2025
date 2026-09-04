@@ -85,7 +85,7 @@ Edite `.env` e informe sua `GEMINI_API_KEY` (obtida em <https://aistudio.google.
 
 ### 3. Servidor de desenvolvimento
 
-Com a Netlify CLI (recomendado — sobe o frontend **e** as functions):
+**Opção A — Netlify CLI** (sobe o frontend **e** as functions de uma vez):
 
 ```bash
 netlify dev
@@ -93,7 +93,24 @@ netlify dev
 
 Aplicação em <http://localhost:8888>.
 
-Somente o frontend (as chamadas a `/api` são encaminhadas para a porta 8888):
+**Opção B — dois processos** (frontend e functions separados):
+
+```bash
+# terminal 1 — apenas as functions
+netlify functions:serve --port 9999
+
+# terminal 2 — apenas o frontend, com /api apontando para as functions
+NETLIFY_FUNCTIONS_URL=http://localhost:9999 npm run dev
+```
+
+Aplicação em <http://localhost:5173>. O proxy do Vite traduz `/api/chat` para
+`/.netlify/functions/chat`, reproduzindo o redirect do `netlify.toml`.
+
+> Use a opção B se o `netlify dev` falhar ao preparar o ambiente Deno das Edge Functions
+> (erro `EBUSY` no Windows, geralmente causado por antivírus). Este projeto não usa Edge
+> Functions — a preparação do Deno é apenas overhead do CLI e não afeta o deploy.
+
+**Opção C — só o frontend**, sem o assistente de IA:
 
 ```bash
 npm run dev

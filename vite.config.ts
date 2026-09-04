@@ -23,10 +23,20 @@ export default defineConfig({
   server: {
     port: 5173,
     proxy: {
-      // Permite rodar `vite dev` isolado apontando para `netlify dev` (porta 8888).
+      /**
+       * Permite rodar `vite dev` isolado, encaminhando `/api/*` para o
+       * servidor de functions. O destino padrao e o `netlify dev` (8888) e
+       * pode ser trocado por `NETLIFY_FUNCTIONS_URL` — util com
+       * `netlify functions:serve --port 9999`.
+       *
+       * O `rewrite` reproduz o redirect do `netlify.toml`, traduzindo
+       * `/api/chat` para o caminho nativo `/.netlify/functions/chat`,
+       * que ambos os servidores atendem.
+       */
       '/api': {
-        target: 'http://localhost:8888',
+        target: process.env['NETLIFY_FUNCTIONS_URL'] ?? 'http://localhost:8888',
         changeOrigin: true,
+        rewrite: (caminho) => caminho.replace(/^\/api\//, '/.netlify/functions/'),
       },
     },
   },
