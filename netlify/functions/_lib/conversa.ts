@@ -143,7 +143,7 @@ export async function* gerarResposta(
       model: modelo,
       system: sistema,
       messages: alternarPapeis(turnos),
-      max_tokens: LIMITES.tokensSaida,
+      max_tokens: LIMITES.tokensSaidaAnthropic,
       temperature: TEMPERATURA,
       stream: true,
     };
@@ -180,10 +180,6 @@ export async function* gerarResposta(
 
   // --- OpenAI-compatível ------------------------------------------------
   const mensagens = [{ role: 'system', content: sistema }, ...turnos];
-  const limiteTokens =
-    provedor.id === 'openai'
-      ? { max_completion_tokens: LIMITES.tokensSaida }
-      : { max_tokens: LIMITES.tokensSaida };
 
   const url = `${provedor.base}/chat/completions`;
   let resposta: Response;
@@ -191,7 +187,7 @@ export async function* gerarResposta(
     resposta = await postar(
       url,
       cabecalhos,
-      { model: modelo, messages: mensagens, stream: true, temperature: TEMPERATURA, ...limiteTokens },
+      { model: modelo, messages: mensagens, stream: true, temperature: TEMPERATURA },
       sinal,
     );
   } catch (erro) {

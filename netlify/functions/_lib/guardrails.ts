@@ -19,8 +19,7 @@
  * 5. **Instrução de sistema restritiva** — escopo, fidelidade aos dados,
  *    neutralidade e recusa de temas fora do relatório.
  * 6. **Vigilância da saída** — um marcador "canário" na instrução de
- *    sistema interrompe a resposta se o modelo tentar vazá-la; a saída
- *    também tem tamanho máximo.
+ *    sistema interrompe a resposta se o modelo tentar vazá-la.
  */
 
 import { randomBytes } from 'node:crypto';
@@ -31,18 +30,13 @@ import { montarCsvIndicadores } from './indicadoresCsv';
 // ==========================================================
 
 export const LIMITES = {
-  /** Caracteres de uma pergunta. */
-  pergunta: 2_000,
-  /** Caracteres de cada turno do histórico. */
-  turno: 4_000,
   /** Turnos do histórico reenviados ao modelo. */
   turnos: 12,
-  /** Soma de caracteres do histórico. */
-  historicoTotal: 16_000,
-  /** Caracteres da resposta antes de ser interrompida. */
-  resposta: 12_000,
-  /** Tokens de saída solicitados ao modelo. */
-  tokensSaida: 1_200,
+  /**
+   * Tokens de saída pedidos à Anthropic, onde `max_tokens` é obrigatório.
+   * Nos provedores OpenAI-compatíveis o parâmetro é omitido (máximo do modelo).
+   */
+  tokensSaidaAnthropic: 8_192,
 } as const;
 
 // ==========================================================
@@ -179,8 +173,7 @@ REGRAS INVIOLÁVEIS DO CONSULTOR
 - Não produza conteúdo ofensivo, discriminatório, perigoso, nem código executável ou links que não estejam no relatório.
 
 4. FORMA
-- ${idiomaResposta} Use tom técnico e acessível, em Markdown simples (parágrafos curtos, listas, negrito).
-- Seja conciso: até cerca de 300 palavras, salvo pedido explícito por mais detalhes.
+- ${idiomaResposta} Use tom técnico e acessível, em Markdown simples (parágrafos curtos, listas, negrito e, para comparar valores, tabelas Markdown).
 - Quando a resposta puder embasar decisões, lembre que ela foi gerada por IA e deve ser conferida no relatório oficial.
 
 DADOS DOS INDICADORES (CSV separado por ponto e vírgula: tema; indicador; 2023; 2024)

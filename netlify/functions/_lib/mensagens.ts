@@ -28,7 +28,6 @@ const pt = {
   conecte: 'Conecte-se a um provedor de IA para usar o assistente.',
   informeChave: 'Informe a chave de API do provedor.',
   pergunta: 'Informe uma pergunta.',
-  perguntaLonga: (n: number) => `A pergunta excede o limite de ${n} caracteres.`,
   mascarados: (tipos: string) => `Por segurança, removemos dados sensíveis antes do envio (${tipos}).`,
   tipos: {
     credencial: 'credencial',
@@ -44,7 +43,6 @@ const pt = {
     'por exemplo: *"Quais indicadores de saneamento estão em situação crítica?"*',
   saidaBloqueada:
     'A resposta foi interrompida pelos controles de segurança do assistente. Reformule a pergunta com foco nos dados do relatório.',
-  tamanhoMaximo: 'Resposta interrompida por exceder o tamanho máximo.',
   semConteudo: 'O modelo não retornou conteúdo. Tente novamente ou troque de modelo.',
   demorou: 'O modelo demorou demais para responder. Tente uma pergunta mais objetiva.',
   falhaGeral: 'Não foi possível concluir a resposta. Tente novamente em instantes.',
@@ -82,7 +80,6 @@ const en: Mensagens = {
   conecte: 'Connect to an AI provider to use the assistant.',
   informeChave: 'Enter the provider API key.',
   pergunta: 'Please enter a question.',
-  perguntaLonga: (n: number) => `The question exceeds the ${n}-character limit.`,
   mascarados: (tipos: string) => `For your safety, sensitive data was removed before sending (${tipos}).`,
   tipos: {
     credencial: 'credential',
@@ -98,7 +95,6 @@ const en: Mensagens = {
     'for example: *"Which sanitation indicators are in a critical situation?"*',
   saidaBloqueada:
     'The response was stopped by the assistant safety controls. Please rephrase the question focusing on the report data.',
-  tamanhoMaximo: 'Response stopped for exceeding the maximum length.',
   semConteudo: 'The model returned no content. Try again or switch models.',
   demorou: 'The model took too long to respond. Try a more focused question.',
   falhaGeral: 'The response could not be completed. Please try again shortly.',
