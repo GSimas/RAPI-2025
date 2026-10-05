@@ -5,78 +5,85 @@
  *
  * Equivalente ao `st.dataframe(df_hist)` da sub-aba "Dados Brutos":
  * ano, valor original do relatório, valor numérico extraído e a cor
- * resultante da semaforização.
+ * resultante da semaforização — com filtros, ordenação e exportação.
  */
 
-import type { JSX } from 'react';
+import { useMemo, type JSX } from 'react';
+import { TabelaDados } from '@/components/ui/tabela/TabelaDados';
+import type { ColunaTabela } from '@/components/ui/tabela/modelo';
+import { usePreferencias } from '@/hooks/usePreferencias';
+import { slugArquivo } from '@/lib/csv';
 import { formatarNumeroCompacto, TEXTO_SEM_DADO } from '@/lib/format';
-import { ROTULOS_SEMAFORO } from '@/lib/semaforo';
 import type { PontoHistorico } from '@/types/rapi';
 
 interface TabelaSerieProps {
   readonly serie: readonly PontoHistorico[];
+  /** Nome do indicador, usado no arquivo exportado. */
+  readonly indicador: string;
 }
 
 /**
  * Tabela compacta da série histórica de um único indicador.
  */
-export function TabelaSerie({ serie }: TabelaSerieProps): JSX.Element {
+export function TabelaSerie({ serie, indicador }: TabelaSerieProps): JSX.Element {
+  const { t, idioma } = usePreferencias();
+  const ts = t.serie;
+
+  const colunas = useMemo<readonly ColunaTabela<PontoHistorico>[]>(
+    () => [
+      {
+        id: 'ano',
+        titulo: ts.ano,
+        tipo: 'categoria',
+        valor: (ponto) => ponto.ano,
+        render: (ponto) => <span className="font-mono font-medium text-ink">{ponto.ano}</span>,
+        larguraMinima: 'min-w-24',
+      },
+      {
+        id: 'original',
+        titulo: ts.original,
+        tipo: 'texto',
+        valor: (ponto) => ponto.valorOriginal ?? null,
+        exibir: (ponto) => ponto.valorOriginal ?? TEXTO_SEM_DADO,
+        larguraMinima: 'min-w-48',
+      },
+      {
+        id: 'numerico',
+        titulo: ts.numerico,
+        tipo: 'numero',
+        valor: (ponto) => ponto.valorNumerico,
+        exibir: (ponto) => (ponto.valorNumerico === null ? '' : formatarNumeroCompacto(ponto.valorNumerico)),
+        larguraMinima: 'min-w-36',
+      },
+      {
+        id: 'semaforo',
+        titulo: ts.semaforo,
+        tipo: 'categoria',
+        valor: (ponto) => t.semaforo.rotulos[ponto.status],
+        render: (ponto) => (
+          <span className="inline-flex items-center gap-2">
+            <span aria-hidden="true" className="inline-block size-2 shrink-0" style={{ backgroundColor: ponto.cor }} />
+            {t.semaforo.rotulos[ponto.status]}
+          </span>
+        ),
+        larguraMinima: 'min-w-40',
+      },
+    ],
+    // `idioma` também muda o formato dos números exibidos.
+    [t, idioma],
+  );
+
   return (
-    <div className="overflow-x-auto">
-      <table className="w-full min-w-[32rem] border-collapse text-sm">
-        <caption className="sr-only">
-          Série histórica do indicador: valores originais, numéricos e classificação semafórica.
-        </caption>
-
-        <thead>
-          <tr className="border-b border-slate-200 dark:border-slate-700">
-            <th scope="col" className="px-3 py-2 text-left font-semibold text-slate-600 dark:text-slate-300">
-              Ano
-            </th>
-            <th scope="col" className="px-3 py-2 text-left font-semibold text-slate-600 dark:text-slate-300">
-              Valor Original
-            </th>
-            <th scope="col" className="px-3 py-2 text-right font-semibold text-slate-600 dark:text-slate-300">
-              Valor Numérico
-            </th>
-            <th scope="col" className="px-3 py-2 text-left font-semibold text-slate-600 dark:text-slate-300">
-              Semaforização
-            </th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {serie.map((ponto) => (
-            <tr
-              key={ponto.ano}
-              className="border-b border-slate-100 last:border-0 dark:border-slate-800"
-            >
-              <th scope="row" className="px-3 py-2 text-left font-medium text-slate-800 dark:text-slate-100">
-                {ponto.ano}
-              </th>
-
-              <td className="px-3 py-2 text-slate-700 dark:text-slate-300">
-                {ponto.valorOriginal ?? TEXTO_SEM_DADO}
-              </td>
-
-              <td className="px-3 py-2 text-right font-mono text-slate-700 tabular-nums dark:text-slate-300">
-                {ponto.valorNumerico === null ? '—' : formatarNumeroCompacto(ponto.valorNumerico)}
-              </td>
-
-              <td className="px-3 py-2">
-                <span className="inline-flex items-center gap-1.5 text-slate-700 dark:text-slate-300">
-                  <span
-                    aria-hidden="true"
-                    className="inline-block size-2.5 shrink-0 rounded-full"
-                    style={{ backgroundColor: ponto.cor }}
-                  />
-                  {ROTULOS_SEMAFORO[ponto.status]}
-                </span>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <TabelaDados
+      // Recria a tabela (e seus filtros) ao trocar de idioma: os valores categóricos mudam.
+      key={idioma}
+      colunas={colunas}
+      linhas={serie}
+      chaveLinha={(ponto) => String(ponto.ano)}
+      legenda={ts.legenda}
+      nomeArquivo={`rapi-serie-${slugArquivo(indicador, 50)}`}
+      tituloPlanilha={ts.planilha}
+      alturaMaxima="max-h-[28rem]"
+    />
   );
 }

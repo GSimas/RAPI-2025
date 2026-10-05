@@ -4,23 +4,33 @@
  * ==========================================================
  *
  * Equivalente ao `st.chat_input`. O textarea cresce com o conteúdo até um
- * limite; Enter envia e Shift+Enter quebra a linha.
+ * limite; Enter envia e Shift+Enter quebra a linha. Enquanto a resposta
+ * chega, o botão de envio vira "parar".
  */
 
+import { ArrowUp, Square } from 'lucide-react';
+import { AnimatePresence, motion } from 'motion/react';
 import { useRef, useState, type JSX } from 'react';
+import { usePreferencias } from '@/hooks/usePreferencias';
+import { EASE_SCIENTATA } from '@/lib/movimento';
 
 interface CampoPerguntaProps {
   readonly onEnviar: (texto: string) => void;
-  readonly desabilitado: boolean;
+  readonly onParar: () => void;
+  readonly carregando: boolean;
 }
 
 /** Altura máxima do campo antes de rolar internamente. */
 const ALTURA_MAXIMA_PX = 160;
 
+/** Mesmo limite aplicado no servidor. */
+const LIMITE_CARACTERES = 2_000;
+
 /**
  * Campo de digitação com envio por Enter e auto-ajuste de altura.
  */
-export function CampoPergunta({ onEnviar, desabilitado }: CampoPerguntaProps): JSX.Element {
+export function CampoPergunta({ onEnviar, onParar, carregando }: CampoPerguntaProps): JSX.Element {
+  const tc = usePreferencias().t.chat.campo;
   const [texto, setTexto] = useState('');
   const areaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -35,7 +45,7 @@ export function CampoPergunta({ onEnviar, desabilitado }: CampoPerguntaProps): J
 
   const enviar = (): void => {
     const pergunta = texto.trim();
-    if (pergunta === '' || desabilitado) return;
+    if (pergunta === '' || carregando) return;
 
     onEnviar(pergunta);
     setTexto('');
@@ -46,56 +56,73 @@ export function CampoPergunta({ onEnviar, desabilitado }: CampoPerguntaProps): J
     });
   };
 
+  const vazio = texto.trim() === '';
+  const perto = texto.length > LIMITE_CARACTERES * 0.85;
+
   return (
     <form
       onSubmit={(evento) => {
         evento.preventDefault();
-        enviar();
+        if (carregando) onParar();
+        else enviar();
       }}
-      className="flex items-end gap-2 rounded-xl border border-slate-300 bg-white p-2 shadow-sm transition focus-within:border-rapi-500 focus-within:ring-2 focus-within:ring-rapi-500/25 dark:border-slate-700 dark:bg-slate-900"
+      data-brilho
+      className="flex items-end gap-2 border border-line-forte bg-canvas/60 p-2 transition-shadow focus-within:border-signal/60 focus-within:shadow-[0_0_0_3px_color-mix(in_srgb,var(--signal-fill)_15%,transparent)] [--brilho-forca:0.08] [--brilho-raio:300px]"
     >
       <label htmlFor="campo-pergunta" className="sr-only">
-        Sua pergunta ao assistente
+        {tc.rotulo}
       </label>
 
-      <textarea
-        id="campo-pergunta"
-        ref={areaRef}
-        rows={1}
-        value={texto}
-        disabled={desabilitado}
-        placeholder="Ex.: Qual o valor do consumo de água em 2024 e o que o relatório recomenda?"
-        onChange={(evento) => {
-          setTexto(evento.target.value);
-          ajustarAltura();
-        }}
-        onKeyDown={(evento) => {
-          if (evento.key === 'Enter' && !evento.shiftKey) {
-            evento.preventDefault();
-            enviar();
-          }
-        }}
-        className="max-h-40 flex-1 resize-none bg-transparent px-2 py-2 text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none disabled:opacity-60 dark:text-slate-100 dark:placeholder:text-slate-500"
-      />
+      <div className="relative flex-1">
+        <textarea
+          id="campo-pergunta"
+          ref={areaRef}
+          rows={1}
+          value={texto}
+          maxLength={LIMITE_CARACTERES}
+          placeholder={tc.placeholder}
+          onChange={(evento) => {
+            setTexto(evento.target.value);
+            ajustarAltura();
+          }}
+          onKeyDown={(evento) => {
+            if (evento.key === 'Enter' && !evento.shiftKey) {
+              evento.preventDefault();
+              enviar();
+            }
+          }}
+          className="max-h-40 w-full resize-none bg-transparent px-2 py-2 text-sm text-ink placeholder:text-faint focus:outline-none"
+        />
+        {perto && (
+          <span className="absolute right-1 -bottom-1 font-mono text-[0.625rem] text-faint">
+            {texto.length}/{LIMITE_CARACTERES}
+          </span>
+        )}
+      </div>
 
       <button
         type="submit"
-        disabled={desabilitado || texto.trim() === ''}
-        className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-rapi-600 text-white transition hover:bg-rapi-700 disabled:cursor-not-allowed disabled:opacity-40"
-        aria-label="Enviar pergunta"
+        disabled={!carregando && vazio}
+        className="botao-primario group relative size-9 shrink-0 overflow-hidden p-0"
+        aria-label={carregando ? tc.parar : tc.enviar}
+        title={carregando ? tc.parar : tc.enviarTitulo}
       >
-        <svg
-          aria-hidden="true"
-          viewBox="0 0 20 20"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="size-5"
-        >
-          <path d="M3.5 10h13M11 4.5 16.5 10 11 15.5" />
-        </svg>
+        <AnimatePresence mode="popLayout" initial={false}>
+          <motion.span
+            key={carregando ? 'parar' : 'enviar'}
+            initial={{ opacity: 0, scale: 0.5, rotate: -45 }}
+            animate={{ opacity: 1, scale: 1, rotate: 0 }}
+            exit={{ opacity: 0, scale: 0.5, rotate: 45 }}
+            transition={{ duration: 0.3, ease: EASE_SCIENTATA }}
+            className="flex"
+          >
+            {carregando ? (
+              <Square aria-hidden="true" className="size-3.5 fill-current" />
+            ) : (
+              <ArrowUp aria-hidden="true" className="size-4 transition-transform duration-300 group-enabled:group-hover:-translate-y-0.5" />
+            )}
+          </motion.span>
+        </AnimatePresence>
       </button>
     </form>
   );

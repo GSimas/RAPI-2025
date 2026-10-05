@@ -3,289 +3,256 @@
  * POST /api/chat — Assistente RAPI (Netlify Function)
  * ==========================================================
  *
- * Substitui a `chat_session` que vivia no `st.session_state` do Streamlit.
- * Como funções serverless são stateless, o histórico chega do cliente a
- * cada turno e é remontado aqui no formato `contents` do Gemini.
+ * O usuário traz o próprio acesso ao modelo — via login OpenRouter
+ * (OAuth PKCE) ou chave de um provedor (BYOK). A credencial chega no
+ * cabeçalho `Authorization`, é usada apenas para chamar o provedor
+ * escolhido e nunca é armazenada nem registrada.
  *
  * Pipeline de uma requisição:
  *
- *   1. valida o método, o corpo e o tamanho da pergunta;
- *   2. monta a instrução de sistema com o CSV enxuto dos indicadores;
- *   3. recupera, via RAG por palavras-chave, só os trechos do relatório
- *      relevantes à pergunta (economia de tokens / Free Tier);
- *   4. chama o Gemini, caindo para um modelo de fallback se o preview
- *      estiver indisponível;
- *   5. devolve JSON com a resposta ou um erro tratado.
+ *   1. origem, limite de taxa, tamanho e formato do corpo;
+ *   2. validação de provedor, modelo e credencial;
+ *   3. higiene da pergunta e do histórico, mascaramento de dados pessoais;
+ *   4. detecção de injeção de prompt (recusa sem chamar o modelo);
+ *   5. RAG por palavras-chave sobre o texto do relatório;
+ *   6. chamada em streaming ao provedor, com instrução de sistema
+ *      restritiva e vigilância da saída (canário + tamanho máximo).
  *
- * A `GEMINI_API_KEY` é lida somente de `process.env` e jamais sai daqui.
+ * Resposta: `application/x-ndjson`, uma linha JSON por evento:
+ *
+ *   {"tipo":"aviso","mensagem":"…"}      dados pessoais mascarados
+ *   {"tipo":"modelo","modelo":"…"}       modelo efetivamente usado
+ *   {"tipo":"delta","texto":"…"}         trecho da resposta
+ *   {"tipo":"bloqueio","mensagem":"…"}   recusa dos guardrails
+ *   {"tipo":"erro","mensagem":"…"}       falha durante a geração
+ *   {"tipo":"fim"}                       término normal
+ *
+ * Erros anteriores ao streaming voltam como JSON `{ erro }` com status HTTP.
  */
 
-import { GoogleGenAI } from '@google/genai';
 import { TEXTO_RAPI_COMPLETO } from './_lib/corpus';
-import { montarCsvIndicadores } from './_lib/indicadoresCsv';
+import { ErroProvedor, gerarResposta, type Turno } from './_lib/conversa';
+import {
+  LIMITES,
+  limparTexto,
+  mascararDadosPessoais,
+  montarInstrucoesSistema,
+  montarMensagemUsuario,
+  neutralizarDelimitadores,
+  pareceInjecao,
+  saidaVazaInstrucoes,
+} from './_lib/guardrails';
+import { MENSAGENS, idiomaDe, traduzirStatusProvedor } from './_lib/mensagens';
+import { lerModelo, lerProvedor } from './_lib/provedores';
 import { buscarContextoRelevante } from './_lib/rag';
+import {
+  lerCorpoJson,
+  lerCredencial,
+  origemDoSite,
+  origemPermitida,
+  responderErro,
+  verificarLimite,
+} from './_lib/seguranca';
 
-// ==========================================================
-// Configuração
-// ==========================================================
+/** Tamanho máximo do corpo da requisição, em bytes. */
+const MAXIMO_CORPO = 96_000;
 
-/** Modelo preferencial, sobrescrevível por variável de ambiente. */
-const MODELO_PADRAO = process.env['GEMINI_MODEL'] ?? 'gemini-3.1-flash-lite-preview';
+/** Tempo máximo da geração (o streaming na Netlify vai até 60 s). */
+const TEMPO_LIMITE_MS = 55_000;
 
-/** Modelo estável usado se o preferencial não estiver disponível. */
-const MODELO_FALLBACK = 'gemini-2.5-flash';
+/** Pedidos por IP: 12 por minuto. */
+const LIMITE_POR_MINUTO = 12;
 
-/** Temperatura baixa: respostas fiéis ao relatório, pouco criativas. */
-const TEMPERATURA = 0.2;
+/** Um evento da resposta NDJSON. */
+type Evento =
+  | { tipo: 'aviso'; mensagem: string }
+  | { tipo: 'modelo'; modelo: string }
+  | { tipo: 'delta'; texto: string }
+  | { tipo: 'bloqueio'; mensagem: string }
+  | { tipo: 'erro'; mensagem: string }
+  | { tipo: 'fim' };
 
-/** Limite de caracteres de uma pergunta. */
-const TAMANHO_MAXIMO_PERGUNTA = 2_000;
-
-/** Quantidade de turnos anteriores reenviados ao modelo. */
-const MAXIMO_TURNOS_HISTORICO = 12;
-
-/** Cabeçalhos CORS e de conteúdo aplicados a todas as respostas. */
-const CABECALHOS: Record<string, string> = {
-  'Content-Type': 'application/json; charset=utf-8',
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'POST, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type',
-  'Cache-Control': 'no-store',
+const CABECALHOS_STREAM: Record<string, string> = {
+  'Content-Type': 'application/x-ndjson; charset=utf-8',
+  'Cache-Control': 'no-store, no-transform',
+  'X-Content-Type-Options': 'nosniff',
 };
 
-// ==========================================================
-// Tipos do contrato HTTP
-// ==========================================================
-
-/** Um turno de conversa recebido do cliente. */
-interface TurnoConversa {
-  role: 'user' | 'assistant';
-  content: string;
-}
-
-/** Corpo esperado na requisição. */
-interface CorpoRequisicao {
-  pergunta: string;
-  historico: TurnoConversa[];
-}
-
-// ==========================================================
-// Utilitários
-// ==========================================================
-
-/** Monta uma resposta JSON com os cabeçalhos padrão. */
-function responder(corpo: unknown, status = 200): Response {
-  return new Response(JSON.stringify(corpo), { status, headers: CABECALHOS });
-}
-
-/** Resposta de erro padronizada. */
-function erro(mensagem: string, status: number): Response {
-  return responder({ erro: mensagem }, status);
+/** Resposta curta, sem chamar o modelo (bloqueios dos guardrails). */
+function responderEventos(eventos: readonly Evento[]): Response {
+  const corpo = eventos.map((evento) => JSON.stringify(evento)).join('\n') + '\n';
+  return new Response(corpo, { status: 200, headers: CABECALHOS_STREAM });
 }
 
 /**
- * Valida e normaliza o corpo da requisição.
- *
- * @returns O corpo tipado, ou uma `Response` de erro pronta para retorno.
+ * Valida e higieniza o histórico enviado pelo cliente.
+ * Turnos inválidos são descartados; o total respeita o orçamento.
  */
-function validarCorpo(dados: unknown): CorpoRequisicao | Response {
-  if (typeof dados !== 'object' || dados === null) {
-    return erro('Corpo da requisição inválido: era esperado um objeto JSON.', 400);
+function lerHistorico(valor: unknown): { turnos: Turno[]; mascarados: string[] } {
+  const mascarados = new Set<string>();
+  const brutos = Array.isArray(valor) ? valor.slice(-LIMITES.turnos) : [];
+
+  const turnos: Turno[] = [];
+  for (const item of brutos) {
+    if (typeof item !== 'object' || item === null) continue;
+    const registro = item as Record<string, unknown>;
+    if (registro['role'] !== 'user' && registro['role'] !== 'assistant') continue;
+    if (typeof registro['content'] !== 'string') continue;
+
+    const limpo = limparTexto(registro['content']).slice(0, LIMITES.turno);
+    if (!limpo) continue;
+
+    const { texto, encontrados } = mascararDadosPessoais(limpo);
+    encontrados.forEach((tipo) => mascarados.add(tipo));
+    turnos.push({ role: registro['role'], content: neutralizarDelimitadores(texto) });
   }
 
-  const bruto = dados as Record<string, unknown>;
-  const pergunta = typeof bruto['pergunta'] === 'string' ? bruto['pergunta'].trim() : '';
-
-  if (pergunta === '') {
-    return erro('Informe uma pergunta.', 400);
-  }
-  if (pergunta.length > TAMANHO_MAXIMO_PERGUNTA) {
-    return erro(
-      `A pergunta excede o limite de ${TAMANHO_MAXIMO_PERGUNTA} caracteres.`,
-      413,
-    );
+  // Orçamento total: descarta os turnos mais antigos.
+  let total = turnos.reduce((soma, turno) => soma + turno.content.length, 0);
+  while (total > LIMITES.historicoTotal && turnos.length > 0) {
+    total -= turnos.shift()?.content.length ?? 0;
   }
 
-  // O histórico é opcional; entradas malformadas são simplesmente ignoradas.
-  const historicoBruto = Array.isArray(bruto['historico']) ? bruto['historico'] : [];
-
-  const historico: TurnoConversa[] = historicoBruto
-    .filter((turno): turno is Record<string, unknown> => typeof turno === 'object' && turno !== null)
-    .map((turno) => ({
-      role: turno['role'] === 'assistant' ? ('assistant' as const) : ('user' as const),
-      content: typeof turno['content'] === 'string' ? turno['content'] : '',
-    }))
-    .filter((turno) => turno.content.trim() !== '')
-    .slice(-MAXIMO_TURNOS_HISTORICO);
-
-  return { pergunta, historico };
+  return { turnos, mascarados: [...mascarados] };
 }
-
-/**
- * Instrução de sistema do assistente.
- *
- * Mantém as três regras do prompt original e embute o CSV enxuto dos
- * indicadores (montado uma vez por instância da função).
- */
-function montarInstrucoes(): string {
-  return `Você é o Especialista Analítico do RAPI 2024-2025 de Florianópolis.
-
-REGRAS:
-1. Responda às perguntas baseando-se no CSV de indicadores abaixo e no Contexto Adicional que o usuário enviará a cada pergunta.
-2. Seja técnico, fiel ao texto e analítico.
-3. Se a informação não estiver no CSV nem no contexto fornecido, diga que não possui essa informação.
-4. Responda sempre em português do Brasil, usando Markdown simples (parágrafos, listas e negrito).
-
-DADOS DOS INDICADORES (CSV, separado por ponto e vírgula):
-${montarCsvIndicadores()}`;
-}
-
-/** Formato de conteúdo aceito pelo SDK do Gemini. */
-interface ConteudoGemini {
-  role: 'user' | 'model';
-  parts: { text: string }[];
-}
-
-/**
- * Converte o histórico do cliente e a pergunta enriquecida no formato
- * `contents` esperado pelo SDK.
- */
-function montarConteudos(
-  historico: readonly TurnoConversa[],
-  perguntaEnriquecida: string,
-): ConteudoGemini[] {
-  const conteudos: ConteudoGemini[] = historico.map((turno) => ({
-    role: turno.role === 'assistant' ? 'model' : 'user',
-    parts: [{ text: turno.content }],
-  }));
-
-  conteudos.push({ role: 'user', parts: [{ text: perguntaEnriquecida }] });
-  return conteudos;
-}
-
-// ==========================================================
-// Handler
-// ==========================================================
 
 /**
  * Ponto de entrada da função serverless.
  */
 export default async function handler(request: Request): Promise<Response> {
-  // --- Preflight CORS ---------------------------------------------------
-  if (request.method === 'OPTIONS') {
-    return new Response(null, { status: 204, headers: CABECALHOS });
-  }
+  const idioma = idiomaDe(request);
+  const m = MENSAGENS[idioma];
 
-  if (request.method !== 'POST') {
-    return erro('Método não permitido. Use POST.', 405);
-  }
+  if (request.method === 'OPTIONS') return new Response(null, { status: 204 });
+  if (request.method !== 'POST') return responderErro(m.metodo, 405, { Allow: 'POST' });
 
-  // --- Chave de API ------------------------------------------------------
-  const apiKey = process.env['GEMINI_API_KEY'];
-  if (!apiKey) {
-    console.error('[chat] GEMINI_API_KEY não configurada no ambiente.');
-    return erro(
-      'Assistente indisponível: a chave da API do Gemini não está configurada no servidor.',
-      503,
+  // --- 1. Origem, taxa e corpo ------------------------------------------
+  if (!origemPermitida(request)) return responderErro(m.origem, 403);
+
+  const espera = verificarLimite(request, 'chat', LIMITE_POR_MINUTO, 60_000);
+  if (espera > 0) {
+    return responderErro(
+      m.muitasPerguntas(espera),
+      429,
+      { 'Retry-After': String(espera) },
     );
   }
 
-  // --- Corpo da requisição ----------------------------------------------
-  let dados: unknown;
-  try {
-    dados = await request.json();
-  } catch {
-    return erro('Não foi possível interpretar o corpo da requisição como JSON.', 400);
+  const dados = await lerCorpoJson(request, MAXIMO_CORPO, idioma);
+  if (dados instanceof Response) return dados;
+  if (typeof dados !== 'object' || dados === null) return responderErro(m.corpoInvalido, 400);
+  const corpo = dados as Record<string, unknown>;
+
+  // --- 2. Provedor, modelo e credencial ---------------------------------
+  const provedor = lerProvedor(corpo['provedor']);
+  if (!provedor) return responderErro(m.provedor, 400);
+
+  const modelo = lerModelo(corpo['modelo']);
+  if (!modelo) return responderErro(m.modelo, 400);
+
+  const chave = lerCredencial(request);
+  if (!chave) return responderErro(m.conecte, 401);
+
+  // --- 3. Higiene e dados pessoais --------------------------------------
+  const perguntaBruta = typeof corpo['pergunta'] === 'string' ? limparTexto(corpo['pergunta']) : '';
+  if (!perguntaBruta) return responderErro(m.pergunta, 400);
+  if (perguntaBruta.length > LIMITES.pergunta) {
+    return responderErro(m.perguntaLonga(LIMITES.pergunta), 413);
   }
 
-  const validado = validarCorpo(dados);
-  if (validado instanceof Response) return validado;
+  const { texto: perguntaMascarada, encontrados } = mascararDadosPessoais(perguntaBruta);
+  const historico = lerHistorico(corpo['historico']);
+  const mascarados = [...new Set([...encontrados, ...historico.mascarados])];
 
-  const { pergunta, historico } = validado;
+  const avisos: Evento[] =
+    mascarados.length > 0
+      ? [
+          {
+            tipo: 'aviso',
+            mensagem: m.mascarados(mascarados.map((tipo) => m.tipos[tipo] ?? tipo).join(', ')),
+          },
+        ]
+      : [];
 
-  // --- RAG: injeta apenas os trechos relevantes -------------------------
-  const trecho = buscarContextoRelevante(pergunta, TEXTO_RAPI_COMPLETO);
-  const perguntaEnriquecida = trecho
-    ? `Pergunta: ${pergunta}\n\n[TRECHOS DO RELATÓRIO PARA TE AJUDAR NA RESPOSTA]:\n${trecho}`
-    : pergunta;
-
-  // --- Chamada ao Gemini -------------------------------------------------
-  const ai = new GoogleGenAI({ apiKey });
-  const conteudos = montarConteudos(historico, perguntaEnriquecida);
-  const configuracao = {
-    systemInstruction: montarInstrucoes(),
-    temperature: TEMPERATURA,
-  };
-
-  /** Executa uma tentativa contra um modelo específico. */
-  const tentar = async (modelo: string): Promise<string> => {
-    const resposta = await ai.models.generateContent({
-      model: modelo,
-      contents: conteudos,
-      config: configuracao,
-    });
-
-    const texto = resposta.text?.trim();
-    if (!texto) {
-      throw new Error('O modelo retornou uma resposta vazia.');
-    }
-    return texto;
-  };
-
-  try {
-    const texto = await tentar(MODELO_PADRAO);
-    return responder({ resposta: texto, modelo: MODELO_PADRAO });
-  } catch (falhaPrimaria) {
-    console.warn(
-      `[chat] Falha com o modelo "${MODELO_PADRAO}": ${descreverErro(falhaPrimaria)}. ` +
-        `Tentando o fallback "${MODELO_FALLBACK}".`,
-    );
-
-    // O modelo preview pode não estar liberado para a chave em uso;
-    // nesse caso, o fallback estável assume sem quebrar a experiência.
-    if (MODELO_PADRAO === MODELO_FALLBACK) {
-      return erro(traduzirErro(falhaPrimaria), 502);
-    }
-
-    try {
-      const texto = await tentar(MODELO_FALLBACK);
-      return responder({ resposta: texto, modelo: MODELO_FALLBACK });
-    } catch (falhaFallback) {
-      console.error(`[chat] Falha também no fallback: ${descreverErro(falhaFallback)}`);
-      return erro(traduzirErro(falhaFallback), 502);
-    }
-  }
-}
-
-// ==========================================================
-// Tratamento de erros
-// ==========================================================
-
-/** Extrai uma descrição textual de um erro desconhecido, para log. */
-function descreverErro(erroDesconhecido: unknown): string {
-  if (erroDesconhecido instanceof Error) return erroDesconhecido.message;
-  return String(erroDesconhecido);
-}
-
-/**
- * Converte a falha da API em uma mensagem apresentável ao usuário,
- * sem vazar detalhes internos nem a chave de acesso.
- */
-function traduzirErro(erroDesconhecido: unknown): string {
-  const detalhe = descreverErro(erroDesconhecido).toLowerCase();
-
-  if (detalhe.includes('quota') || detalhe.includes('resource_exhausted') || detalhe.includes('429')) {
-    return 'O limite de uso da API do Gemini foi atingido. Tente novamente em alguns minutos.';
-  }
-  if (detalhe.includes('api key') || detalhe.includes('unauthenticated') || detalhe.includes('401')) {
-    return 'A chave da API do Gemini é inválida ou expirou. Verifique a configuração do servidor.';
-  }
-  if (detalhe.includes('safety') || detalhe.includes('blocked')) {
-    return 'A resposta foi bloqueada pelos filtros de segurança do modelo. Tente reformular a pergunta.';
-  }
-  if (detalhe.includes('deadline') || detalhe.includes('timeout')) {
-    return 'O modelo demorou demais para responder. Tente uma pergunta mais objetiva.';
+  // --- 4. Injeção de prompt ---------------------------------------------
+  if (pareceInjecao(perguntaMascarada)) {
+    return responderEventos([...avisos, { tipo: 'bloqueio', mensagem: m.injecao }, { tipo: 'fim' }]);
   }
 
-  return 'Ops! Tivemos um problema ao consultar o assistente. Tente novamente em instantes.';
+  // --- 5. RAG ------------------------------------------------------------
+  const pergunta = neutralizarDelimitadores(perguntaMascarada);
+  const trechos = buscarContextoRelevante(pergunta, TEXTO_RAPI_COMPLETO);
+  const turnos: Turno[] = [...historico.turnos, { role: 'user', content: montarMensagemUsuario(pergunta, trechos) }];
+
+  // --- 6. Geração em streaming -----------------------------------------
+  const controlador = new AbortController();
+  const tempoLimite = setTimeout(() => controlador.abort(), TEMPO_LIMITE_MS);
+  request.signal.addEventListener('abort', () => controlador.abort(), { once: true });
+
+  const codificador = new TextEncoder();
+  const origem = origemDoSite(request);
+
+  const fluxo = new ReadableStream<Uint8Array>({
+    async start(saida) {
+      const emitir = (evento: Evento): void => {
+        saida.enqueue(codificador.encode(`${JSON.stringify(evento)}\n`));
+      };
+
+      avisos.forEach(emitir);
+      let acumulado = '';
+
+      try {
+        for await (const evento of gerarResposta(
+          provedor,
+          chave,
+          modelo,
+          montarInstrucoesSistema(idioma),
+          turnos,
+          origem,
+          controlador.signal,
+        )) {
+          if (evento.modelo) emitir({ tipo: 'modelo', modelo: evento.modelo });
+          if (!evento.texto) continue;
+
+          acumulado += evento.texto;
+          if (saidaVazaInstrucoes(acumulado)) {
+            emitir({ tipo: 'bloqueio', mensagem: m.saidaBloqueada });
+            controlador.abort();
+            break;
+          }
+          if (acumulado.length > LIMITES.resposta) {
+            emitir({ tipo: 'aviso', mensagem: m.tamanhoMaximo });
+            controlador.abort();
+            break;
+          }
+          emitir({ tipo: 'delta', texto: evento.texto });
+        }
+
+        if (!acumulado && !controlador.signal.aborted) {
+          emitir({ tipo: 'erro', mensagem: m.semConteudo });
+        }
+        emitir({ tipo: 'fim' });
+      } catch (erro) {
+        if (erro instanceof ErroProvedor) {
+          console.warn(`[chat] ${provedor.id} respondeu HTTP ${erro.status}`);
+          emitir({ tipo: 'erro', mensagem: traduzirStatusProvedor(erro.status, provedor.nome, idioma) });
+        } else if (controlador.signal.aborted) {
+          emitir({ tipo: 'erro', mensagem: m.demorou });
+        } else {
+          console.error(`[chat] falha inesperada com ${provedor.id}: ${erro instanceof Error ? erro.name : 'erro'}`);
+          emitir({ tipo: 'erro', mensagem: m.falhaGeral });
+        }
+        emitir({ tipo: 'fim' });
+      } finally {
+        clearTimeout(tempoLimite);
+        saida.close();
+      }
+    },
+    cancel() {
+      controlador.abort();
+      clearTimeout(tempoLimite);
+    },
+  });
+
+  return new Response(fluxo, { status: 200, headers: CABECALHOS_STREAM });
 }

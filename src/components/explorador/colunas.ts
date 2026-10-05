@@ -10,41 +10,32 @@
  *
  * Os anos vêm em ordem decrescente (mais recente primeiro) e cada ano
  * ocupa duas colunas intercaladas: o texto original e o valor extraído.
+ *
+ * O `tipo` de cada coluna define o filtro oferecido no cabeçalho:
+ * classificações (dimensão, pilar, tema…) são `categoria`; textos livres
+ * são `texto`; valores extraídos são `numero`.
  */
 
-import { ANOS, type AnoRAPI, type IndicadorRAPI } from '@/types/rapi';
+import type { ColunaTabela, TipoColuna } from '@/components/ui/tabela/modelo';
+import type { Textos } from '@/i18n/textos';
 import { formatarNumeroCompacto } from '@/lib/format';
-
-/** Como uma coluna deve ser alinhada e ordenada. */
-export type TipoColuna = 'texto' | 'numero';
-
-/** Descrição de uma coluna da tabela. */
-export interface ColunaExplorador {
-  readonly id: string;
-  readonly titulo: string;
-  readonly tipo: TipoColuna;
-  /** Valor bruto usado para ordenar e exportar. */
-  readonly valor: (indicador: IndicadorRAPI) => string | number | null;
-  /** Texto exibido na célula. */
-  readonly exibir: (indicador: IndicadorRAPI) => string;
-  /** Largura mínima sugerida (classe utilitária do Tailwind). */
-  readonly larguraMinima: string;
-}
+import { ANOS, type AnoRAPI, type IndicadorRAPI } from '@/types/rapi';
 
 /** Anos do mais recente para o mais antigo, como na tabela original. */
 const ANOS_DECRESCENTES: readonly AnoRAPI[] = [...ANOS].reverse();
 
-/** Coluna de texto simples a partir de um campo do indicador. */
+/** Coluna textual (livre ou categórica) a partir de um campo do indicador. */
 function colunaTexto(
   id: string,
   titulo: string,
+  tipo: Extract<TipoColuna, 'texto' | 'categoria'>,
   extrair: (i: IndicadorRAPI) => string | null,
   larguraMinima = 'min-w-40',
-): ColunaExplorador {
+): ColunaTabela<IndicadorRAPI> {
   return {
     id,
     titulo,
-    tipo: 'texto',
+    tipo,
     valor: (i) => extrair(i),
     exibir: (i) => extrair(i) ?? '',
     larguraMinima,
@@ -52,39 +43,43 @@ function colunaTexto(
 }
 
 /**
- * Todas as colunas do Explorador, na ordem de exibição.
+ * Todas as colunas do Explorador, na ordem de exibição, com títulos no
+ * idioma ativo.
  */
-export const COLUNAS: readonly ColunaExplorador[] = [
-  // --- Identificação -----------------------------------------------------
-  colunaTexto('dimensao', 'Dimensão', (i) => i.dimensao, 'min-w-28'),
-  colunaTexto('pilar', 'Pilar', (i) => i.pilar, 'min-w-52'),
-  colunaTexto('tema', 'Tema', (i) => i.tema, 'min-w-44'),
-  colunaTexto('subtema', 'Subtema', (i) => i.subtema, 'min-w-44'),
-  colunaTexto('orgao', 'Órgão Responsável', (i) => i.orgaoResponsavel, 'min-w-40'),
-  colunaTexto('indicador', 'Indicador', (i) => i.indicador, 'min-w-96'),
+export function criarColunas(t: Textos): readonly ColunaTabela<IndicadorRAPI>[] {
+  const c = t.explorador.colunas;
+  return [
+    // --- Identificação -----------------------------------------------------
+    colunaTexto('dimensao', c.dimensao, 'categoria', (i) => i.dimensao, 'min-w-32'),
+    colunaTexto('pilar', c.pilar, 'categoria', (i) => i.pilar, 'min-w-52'),
+    colunaTexto('tema', c.tema, 'categoria', (i) => i.tema, 'min-w-44'),
+    colunaTexto('subtema', c.subtema, 'categoria', (i) => i.subtema, 'min-w-44'),
+    colunaTexto('orgao', c.orgao, 'categoria', (i) => i.orgaoResponsavel, 'min-w-48'),
+    colunaTexto('indicador', c.indicador, 'texto', (i) => i.indicador, 'min-w-96'),
 
-  // --- Séries anuais intercaladas ---------------------------------------
-  ...ANOS_DECRESCENTES.flatMap((ano): ColunaExplorador[] => [
-    {
-      id: `${ano}-original`,
-      titulo: `${ano} (Original)`,
-      tipo: 'texto',
-      valor: (i) => i.dadosAnuais[ano] ?? null,
-      exibir: (i) => i.dadosAnuais[ano] ?? '',
-      larguraMinima: 'min-w-32',
-    },
-    {
-      id: `${ano}-numerico`,
-      titulo: `${ano} (Numérico)`,
-      tipo: 'numero',
-      valor: (i) => i.valoresNumericos[ano],
-      exibir: (i) => formatarNumeroCompacto(i.valoresNumericos[ano]),
-      larguraMinima: 'min-w-28',
-    },
-  ]),
+    // --- Séries anuais intercaladas ---------------------------------------
+    ...ANOS_DECRESCENTES.flatMap((ano): ColunaTabela<IndicadorRAPI>[] => [
+      {
+        id: `${ano}-original`,
+        titulo: c.original(ano),
+        tipo: 'texto',
+        valor: (i) => i.dadosAnuais[ano] ?? null,
+        exibir: (i) => i.dadosAnuais[ano] ?? '',
+        larguraMinima: 'min-w-36',
+      },
+      {
+        id: `${ano}-numerico`,
+        titulo: c.numerico(ano),
+        tipo: 'numero',
+        valor: (i) => i.valoresNumericos[ano],
+        exibir: (i) => formatarNumeroCompacto(i.valoresNumericos[ano]),
+        larguraMinima: 'min-w-36',
+      },
+    ]),
 
-  // --- Regras de semaforização ------------------------------------------
-  colunaTexto('faixa-verde', 'Faixa Verde', (i) => i.faixas.verde ?? i.faixas.geral ?? null, 'min-w-40'),
-  colunaTexto('faixa-amarela', 'Faixa Amarela', (i) => i.faixas.amarelo ?? null, 'min-w-40'),
-  colunaTexto('faixa-vermelha', 'Faixa Vermelha', (i) => i.faixas.vermelho ?? null, 'min-w-40'),
-];
+    // --- Regras de semaforização ------------------------------------------
+    colunaTexto('faixa-verde', c.faixaVerde, 'texto', (i) => i.faixas.verde ?? i.faixas.geral ?? null),
+    colunaTexto('faixa-amarela', c.faixaAmarela, 'texto', (i) => i.faixas.amarelo ?? null),
+    colunaTexto('faixa-vermelha', c.faixaVermelha, 'texto', (i) => i.faixas.vermelho ?? null),
+  ];
+}

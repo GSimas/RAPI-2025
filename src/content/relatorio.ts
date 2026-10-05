@@ -34,7 +34,7 @@ export interface BlocoDimensaoRelatorio {
 }
 
 /** Texto de abertura da Secao 7. */
-export const INTRODUCAO_CONSIDERACOES =
+export const INTRODUCAO_CONSIDERACOES: string =
   'Tomando por base os valores levantados em 2025 e sua série histórica para cada indicador, seguem abaixo as considerações e recomendações referentes aos itens que mais necessitam de atenção e providências. Deixamos de registrar comentários sobre a maioria dos aspectos em “verde” por já terem alcançado níveis satisfatórios.';
 
 /** Secao 7: consideracoes e recomendacoes por dimensao. */
@@ -223,7 +223,7 @@ export const CONSIDERACOES_FINAIS: readonly string[] = [
 ];
 
 /** Paragrafo de abertura da Secao 9. */
-export const AGRADECIMENTOS_INTRO =
+export const AGRADECIMENTOS_INTRO: string =
   'Agradecemos ao Prefeito de Florianópolis, Topázio Neto, seus secretários municipais, gestores e servidores da administração pública, bem como secretarias estaduais, empresas públicas e autarquias por seus esforços e contribuições no fornecimento dos dados solicitados.';
 
 /** Uma instituicao do Grupo de Trabalho e seus integrantes. */
@@ -250,5 +250,5 @@ export const GRUPO_TRABALHO: readonly InstituicaoGT[] = [
 ];
 
 /** Nota de licenca de uso do material. */
-export const NOTA_LICENCA =
+export const NOTA_LICENCA: string =
   'É permitida a reprodução parcial ou total deste material desde que citada a fonte Rede Ver a Cidade Floripa, 2024-2025. Outubro de 2025.';

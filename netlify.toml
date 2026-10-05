@@ -15,28 +15,35 @@
   node_bundler = "esbuild"
 
 [functions."chat"]
-  # A chamada ao Gemini pode levar alguns segundos.
+  # O CSV de indicadores entra na instrução de sistema do assistente.
   included_files = ["dados_rapi_completo.json"]
 
 # ----------------------------------------------------------
 # Redirecionamentos
 # ----------------------------------------------------------
 
-# Rota amigavel para a funcao serverless do assistente.
+# Rotas amigáveis para as funções serverless do assistente.
 [[redirects]]
   from = "/api/chat"
   to = "/.netlify/functions/chat"
   status = 200
   force = true
 
-# Fallback de SPA: qualquer rota nao encontrada devolve o index.html.
+[[redirects]]
+  from = "/api/modelos"
+  to = "/.netlify/functions/modelos"
+  status = 200
+  force = true
+
+# Fallback de SPA: qualquer rota não encontrada devolve o index.html
+# (inclui o retorno do login OpenRouter em /auth/openrouter).
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
 
 # ----------------------------------------------------------
-# Cabecalhos
+# Cabeçalhos
 # ----------------------------------------------------------
 [[headers]]
   for = "/assets/*"
@@ -49,3 +56,9 @@
     X-Content-Type-Options = "nosniff"
     X-Frame-Options = "SAMEORIGIN"
     Referrer-Policy = "strict-origin-when-cross-origin"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+    Cross-Origin-Opener-Policy = "same-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+    # Scripts só do próprio site; conexões externas apenas para o login
+    # OpenRouter (PKCE) e para embutir as fontes na exportação PNG.
+    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://openrouter.ai https://fonts.googleapis.com https://fonts.gstatic.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests"

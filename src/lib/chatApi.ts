@@ -1,20 +1,23 @@
 /**
  * ==========================================================
- * Cliente da função serverless do assistente
+ * Cliente das funções serverless do assistente
  * ==========================================================
  *
- * O navegador nunca conversa diretamente com a API do Gemini: a chave
- * vive apenas em `netlify/functions/chat.ts`. Aqui apenas encapsulamos a
- * chamada HTTP para `/api/chat`, incluindo timeout e tratamento de erro.
+ * - `listarModelos`: modelos de um provedor (e validação da chave BYOK);
+ * - `enviarPergunta`: envia a pergunta e consome a resposta em streaming
+ *   (NDJSON), repassando cada evento à interface.
+ *
+ * A credencial do usuário viaja apenas no cabeçalho `Authorization` para
+ * as rotas `/api/*` deste site; nunca em URL nem no corpo.
  */
 
+import type { Conexao } from '@/lib/ia/sessao';
+import type { IdProvedor } from '@/lib/ia/provedores';
+import { idiomaAtual, textosAtuais } from '@/i18n/textos';
 import type { MensagemChat } from '@/types/rapi';
 
-/** Rota da função serverless (ver o redirect em `netlify.toml`). */
-const ENDPOINT = '/api/chat';
-
-/** Tempo máximo de espera pela resposta do modelo. */
-const TIMEOUT_MS = 45_000;
+/** Tempo máximo de espera de uma resposta completa. */
+const TIMEOUT_MS = 65_000;
 
 /** Turno de conversa enviado à função (formato mínimo, sem metadados). */
 export interface TurnoConversa {
@@ -22,18 +25,22 @@ export interface TurnoConversa {
   readonly content: string;
 }
 
-/** Corpo da requisição aceito pela função serverless. */
-export interface RequisicaoChat {
-  readonly pergunta: string;
-  readonly historico: readonly TurnoConversa[];
+/** Um modelo disponível num provedor. */
+export interface ModeloIA {
+  readonly id: string;
+  readonly nome: string;
+  readonly gratis?: boolean;
+  readonly contexto?: number;
 }
 
-/** Resposta bem-sucedida da função serverless. */
-export interface RespostaChat {
-  readonly resposta: string;
-  /** Modelo efetivamente utilizado (útil quando o fallback é acionado). */
-  readonly modelo: string;
-}
+/** Eventos do streaming (espelham `netlify/functions/chat.ts`). */
+export type EventoChat =
+  | { readonly tipo: 'aviso'; readonly mensagem: string }
+  | { readonly tipo: 'modelo'; readonly modelo: string }
+  | { readonly tipo: 'delta'; readonly texto: string }
+  | { readonly tipo: 'bloqueio'; readonly mensagem: string }
+  | { readonly tipo: 'erro'; readonly mensagem: string }
+  | { readonly tipo: 'fim' };
 
 /** Erro tipado para diferenciar falhas de rede das falhas do modelo. */
 export class ErroChat extends Error {
@@ -49,71 +56,144 @@ export class ErroChat extends Error {
 
 /**
  * Converte o histórico exibido na interface para o formato da API,
- * descartando mensagens de erro (que não fazem parte da conversa real).
+ * descartando erros, recusas dos guardrails e respostas incompletas.
  */
 export function prepararHistorico(mensagens: readonly MensagemChat[]): TurnoConversa[] {
   return mensagens
-    .filter((mensagem) => !mensagem.erro)
+    .filter((mensagem) => !mensagem.erro && !mensagem.bloqueio && !mensagem.transmitindo && mensagem.content.trim())
     .map((mensagem) => ({ role: mensagem.role, content: mensagem.content }));
 }
 
+/** Extrai a mensagem `{ erro }` de uma resposta JSON de erro. */
+async function mensagemDeErro(resposta: Response): Promise<string> {
+  const corpo: unknown = await resposta.json().catch(() => null);
+  if (typeof corpo === 'object' && corpo !== null && 'erro' in corpo) {
+    return String((corpo as { erro: unknown }).erro);
+  }
+  return textosAtuais().chat.erros.requisicao(resposta.status);
+}
+
 /**
- * Envia uma pergunta ao assistente.
+ * Lista os modelos de um provedor.
  *
- * @param pergunta Texto digitado pelo usuário.
- * @param historico Turnos anteriores da conversa.
- * @param sinal `AbortSignal` externo, para cancelar a requisição.
- * @throws {ErroChat} Quando a rede falha, o tempo esgota ou a função
- *         responde com erro.
+ * @param chave Obrigatória para BYOK; dispensada na OpenRouter.
+ * @throws {ErroChat} Chave inválida, provedor indisponível etc.
  */
-export async function enviarPergunta(
-  pergunta: string,
-  historico: readonly TurnoConversa[],
-  sinal?: AbortSignal,
-): Promise<RespostaChat> {
+export async function listarModelos(provedor: IdProvedor, chave?: string): Promise<ModeloIA[]> {
+  let resposta: Response;
+  try {
+    resposta = await fetch('/api/modelos', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        // Idioma das mensagens do servidor (o escolhido no painel, não o do navegador).
+        'Accept-Language': idiomaAtual() === 'en' ? 'en' : 'pt-BR',
+        ...(chave ? { Authorization: `Bearer ${chave}` } : {}),
+      },
+      body: JSON.stringify({ provedor }),
+      signal: AbortSignal.timeout(25_000),
+    });
+  } catch {
+    throw new ErroChat(textosAtuais().chat.erros.consultarModelos);
+  }
+
+  if (!resposta.ok) throw new ErroChat(await mensagemDeErro(resposta), resposta.status);
+
+  const corpo: unknown = await resposta.json().catch(() => null);
+  const lista = typeof corpo === 'object' && corpo !== null ? (corpo as { modelos?: unknown }).modelos : null;
+  if (!Array.isArray(lista)) throw new ErroChat(textosAtuais().chat.erros.respostaModelos);
+
+  return lista.filter(
+    (item): item is ModeloIA =>
+      typeof item === 'object' && item !== null && typeof (item as ModeloIA).id === 'string',
+  );
+}
+
+interface OpcoesEnvio {
+  readonly pergunta: string;
+  readonly historico: readonly TurnoConversa[];
+  readonly conexao: Conexao;
+  readonly aoEvento: (evento: EventoChat) => void;
+  readonly sinal?: AbortSignal;
+  /** Idioma da resposta e das mensagens do servidor. */
+  readonly idioma: 'pt' | 'en';
+}
+
+/** Valida um evento NDJSON recebido. */
+function lerEvento(linha: string): EventoChat | null {
+  try {
+    const bruto = JSON.parse(linha) as Record<string, unknown>;
+    switch (bruto['tipo']) {
+      case 'delta':
+        return typeof bruto['texto'] === 'string' ? { tipo: 'delta', texto: bruto['texto'] } : null;
+      case 'modelo':
+        return typeof bruto['modelo'] === 'string' ? { tipo: 'modelo', modelo: bruto['modelo'] } : null;
+      case 'aviso':
+      case 'bloqueio':
+      case 'erro':
+        return typeof bruto['mensagem'] === 'string' ? { tipo: bruto['tipo'], mensagem: bruto['mensagem'] } : null;
+      case 'fim':
+        return { tipo: 'fim' };
+      default:
+        return null;
+    }
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Envia uma pergunta e repassa os eventos do streaming.
+ *
+ * @throws {ErroChat} Quando a rede falha, o tempo esgota ou a função
+ *         recusa a requisição antes do streaming.
+ */
+export async function enviarPergunta({ pergunta, historico, conexao, aoEvento, sinal, idioma }: OpcoesEnvio): Promise<void> {
   const controlador = new AbortController();
   const timeout = setTimeout(() => controlador.abort(), TIMEOUT_MS);
-
-  // Encadeia o cancelamento externo ao controlador interno do timeout.
   sinal?.addEventListener('abort', () => controlador.abort(), { once: true });
 
   try {
-    const resposta = await fetch(ENDPOINT, {
+    const resposta = await fetch('/api/chat', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ pergunta, historico } satisfies RequisicaoChat),
+      headers: {
+        'Content-Type': 'application/json',
+        // Idioma da resposta do modelo e das mensagens do servidor.
+        'Accept-Language': idioma === 'en' ? 'en' : 'pt-BR',
+        Authorization: `Bearer ${conexao.chave}`,
+      },
+      body: JSON.stringify({ pergunta, historico, provedor: conexao.provedor, modelo: conexao.modelo }),
       signal: controlador.signal,
     });
 
-    const corpo: unknown = await resposta.json().catch(() => null);
+    if (!resposta.ok || !resposta.body) throw new ErroChat(await mensagemDeErro(resposta), resposta.status);
 
-    if (!resposta.ok) {
-      const mensagem =
-        (typeof corpo === 'object' && corpo !== null && 'erro' in corpo
-          ? String((corpo as { erro: unknown }).erro)
-          : null) ?? `A requisição falhou (HTTP ${resposta.status}).`;
-      throw new ErroChat(mensagem, resposta.status);
+    const leitor = resposta.body.getReader();
+    const decodificador = new TextDecoder();
+    let pendente = '';
+
+    for (;;) {
+      const { value, done } = await leitor.read();
+      if (done) break;
+      pendente += decodificador.decode(value, { stream: true });
+
+      let quebra = pendente.indexOf('\n');
+      while (quebra !== -1) {
+        const evento = lerEvento(pendente.slice(0, quebra));
+        pendente = pendente.slice(quebra + 1);
+        if (evento) aoEvento(evento);
+        quebra = pendente.indexOf('\n');
+      }
     }
-
-    if (typeof corpo !== 'object' || corpo === null || !('resposta' in corpo)) {
-      throw new ErroChat('Resposta em formato inesperado do servidor.');
-    }
-
-    const dados = corpo as { resposta: unknown; modelo?: unknown };
-    return {
-      resposta: String(dados.resposta),
-      modelo: typeof dados.modelo === 'string' ? dados.modelo : 'desconhecido',
-    };
+    const final = lerEvento(pendente);
+    if (final) aoEvento(final);
   } catch (erro) {
     if (erro instanceof ErroChat) throw erro;
-
     if (erro instanceof DOMException && erro.name === 'AbortError') {
-      throw new ErroChat(
-        'A resposta demorou mais que o esperado. Tente reformular a pergunta.',
-      );
+      if (sinal?.aborted) throw new ErroChat(textosAtuais().chat.interrompida, 499);
+      throw new ErroChat(textosAtuais().chat.erros.demorou);
     }
-
-    throw new ErroChat('Não foi possível falar com o assistente. Verifique sua conexão.');
+    throw new ErroChat(textosAtuais().chat.erros.semConexao);
   } finally {
     clearTimeout(timeout);
   }

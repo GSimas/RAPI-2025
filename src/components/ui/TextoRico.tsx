@@ -32,7 +32,7 @@ export function TextoRico({ texto }: TextoRicoProps): JSX.Element {
       {partes.map((parte, indice) => {
         if (parte.startsWith('**') && parte.endsWith('**') && parte.length > 4) {
           return (
-            <strong key={indice} className="font-semibold text-slate-900 dark:text-slate-100">
+            <strong key={indice} className="font-semibold text-ink">
               {parte.slice(2, -2)}
             </strong>
           );

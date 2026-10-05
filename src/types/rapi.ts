@@ -132,4 +132,12 @@ export interface MensagemChat {
   readonly content: string;
   /** Marca mensagens que falharam, para estilizacao diferenciada. */
   readonly erro?: boolean;
+  /** Recusa emitida pelos guardrails (nao reenviada ao modelo). */
+  readonly bloqueio?: boolean;
+  /** Resposta ainda chegando em streaming. */
+  readonly transmitindo?: boolean;
+  /** Modelo que efetivamente gerou a resposta. */
+  readonly modelo?: string;
+  /** Avisos de seguranca associados (ex.: dados pessoais mascarados). */
+  readonly avisos?: readonly string[];
 }

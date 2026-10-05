@@ -6,8 +6,8 @@
  * Porte do `go.Figure` com `barmode="stack"` da aba de Apresentação:
  * cinco séries empilhadas (2020-2024) com as cores oficiais do semáforo.
  *
- * Todas as cores de eixo, grade e tooltip derivam do tema ativo, para
- * manter contraste adequado nos modos claro e escuro.
+ * Eixos, grade e tooltip derivam do tema ativo; as barras crescem ao
+ * aparecer, em sequência de baixo para cima.
  */
 
 import type { JSX } from 'react';
@@ -21,8 +21,9 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
-import { EVOLUCAO_SEMAFORIZACAO, SERIES_SEMAFORO } from '@/content/apresentacao';
-import { paletaGrafico } from '@/lib/paletaGrafico';
+import { useConteudoApresentacao } from '@/content';
+import { usePreferencias } from '@/hooks/usePreferencias';
+import { DURACAO_ANIMACAO_GRAFICO, FONTE_GRAFICO, paletaGrafico } from '@/lib/paletaGrafico';
 
 interface GraficoSemaforizacaoProps {
   /** Se o tema escuro está ativo. */
@@ -35,68 +36,68 @@ interface GraficoSemaforizacaoProps {
  */
 export function GraficoSemaforizacao({ escuro }: GraficoSemaforizacaoProps): JSX.Element {
   const paleta = paletaGrafico(escuro);
+  const { reduzirMovimento } = usePreferencias();
+  const { EVOLUCAO_SEMAFORIZACAO, SERIES_SEMAFORO } = useConteudoApresentacao();
+  const ticks = { fill: paleta.textoSuave, fontSize: 11, fontFamily: FONTE_GRAFICO };
 
   return (
-    <div className="h-[360px] w-full" aria-hidden="true">
+    <div className="h-[380px] w-full" aria-hidden="true">
       <ResponsiveContainer width="100%" height="100%">
         <BarChart
           data={[...EVOLUCAO_SEMAFORIZACAO]}
-          margin={{ top: 8, right: 8, left: -12, bottom: 4 }}
+          margin={{ top: 8, right: 8, left: -16, bottom: 4 }}
+          barCategoryGap="28%"
         >
-          <CartesianGrid strokeDasharray="3 3" stroke={paleta.grade} vertical={false} />
+          <CartesianGrid stroke={paleta.grade} vertical={false} />
 
           <XAxis
             dataKey="ano"
-            stroke={paleta.eixo}
-            tick={{ fill: paleta.texto, fontSize: 12 }}
+            tick={ticks}
             tickLine={false}
-            axisLine={{ stroke: paleta.grade }}
-            label={{
-              value: 'Ano de Avaliação',
-              position: 'insideBottom',
-              offset: -2,
-              fill: paleta.textoSuave,
-              fontSize: 11,
-            }}
+            axisLine={{ stroke: paleta.eixo }}
           />
 
-          <YAxis
-            stroke={paleta.eixo}
-            tick={{ fill: paleta.texto, fontSize: 12 }}
-            tickLine={false}
-            axisLine={false}
-            width={48}
-          />
+          <YAxis tick={ticks} tickLine={false} axisLine={false} width={48} />
 
           <Tooltip
             cursor={{ fill: paleta.destaque }}
             contentStyle={{
               backgroundColor: paleta.fundoTooltip,
               border: `1px solid ${paleta.bordaTooltip}`,
-              borderRadius: 8,
+              borderRadius: 2,
               color: paleta.texto,
               fontSize: 12,
+              fontFamily: FONTE_GRAFICO,
+              boxShadow: '0 12px 32px -12px rgba(0,0,0,0.35)',
             }}
-            labelStyle={{ color: paleta.texto, fontWeight: 600 }}
-            itemStyle={{ color: paleta.texto }}
+            labelStyle={{ color: paleta.texto, fontWeight: 500, marginBottom: 4 }}
+            itemStyle={{ color: paleta.texto, padding: 0 }}
           />
 
           <Legend
             verticalAlign="top"
-            align="right"
-            iconType="circle"
-            iconSize={9}
-            wrapperStyle={{ fontSize: 11, color: paleta.texto, paddingBottom: 12 }}
+            align="left"
+            iconType="square"
+            iconSize={8}
+            wrapperStyle={{
+              fontSize: 11,
+              fontFamily: FONTE_GRAFICO,
+              color: paleta.textoSuave,
+              paddingBottom: 16,
+            }}
           />
 
-          {SERIES_SEMAFORO.map((serie) => (
+          {SERIES_SEMAFORO.map((serie, indice) => (
             <Bar
               key={serie.chave}
               dataKey={serie.chave}
               name={serie.rotulo}
               stackId="semaforo"
               fill={serie.cor}
-              isAnimationActive={false}
+              isAnimationActive={!reduzirMovimento}
+              animationBegin={indice * 120}
+              animationDuration={DURACAO_ANIMACAO_GRAFICO}
+              animationEasing="ease-out"
             />
           ))}
         </BarChart>

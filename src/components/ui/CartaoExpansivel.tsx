@@ -3,20 +3,24 @@
  * <CartaoExpansivel /> - equivalente ao `st.expander`
  * ==========================================================
  *
- * Implementado sobre `<details>`/`<summary>` nativos: acessível por
- * teclado e por leitores de tela sem qualquer JavaScript adicional.
+ * Bloco recolhível com animação de altura: o conteúdo desliza e aparece
+ * ao abrir, e se recolhe ao fechar. Usa o padrão de *disclosure* do
+ * WAI-ARIA (botão com `aria-expanded` controlando a região).
  */
 
-import type { JSX, ReactNode } from 'react';
+import { Plus } from 'lucide-react';
+import { AnimatePresence, motion } from 'motion/react';
+import { useId, useState, type JSX, type ReactNode } from 'react';
+import { EASE_SCIENTATA } from '@/lib/movimento';
 
 interface CartaoExpansivelProps {
   /** Título exibido no cabeçalho clicável. */
   readonly titulo: string;
-  /** Emoji ou ícone à esquerda do título. */
-  readonly icone?: string;
+  /** Rótulo mono acima do título (ex.: "7.1"). */
+  readonly rotulo?: string;
   /** Texto auxiliar à direita do título (ex.: contagem de indicadores). */
   readonly badge?: string;
-  /** Cor de acento aplicada à borda esquerda. */
+  /** Cor de acento do marcador quadrado. */
   readonly corAcento?: string;
   /** Se o cartão inicia aberto. */
   readonly aberto?: boolean;
@@ -24,55 +28,94 @@ interface CartaoExpansivelProps {
 }
 
 /**
- * Bloco de conteúdo recolhível, com acento colorido opcional.
+ * Bloco de conteúdo recolhível, com marcador colorido opcional.
  */
 export function CartaoExpansivel({
   titulo,
-  icone,
+  rotulo,
   badge,
   corAcento,
   aberto = false,
   children,
 }: CartaoExpansivelProps): JSX.Element {
+  const [expandido, setExpandido] = useState(aberto);
+  const id = useId();
+
   return (
-    <details
-      className="cartao group overflow-hidden transition hover:shadow-md"
-      style={corAcento ? { borderLeft: `4px solid ${corAcento}` } : undefined}
-      open={aberto}
-    >
-      <summary className="flex cursor-pointer list-none items-center gap-3 px-4 py-3.5 select-none">
-        {icone && (
-          <span aria-hidden="true" className="text-lg">
-            {icone}
-          </span>
+    <div className="card group/cartao overflow-hidden" data-aberto={expandido}>
+      <button
+        type="button"
+        id={`${id}-botao`}
+        aria-expanded={expandido}
+        aria-controls={`${id}-regiao`}
+        onClick={() => setExpandido((atual) => !atual)}
+        className="flex w-full cursor-pointer items-center gap-4 px-5 py-4 text-left"
+        style={{ ['--brilho-forca' as string]: 0.1, ['--brilho-raio' as string]: '380px' }}
+      >
+        {corAcento && (
+          <span
+            aria-hidden="true"
+            className="size-2.5 shrink-0 transition-transform duration-500 group-data-[aberto=true]/cartao:rotate-45"
+            style={{ backgroundColor: corAcento }}
+          />
         )}
 
-        <span className="flex-1 text-sm font-semibold text-slate-800 sm:text-base dark:text-slate-100">
-          {titulo}
+        <span className="min-w-0 flex-1">
+          {rotulo && <span className="rotulo block">{rotulo}</span>}
+          <span className="mt-0.5 block text-base font-semibold tracking-[-0.01em] text-ink sm:text-lg">
+            {titulo}
+          </span>
         </span>
 
-        {badge && (
-          <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-600 dark:bg-slate-800 dark:text-slate-300">
-            {badge}
-          </span>
-        )}
+        {badge && <span className="chip hidden sm:inline-flex">{badge}</span>}
 
-        {/* Chevron que gira quando o bloco abre. */}
-        <svg
+        {/* "+" que gira para "×" quando o bloco abre. */}
+        <span
           aria-hidden="true"
-          viewBox="0 0 20 20"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="size-4 shrink-0 text-slate-400 transition-transform duration-200 group-open:rotate-180"
+          className="flex size-8 shrink-0 items-center justify-center rounded-full border border-line text-muted transition-all duration-500 ease-scientata group-hover/cartao:border-signal/50 group-hover/cartao:text-signal group-data-[aberto=true]/cartao:rotate-45 group-data-[aberto=true]/cartao:border-signal/60 group-data-[aberto=true]/cartao:text-signal"
         >
-          <path d="M5 7.5 10 12.5 15 7.5" />
-        </svg>
-      </summary>
+          <Plus className="size-4" />
+        </span>
+      </button>
 
-      <div className="border-t border-slate-200 px-4 py-4 dark:border-slate-800">{children}</div>
-    </details>
+      <AnimatePresence initial={false}>
+        {expandido && (
+          <motion.div
+            key="conteudo"
+            id={`${id}-regiao`}
+            role="region"
+            aria-labelledby={`${id}-botao`}
+            initial={{ height: 0, opacity: 0 }}
+            animate={{
+              height: 'auto',
+              opacity: 1,
+              transition: {
+                height: { duration: 0.55, ease: EASE_SCIENTATA },
+                opacity: { duration: 0.4, delay: 0.1 },
+              },
+            }}
+            exit={{
+              height: 0,
+              opacity: 0,
+              transition: {
+                height: { duration: 0.4, ease: EASE_SCIENTATA },
+                opacity: { duration: 0.2 },
+              },
+            }}
+            className="overflow-hidden"
+          >
+            <motion.div
+              initial={{ y: -8 }}
+              animate={{ y: 0 }}
+              exit={{ y: -8 }}
+              transition={{ duration: 0.5, ease: EASE_SCIENTATA }}
+              className="border-t border-line px-5 py-5"
+            >
+              {children}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 }

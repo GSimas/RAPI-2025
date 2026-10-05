@@ -9,7 +9,11 @@
  * React, sem `dangerouslySetInnerHTML`.
  */
 
+import { ShieldAlert, TriangleAlert } from 'lucide-react';
+import { motion } from 'motion/react';
 import { Fragment, type JSX } from 'react';
+import { usePreferencias } from '@/hooks/usePreferencias';
+import { EASE_SCIENTATA } from '@/lib/movimento';
 import type { MensagemChat } from '@/types/rapi';
 
 interface BolhaMensagemProps {
@@ -39,7 +43,7 @@ function InlineMarkdown({ texto }: { readonly texto: string }): JSX.Element {
           return (
             <code
               key={indice}
-              className="rounded bg-slate-200/70 px-1 py-0.5 font-mono text-[0.85em] dark:bg-slate-700/70"
+              className="border border-line bg-canvas/60 px-1 py-0.5 font-mono text-[0.85em]"
             >
               {parte.slice(1, -1)}
             </code>
@@ -68,7 +72,7 @@ function CorpoMarkdown({ texto }: { readonly texto: string }): JSX.Element {
     if (itensLista.length === 0) return;
 
     blocos.push(
-      <ul key={`lista-${blocos.length}`} className="ml-4 list-disc space-y-1">
+      <ul key={`lista-${blocos.length}`} className="ml-4 list-disc space-y-1 marker:text-signal">
         {itensLista.map((item, indice) => (
           <li key={indice}>
             <InlineMarkdown texto={item} />
@@ -120,41 +124,102 @@ function CorpoMarkdown({ texto }: { readonly texto: string }): JSX.Element {
 }
 
 /**
- * Bolha de conversa, alinhada à direita para o usuário e à esquerda para
- * o assistente.
+ * Feedback visual enquanto o primeiro trecho da resposta não chega.
+ */
+function IndicadorDigitando(): JSX.Element {
+  const tb = usePreferencias().t.chat.bolha;
+  return (
+    <span className="flex items-center gap-3">
+      <span className="flex gap-1" aria-hidden="true">
+        {[0, 0.15, 0.3].map((atraso) => (
+          <motion.span
+            key={atraso}
+            className="size-1.5 bg-signal-fill"
+            animate={{ opacity: [0.25, 1, 0.25], y: [0, -3, 0] }}
+            transition={{ duration: 1, repeat: Infinity, delay: atraso, ease: 'easeInOut' }}
+          />
+        ))}
+      </span>
+      <span className="rotulo">{tb.digitando}</span>
+    </span>
+  );
+}
+
+/**
+ * Uma mensagem da conversa: a do usuário num bloco amarelo translúcido à
+ * direita; a do assistente como texto editorial à esquerda, sob um
+ * rótulo mono. Cada mensagem entra subindo e desfocando.
  */
 export function BolhaMensagem({ mensagem }: BolhaMensagemProps): JSX.Element {
   const doUsuario = mensagem.role === 'user';
+  const tb = usePreferencias().t.chat.bolha;
 
   return (
-    <div className={`flex items-start gap-3 ${doUsuario ? 'flex-row-reverse' : ''}`}>
-      <span
-        aria-hidden="true"
-        className={[
-          'flex size-8 shrink-0 items-center justify-center rounded-full text-sm',
-          doUsuario
-            ? 'bg-rapi-600 text-white'
-            : mensagem.erro
-              ? 'bg-red-100 dark:bg-red-950'
-              : 'bg-rapi-100 dark:bg-rapi-950',
-        ].join(' ')}
-      >
-        {doUsuario ? '🧑' : mensagem.erro ? '⚠️' : '🤖'}
-      </span>
+    <motion.div
+      initial={{ opacity: 0, y: 14, filter: 'blur(4px)' }}
+      animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+      transition={{ duration: 0.55, ease: EASE_SCIENTATA }}
+      className={doUsuario ? 'flex justify-end' : ''}
+    >
+      {doUsuario ? (
+        <div className="max-w-[85%] border border-signal/35 bg-signal/[0.08] px-4 py-3 text-sm leading-relaxed text-ink">
+          <p className="sr-only">{tb.voce}</p>
+          <CorpoMarkdown texto={mensagem.content} />
+        </div>
+      ) : (
+        <div
+          className={[
+            'border-l-2 pl-4',
+            mensagem.erro
+              ? 'border-semaforo-vermelho'
+              : mensagem.bloqueio
+                ? 'border-line-forte'
+                : 'border-signal-fill',
+          ].join(' ')}
+        >
+          <p
+            className={[
+              'rotulo mb-2 flex items-center gap-1.5',
+              mensagem.erro ? 'text-semaforo-vermelho' : mensagem.bloqueio ? 'text-muted' : 'text-signal',
+            ].join(' ')}
+          >
+            {mensagem.erro && <TriangleAlert aria-hidden="true" className="size-3" />}
+            {mensagem.bloqueio && <ShieldAlert aria-hidden="true" className="size-3" />}
+            <span className="sr-only">{tb.assistente}</span>
+            <span aria-hidden="true">
+              {mensagem.erro ? tb.erro : mensagem.bloqueio ? tb.bloqueio : tb.consultor}
+            </span>
+          </p>
 
-      <div
-        className={[
-          'max-w-[85ch] rounded-2xl px-4 py-3 text-sm leading-relaxed',
-          doUsuario
-            ? 'rounded-tr-sm bg-rapi-600 text-white'
-            : mensagem.erro
-              ? 'rounded-tl-sm border border-red-300 bg-red-50 text-red-800 dark:border-red-800 dark:bg-red-950/50 dark:text-red-200'
-              : 'rounded-tl-sm bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-200',
-        ].join(' ')}
-      >
-        <p className="sr-only">{doUsuario ? 'Você:' : 'Assistente:'}</p>
-        <CorpoMarkdown texto={mensagem.content} />
-      </div>
-    </div>
+          <div className="text-[0.9375rem] leading-relaxed text-ink/90">
+            {mensagem.content ? (
+              <CorpoMarkdown texto={mensagem.content} />
+            ) : (
+              mensagem.transmitindo && <IndicadorDigitando />
+            )}
+            {mensagem.transmitindo && mensagem.content && (
+              <span aria-hidden="true" className="ml-0.5 inline-block h-4 w-1.5 translate-y-0.5 animate-piscar bg-signal-fill" />
+            )}
+          </div>
+
+          {mensagem.avisos && mensagem.avisos.length > 0 && (
+            <ul className="mt-3 space-y-1">
+              {mensagem.avisos.map((aviso) => (
+                <li key={aviso} className="flex items-start gap-1.5 text-xs text-muted">
+                  <ShieldAlert aria-hidden="true" className="mt-0.5 size-3 shrink-0 text-signal" />
+                  {aviso}
+                </li>
+              ))}
+            </ul>
+          )}
+
+          {mensagem.modelo && !mensagem.transmitindo && (
+            <p className="mt-3 font-mono text-[0.625rem] tracking-[0.06em] text-faint">
+              {tb.geradoPor(mensagem.modelo)}
+            </p>
+          )}
+        </div>
+      )}
+    </motion.div>
   );
 }

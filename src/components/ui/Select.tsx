@@ -4,10 +4,12 @@
  * ==========================================================
  *
  * Equivalente ao `st.selectbox`: um `<select>` nativo (leve, acessível e
- * com boa ergonomia em telas de toque) acompanhado de rótulo associado.
+ * com boa ergonomia em telas de toque) com rótulo mono e seta própria.
  */
 
+import { ChevronDown } from 'lucide-react';
 import { useId, type JSX } from 'react';
+import { usePreferencias } from '@/hooks/usePreferencias';
 
 /** Uma opção da lista. */
 export interface OpcaoSelect {
@@ -39,31 +41,39 @@ export function Select({
 }: SelectProps): JSX.Element {
   const id = useId();
   const idAjuda = `${id}-ajuda`;
+  const { t } = usePreferencias();
 
   return (
-    <div className="flex flex-col gap-1.5">
-      <label htmlFor={id} className="rotulo-campo">
+    <div className="flex min-w-0 flex-col gap-2">
+      <label htmlFor={id} className="rotulo">
         {rotulo}
       </label>
 
-      <select
-        id={id}
-        className="campo disabled:cursor-not-allowed disabled:opacity-60"
-        value={valor}
-        disabled={desabilitado || opcoes.length === 0}
-        onChange={(evento) => onChange(evento.target.value)}
-        aria-describedby={ajuda ? idAjuda : undefined}
-      >
-        {opcoes.length === 0 && <option value="">— sem opções —</option>}
-        {opcoes.map((opcao) => (
-          <option key={opcao.valor} value={opcao.valor}>
-            {opcao.rotulo}
-          </option>
-        ))}
-      </select>
+      <div className="group relative">
+        <select
+          id={id}
+          className="campo truncate disabled:cursor-not-allowed disabled:opacity-50"
+          value={valor}
+          disabled={desabilitado || opcoes.length === 0}
+          onChange={(evento) => onChange(evento.target.value)}
+          aria-describedby={ajuda ? idAjuda : undefined}
+        >
+          {opcoes.length === 0 && <option value="">{t.select.semOpcoes}</option>}
+          {opcoes.map((opcao) => (
+            <option key={opcao.valor} value={opcao.valor}>
+              {opcao.rotulo}
+            </option>
+          ))}
+        </select>
+
+        <ChevronDown
+          aria-hidden="true"
+          className="pointer-events-none absolute top-1/2 right-3 size-4 -translate-y-1/2 text-faint transition-colors duration-300 group-hover:text-signal"
+        />
+      </div>
 
       {ajuda && (
-        <p id={idAjuda} className="text-xs text-slate-500 dark:text-slate-400">
+        <p id={idAjuda} className="text-xs text-faint">
           {ajuda}
         </p>
       )}

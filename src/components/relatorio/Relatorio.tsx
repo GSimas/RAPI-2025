@@ -1,6 +1,6 @@
 /**
  * ==========================================================
- * Aba 3 - Relatório e Análises Completas
+ * Página - Relatório e Análises
  * ==========================================================
  *
  * Renderização modular das seções qualitativas do RAPI:
@@ -13,98 +13,136 @@
  */
 
 import type { JSX } from 'react';
-import {
-  AGRADECIMENTOS_INTRO,
-  BLOCOS_CONSIDERACOES,
-  CONSIDERACOES_FINAIS,
-  GRUPO_TRABALHO,
-  INTRODUCAO_CONSIDERACOES,
-  NOTA_LICENCA,
-  type TemaAnalise,
-} from '@/content/relatorio';
+import { useConteudoRelatorio } from '@/content';
+import type { TemaAnalise } from '@/content/relatorio';
+import { AvisoTraducao } from '@/components/ui/AvisoTraducao';
+import { usePreferencias } from '@/hooks/usePreferencias';
 import { CartaoExpansivel } from '@/components/ui/CartaoExpansivel';
+import { Revelar, RevelarGrupo } from '@/components/ui/Revelar';
+import { CabecalhoSecao, TituloPagina } from '@/components/ui/Titulos';
+import type { DefinicaoPagina } from '@/lib/navegacao';
+
+interface RelatorioProps {
+  readonly pagina: DefinicaoPagina;
+  readonly onInicio: () => void;
+}
 
 /**
  * Página completa de análises qualitativas do relatório.
  */
-export function Relatorio(): JSX.Element {
+export function Relatorio({ pagina, onInicio }: RelatorioProps): JSX.Element {
+  const { t } = usePreferencias();
+  const tr = t.relatorio;
+  const {
+    AGRADECIMENTOS_INTRO,
+    BLOCOS_CONSIDERACOES,
+    CONSIDERACOES_FINAIS,
+    GRUPO_TRABALHO,
+    INTRODUCAO_CONSIDERACOES,
+    NOTA_LICENCA,
+  } = useConteudoRelatorio();
+
   return (
-    <div className="animate-fade-in space-y-10">
-      {/* --- Seção 7 ------------------------------------------------- */}
-      <section aria-labelledby="titulo-consideracoes">
-        <h2 id="titulo-consideracoes" className="titulo-secao">
-          7. Considerações e Recomendações
-        </h2>
+    <div>
+      <TituloPagina pagina={pagina} onInicio={onInicio}>
+        <AvisoTraducao />
+      </TituloPagina>
 
-        <p className="texto-relatorio mt-3 max-w-4xl">{INTRODUCAO_CONSIDERACOES}</p>
-
-        <div className="mt-6 space-y-4">
-          {BLOCOS_CONSIDERACOES.map((bloco) => (
-            <CartaoExpansivel
-              key={bloco.id}
-              icone={bloco.icone}
-              titulo={`${bloco.numero} ${bloco.titulo}`}
-              badge={`${bloco.temas.length} temas`}
-              corAcento={bloco.corAcento}
+      <div className="space-y-24">
+        {/* --- Seção 7 ----------------------------------------------- */}
+        <section aria-labelledby="titulo-consideracoes">
+          <Revelar>
+            <CabecalhoSecao
+              id="titulo-consideracoes"
+              rotulo={tr.s7.rotulo}
+              titulo={tr.s7.titulo}
+              destaque={tr.s7.destaque}
             >
-              <div className="space-y-6">
-                {bloco.temas.map((tema) => (
-                  <BlocoTema key={tema.id} tema={tema} />
-                ))}
-              </div>
-            </CartaoExpansivel>
-          ))}
-        </div>
-      </section>
+              <p className="texto-relatorio">{INTRODUCAO_CONSIDERACOES}</p>
+            </CabecalhoSecao>
+          </Revelar>
 
-      {/* --- Seção 8 ------------------------------------------------- */}
-      <section
-        aria-labelledby="titulo-finais"
-        className="border-t border-slate-200 pt-8 dark:border-slate-800"
-      >
-        <h2 id="titulo-finais" className="titulo-secao">
-          8. Considerações Finais
-        </h2>
+          <RevelarGrupo className="mt-10 space-y-3">
+            {BLOCOS_CONSIDERACOES.map((bloco) => (
+              <Revelar key={bloco.id} emGrupo>
+                <CartaoExpansivel
+                  rotulo={`${bloco.numero} · ${tr.temas(bloco.temas.length)}`}
+                  titulo={bloco.titulo}
+                  corAcento={bloco.corAcento}
+                >
+                  <div className="divide-y divide-line">
+                    {bloco.temas.map((tema) => (
+                      <BlocoTema key={tema.id} tema={tema} />
+                    ))}
+                  </div>
+                </CartaoExpansivel>
+              </Revelar>
+            ))}
+          </RevelarGrupo>
+        </section>
 
-        <div className="mt-3 max-w-4xl space-y-3">
-          {CONSIDERACOES_FINAIS.map((paragrafo, indice) => (
-            <p key={indice} className="texto-relatorio">
-              {paragrafo}
-            </p>
-          ))}
-        </div>
-      </section>
+        {/* --- Seção 8 ----------------------------------------------- */}
+        <section aria-labelledby="titulo-finais">
+          <Revelar>
+            <CabecalhoSecao
+              id="titulo-finais"
+              rotulo={tr.s8.rotulo}
+              titulo={tr.s8.titulo}
+              destaque={tr.s8.destaque}
+            />
+          </Revelar>
 
-      {/* --- Seção 9 ------------------------------------------------- */}
-      <section
-        aria-labelledby="titulo-creditos"
-        className="border-t border-slate-200 pt-8 dark:border-slate-800"
-      >
-        <h2 id="titulo-creditos" className="titulo-secao">
-          9. Agradecimentos e Créditos
-        </h2>
-
-        <p className="texto-relatorio mt-3 max-w-4xl">{AGRADECIMENTOS_INTRO}</p>
-
-        <h3 className="mt-6 text-base font-semibold text-slate-800 dark:text-slate-100">
-          Grupo de Trabalho de Indicadores (RAPI 2024-2025)
-        </h3>
-
-        <dl className="mt-3 grid gap-4 lg:grid-cols-3">
-          {GRUPO_TRABALHO.map((item) => (
-            <div key={item.instituicao} className="cartao p-4">
-              <dt className="text-sm font-semibold text-rapi-600 dark:text-rapi-400">
-                {item.instituicao}
-              </dt>
-              <dd className="mt-1.5 text-sm leading-relaxed text-slate-600 dark:text-slate-400">
-                {item.integrantes}
-              </dd>
+          <Revelar className="mt-10 grid gap-6 border-t border-line pt-10 lg:grid-cols-[18rem_1fr] lg:gap-12">
+            <p className="rotulo text-signal">08</p>
+            <div className="max-w-3xl space-y-4">
+              {CONSIDERACOES_FINAIS.map((paragrafo, indice) => (
+                <p key={indice} className="texto-relatorio">
+                  {paragrafo}
+                </p>
+              ))}
             </div>
-          ))}
-        </dl>
+          </Revelar>
+        </section>
 
-        <p className="mt-5 text-sm text-slate-500 italic dark:text-slate-400">{NOTA_LICENCA}</p>
-      </section>
+        {/* --- Seção 9 ----------------------------------------------- */}
+        <section aria-labelledby="titulo-creditos">
+          <Revelar>
+            <CabecalhoSecao
+              id="titulo-creditos"
+              rotulo={tr.s9.rotulo}
+              titulo={tr.s9.titulo}
+              destaque={tr.s9.destaque}
+            >
+              <p className="texto-relatorio">{AGRADECIMENTOS_INTRO}</p>
+            </CabecalhoSecao>
+          </Revelar>
+
+          <Revelar className="mt-10">
+            <h3 className="rotulo">{tr.grupoTrabalho}</h3>
+          </Revelar>
+
+          <RevelarGrupo className="mt-4 grid gap-px border border-line bg-line lg:grid-cols-3">
+            {GRUPO_TRABALHO.map((item, indice) => (
+              <Revelar key={item.instituicao} emGrupo className="bg-canvas">
+                <div
+                  data-brilho
+                  className="h-full bg-surface/80 p-6 [--brilho-forca:0.08] [--brilho-raio:320px]"
+                >
+                  <p className="rotulo text-signal">{String(indice + 1).padStart(2, '0')}</p>
+                  <p className="mt-3 text-lg font-semibold tracking-[-0.015em] text-ink">
+                    {item.instituicao}
+                  </p>
+                  <p className="mt-2 text-sm leading-relaxed text-muted">{item.integrantes}</p>
+                </div>
+              </Revelar>
+            ))}
+          </RevelarGrupo>
+
+          <Revelar>
+            <p className="serif mt-8 max-w-3xl text-xl leading-snug text-muted">{NOTA_LICENCA}</p>
+          </Revelar>
+        </section>
+      </div>
     </div>
   );
 }
@@ -113,18 +151,22 @@ export function Relatorio(): JSX.Element {
  * Bloco de análise de um tema (ex.: "7.1.1 Tema: Água").
  */
 function BlocoTema({ tema }: { readonly tema: TemaAnalise }): JSX.Element {
+  const { t } = usePreferencias();
   return (
-    <article aria-labelledby={`tema-${tema.id}`}>
-      <h4
-        id={`tema-${tema.id}`}
-        className="text-sm font-bold text-slate-800 sm:text-base dark:text-slate-100"
-      >
-        {tema.numero} {tema.titulo}
-      </h4>
+    <article
+      aria-labelledby={`tema-${tema.id}`}
+      className="grid gap-3 py-6 first:pt-1 last:pb-1 md:grid-cols-[12rem_1fr] md:gap-8"
+    >
+      <div>
+        <p className="rotulo text-signal">{tema.numero}</p>
+        <h4 id={`tema-${tema.id}`} className="mt-1.5 text-base leading-snug font-semibold text-ink">
+          {tema.titulo.replace(t.relatorio.prefixoTema, '')}
+        </h4>
+      </div>
 
-      <div className="mt-2 space-y-2.5">
+      <div className="space-y-3">
         {tema.paragrafos.map((paragrafo, indice) => (
-          <p key={indice} className="texto-relatorio">
+          <p key={indice} className="texto-relatorio text-base">
             {paragrafo}
           </p>
         ))}

@@ -3,10 +3,11 @@
  * Paleta dos gráficos, sensível ao tema
  * ==========================================================
  *
- * O Streamlit resolvia o contraste dos gráficos automaticamente com
- * `theme="streamlit"`. Como o Recharts recebe cores explícitas, esta
- * função centraliza os tokens usados por todos os gráficos, garantindo
- * legibilidade equivalente nos modos claro e escuro.
+ * O Recharts recebe cores explícitas, então esta função centraliza os
+ * tokens usados por todos os gráficos — os mesmos tons quentes de
+ * `index.css` — garantindo legibilidade nos modos claro e escuro.
+ *
+ * As cores das barras continuam sendo as do semáforo (dado), não do tema.
  */
 
 /** Conjunto de cores aplicado a eixos, grade, rótulos e tooltip. */
@@ -25,9 +26,15 @@ export interface PaletaGrafico {
   readonly fundoTooltip: string;
   /** Borda da caixa de tooltip. */
   readonly bordaTooltip: string;
-  /** Cor da linha de tendência. */
+  /** Cor da linha de tendência (o amarelo "sinal"). */
   readonly linhaTendencia: string;
 }
+
+/** Família tipográfica dos ticks e rótulos dos gráficos. */
+export const FONTE_GRAFICO = "'DM Mono', ui-monospace, monospace";
+
+/** Duração das animações de entrada dos gráficos, em ms. */
+export const DURACAO_ANIMACAO_GRAFICO = 900;
 
 /**
  * Devolve a paleta apropriada para o tema ativo.
@@ -37,25 +44,25 @@ export interface PaletaGrafico {
 export function paletaGrafico(escuro: boolean): PaletaGrafico {
   if (escuro) {
     return {
-      eixo: '#475569', // slate-600
-      grade: 'rgba(148, 163, 184, 0.18)', // slate-400 translúcido
-      texto: '#e2e8f0', // slate-200
-      textoSuave: '#94a3b8', // slate-400
-      destaque: 'rgba(148, 163, 184, 0.12)',
-      fundoTooltip: '#0f172a', // slate-900
-      bordaTooltip: '#334155', // slate-700
-      linhaTendencia: '#94a3b8',
+      eixo: '#3d3421',
+      grade: 'rgba(255, 214, 120, 0.08)',
+      texto: '#d9d3c2',
+      textoSuave: '#8a826c',
+      destaque: 'rgba(255, 207, 63, 0.07)',
+      fundoTooltip: '#1b170e',
+      bordaTooltip: '#3d3421',
+      linhaTendencia: '#ffcf3f',
     };
   }
 
   return {
-    eixo: '#cbd5e1', // slate-300
-    grade: 'rgba(100, 116, 139, 0.2)', // slate-500 translúcido
-    texto: '#1e293b', // slate-800
-    textoSuave: '#64748b', // slate-500
-    destaque: 'rgba(100, 116, 139, 0.08)',
+    eixo: '#cfc7b0',
+    grade: 'rgba(60, 45, 10, 0.1)',
+    texto: '#2e2814',
+    textoSuave: '#7a715b',
+    destaque: 'rgba(224, 168, 0, 0.08)',
     fundoTooltip: '#ffffff',
-    bordaTooltip: '#e2e8f0', // slate-200
-    linhaTendencia: '#888888', // cinza médio, como no Plotly original
+    bordaTooltip: '#e2dccb',
+    linhaTendencia: '#a87400',
   };
 }

@@ -1,54 +1,69 @@
 /**
  * ==========================================================
- * Formatacao numerica no padrao brasileiro (pt-BR)
+ * Formatação numérica sensível ao idioma
  * ==========================================================
  *
- * Reproduz o comportamento do `app.py`, que formatava os rotulos do grafico
- * com `f"{x:,.2f}"` e depois trocava os separadores para o padrao brasileiro.
- * Aqui isso e feito nativamente com `Intl.NumberFormat`.
+ * Reproduz o comportamento do `app.py`, que formatava os rótulos do gráfico
+ * com `f"{x:,.2f}"` e depois trocava os separadores para o padrão
+ * brasileiro. Aqui isso é feito com `Intl.NumberFormat`, no locale do
+ * idioma escolhido (pt-BR por padrão; en-US na interface em inglês).
+ *
+ * O locale é definido por `PreferenciasProvider` a cada renderização,
+ * antes de qualquer componente formatar números.
  */
 
-/** Duas casas decimais fixas — usado nos rotulos do grafico. */
-const FORMATADOR_2_CASAS = new Intl.NumberFormat('pt-BR', {
-  minimumFractionDigits: 2,
-  maximumFractionDigits: 2,
-});
+let locale = 'pt-BR';
+let formatador2Casas = criar(2, 2);
+let formatadorCompacto = criar(0, 2);
+let formatadorVariacao = criar(1, 1);
 
-/** Ate duas casas decimais, sem zeros a direita — usado em tabelas. */
-const FORMATADOR_COMPACTO = new Intl.NumberFormat('pt-BR', {
-  minimumFractionDigits: 0,
-  maximumFractionDigits: 2,
-});
+function criar(minimo: number, maximo: number): Intl.NumberFormat {
+  return new Intl.NumberFormat(locale, { minimumFractionDigits: minimo, maximumFractionDigits: maximo });
+}
+
+/** Troca o locale dos formatadores (ex.: `pt-BR`, `en-US`). */
+export function definirLocaleNumeros(novo: string): void {
+  if (novo === locale) return;
+  locale = novo;
+  formatador2Casas = criar(2, 2);
+  formatadorCompacto = criar(0, 2);
+  formatadorVariacao = criar(1, 1);
+}
+
+/** Locale numérico em uso. */
+export function localeNumeros(): string {
+  return locale;
+}
 
 /**
- * Formata um numero com duas casas decimais no padrao pt-BR.
+ * Formata um número com duas casas decimais.
  *
- * @example formatarNumero(1282.34) // "1.282,34"
+ * @example formatarNumero(1282.34) // "1.282,34" (pt-BR)
  * @example formatarNumero(null)    // ""
  */
 export function formatarNumero(valor: number | null | undefined): string {
   if (valor === null || valor === undefined || !Number.isFinite(valor)) return '';
-  return FORMATADOR_2_CASAS.format(valor);
+  return formatador2Casas.format(valor);
 }
 
 /**
- * Formata um numero omitindo casas decimais desnecessarias.
+ * Formata um número omitindo casas decimais desnecessárias.
  *
- * @example formatarNumeroCompacto(2100)   // "2.100"
- * @example formatarNumeroCompacto(173.55) // "173,55"
+ * @example formatarNumeroCompacto(2100)   // "2.100" (pt-BR)
+ * @example formatarNumeroCompacto(173.55) // "173,55" (pt-BR)
  */
 export function formatarNumeroCompacto(valor: number | null | undefined): string {
   if (valor === null || valor === undefined || !Number.isFinite(valor)) return '';
-  return FORMATADOR_COMPACTO.format(valor);
+  return formatadorCompacto.format(valor);
 }
 
 /**
- * Formata a variacao percentual entre dois anos, com sinal explicito.
+ * Formata a variação percentual entre dois anos, com sinal explícito.
  *
- * Espelha o calculo do original: `((atual - anterior) / |anterior|) * 100`,
- * suprimido quando o valor anterior e zero ou algum dos dois e ausente.
+ * Espelha o cálculo do original: `((atual - anterior) / |anterior|) * 100`,
+ * suprimido quando o valor anterior é zero ou algum dos dois é ausente.
  *
- * @returns Ex.: `"+4,2% vs 2023"`, ou `null` quando nao calculavel.
+ * @returns Ex.: `"+4,2% vs 2023"`, ou `null` quando não calculável.
  */
 export function formatarVariacao(
   atual: number | null,
@@ -61,15 +76,10 @@ export function formatarVariacao(
 
   const variacao = ((atual - anterior) / Math.abs(anterior)) * 100;
   const sinal = variacao > 0 ? '+' : '';
-  const texto = new Intl.NumberFormat('pt-BR', {
-    minimumFractionDigits: 1,
-    maximumFractionDigits: 1,
-  }).format(variacao);
-
-  return `${sinal}${texto}% vs ${anoAnterior}`;
+  return `${sinal}${formatadorVariacao.format(variacao)}% vs ${anoAnterior}`;
 }
 
-/** Texto exibido quando um valor nao esta disponivel. */
+/** Texto exibido quando um valor não está disponível. */
 export const TEXTO_SEM_DADO = 'ND';
 
 /** Devolve o valor textual ou o marcador `ND`. */

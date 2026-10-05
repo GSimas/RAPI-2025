@@ -3,69 +3,100 @@
  * <Rodape /> - rodapé global
  * ==========================================================
  *
- * Reúne, ao final de qualquer aba, a fonte oficial dos dados, a autoria da
- * aplicação e o aviso de licença.
+ * Assinatura grande "RAPI *Floripa*" — que reage ao hover com letras em
+ * onda, troca de cores, sublinhado e o símbolo animado, e leva ao topo
+ * ao ser clicada —, fonte oficial dos dados, autoria e aviso de licença.
  */
 
-import type { JSX } from 'react';
+import { ArrowUpRight } from 'lucide-react';
+import type { CSSProperties, JSX } from 'react';
+import { Revelar } from '@/components/ui/Revelar';
 import { LINK_GUSTAVO_SIMAS, LINK_RELATORIO, LINK_SCIENTATA } from '@/content/links';
+import { usePreferencias } from '@/hooks/usePreferencias';
+import { SimboloRapi } from './Marca';
+
+/** Quebra uma palavra em letras animáveis, com índice para o atraso em cascata. */
+function Letras({ palavra, inicio, classe }: { readonly palavra: string; readonly inicio: number; readonly classe: string }): JSX.Element {
+  return (
+    <>
+      {[...palavra].map((letra, indice) => (
+        <span key={indice} className={`letra ${classe}`} style={{ '--i': inicio + indice } as CSSProperties}>
+          {letra}
+        </span>
+      ))}
+    </>
+  );
+}
 
 /**
  * Rodapé com fonte dos dados, autoria e aviso de licença.
  */
 export function Rodape(): JSX.Element {
+  const { t } = usePreferencias();
+  const tr = t.rodape;
+
   return (
-    <footer className="mt-12 border-t border-slate-200 bg-white/60 dark:border-slate-800 dark:bg-slate-900/40">
-      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="grid gap-6 sm:grid-cols-2">
+    <footer className="mt-24 border-t border-line bg-surface/60 backdrop-blur-sm">
+      <div className="mx-auto max-w-7xl px-4 pt-16 pb-10 sm:px-6 lg:px-8">
+        <Revelar>
+          <button
+            type="button"
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            className="assinatura group sem-brilho flex w-full cursor-pointer items-end justify-between gap-6 text-left"
+            aria-label={`RAPI Floripa — ${tr.voltarTopo}`}
+            title={tr.voltarTopo}
+          >
+            <span aria-hidden="true" className="relative pb-3 text-[clamp(3.25rem,11vw,8.5rem)] leading-[0.85] font-semibold tracking-[-0.05em] text-ink">
+              <Letras palavra="RAPI" inicio={0} classe="letra-rapi" />
+              {/* A cor fica no invólucro: assim a regra de hover (index.css) pode sobrescrevê-la nas letras. */}
+              <span className="serif font-normal text-signal">
+                <Letras palavra="Floripa" inicio={4} classe="letra-floripa" />
+              </span>
+              <span className="sublinhado absolute inset-x-0 bottom-0 h-[3px] bg-signal-fill" />
+            </span>
+            <SimboloRapi className="mb-3 hidden size-12 sm:block" />
+          </button>
+        </Revelar>
+
+        <div className="mt-12 grid gap-8 border-t border-line pt-8 md:grid-cols-[1.4fr_1fr]">
           <div>
-            <p className="rotulo-campo flex items-center gap-1.5">
-              <span aria-hidden="true">📍</span> Fonte de Dados
-            </p>
-            <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-400">
-              Dados originais extraídos do{' '}
-              <a
-                href={LINK_RELATORIO}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-medium text-rapi-600 underline decoration-rapi-300 underline-offset-2 hover:text-rapi-700 dark:text-rapi-400 dark:hover:text-rapi-300"
-              >
-                Relatório RAPI 2025
-              </a>{' '}
-              — Associação FloripAmanhã, UFSC e Observatório Social do Brasil (Florianópolis).
+            <p className="rotulo">{tr.fonte}</p>
+            <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted">
+              <strong className="font-semibold text-ink">{tr.relatorio}</strong> — {tr.entidades}{' '}
+              <a href={LINK_RELATORIO} target="_blank" rel="noopener noreferrer" className="link">
+                {tr.acessar}
+              </a>
             </p>
           </div>
 
           <div>
-            <p className="rotulo-campo">Desenvolvimento</p>
-            <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-400">
-              Desenvolvido por{' '}
-              <a
-                href={LINK_SCIENTATA}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-medium text-rapi-600 underline decoration-rapi-300 underline-offset-2 hover:text-rapi-700 dark:text-rapi-400 dark:hover:text-rapi-300"
-              >
-                Scientata
-              </a>
-              <span aria-hidden="true" className="mx-1.5 text-slate-300 dark:text-slate-600">
-                |
-              </span>
-              <a
-                href={LINK_GUSTAVO_SIMAS}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-medium text-rapi-600 underline decoration-rapi-300 underline-offset-2 hover:text-rapi-700 dark:text-rapi-400 dark:hover:text-rapi-300"
-              >
-                Gustavo Simas
-              </a>
-            </p>
+            <p className="rotulo">{tr.desenvolvido}</p>
+            <div className="mt-3 flex flex-wrap items-center gap-2">
+              {[
+                { rotulo: 'Gustavo Simas', href: LINK_GUSTAVO_SIMAS },
+                { rotulo: 'Scientata', href: LINK_SCIENTATA },
+              ].map((link) => (
+                <a
+                  key={link.rotulo}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center gap-1.5 border border-line px-3 py-1.5 font-mono text-xs tracking-[0.12em] text-ink uppercase hover:border-signal/50 hover:text-signal"
+                >
+                  {link.rotulo}
+                  <ArrowUpRight
+                    aria-hidden="true"
+                    className="size-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                  />
+                </a>
+              ))}
+            </div>
           </div>
         </div>
 
-        <p className="mt-6 border-t border-slate-200 pt-4 text-center text-xs text-slate-400 dark:border-slate-800 dark:text-slate-500">
-          É permitida a reprodução parcial ou total deste material desde que citada a fonte Rede
-          Ver a Cidade Floripa, 2024-2025.
+        <p className="mt-10 flex flex-wrap items-center justify-between gap-3 border-t border-line pt-6 font-mono text-[0.6875rem] tracking-[0.06em] text-faint">
+          <span>{tr.licenca}</span>
+          <span className="uppercase">27°35′S — 48°32′W</span>
         </p>
       </div>
     </footer>
