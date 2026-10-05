@@ -13,7 +13,7 @@
  */
 
 import type { JSX } from 'react';
-import { useConteudoRelatorio } from '@/content';
+import { useConteudoRelatorio } from '@/content/conteudoRelatorio';
 import type { TemaAnalise } from '@/content/relatorio';
 import { AvisoTraducao } from '@/components/ui/AvisoTraducao';
 import { usePreferencias } from '@/hooks/usePreferencias';

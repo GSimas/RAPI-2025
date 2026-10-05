@@ -102,6 +102,10 @@ export function BotaoBaixarPng({ alvo, nomeArquivo }: BotaoBaixarPngProps): JSX.
         </motion.span>
       </AnimatePresence>
       PNG
+      {/* Feedback não-bloqueante: o progresso é anunciado sem mover o foco. */}
+      <span className="sr-only" aria-live="polite">
+        {estado === 'ocioso' ? '' : rotulo}
+      </span>
     </button>
   );
 }

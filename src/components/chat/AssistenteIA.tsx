@@ -22,7 +22,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import { useCallback, useEffect, useRef, useState, type JSX } from 'react';
 import { TituloPagina } from '@/components/ui/Titulos';
 import { enviarPergunta, ErroChat, listarModelos, prepararHistorico, type EventoChat, type ModeloIA } from '@/lib/chatApi';
-import { TOTAL_INDICADORES } from '@/lib/dataset';
+import { TOTAL_INDICADORES } from '@/lib/total';
 import { concluirLoginOpenRouter, ehRetornoOpenRouter } from '@/lib/ia/pkce';
 import { PROVEDORES } from '@/lib/ia/provedores';
 import { encerrarConexao, lerConexao, salvarConexao, type Conexao } from '@/lib/ia/sessao';
@@ -290,7 +290,7 @@ export function AssistenteIA({ pagina, onInicio }: AssistenteIAProps): JSX.Eleme
                       title={tc.novaTitulo}
                     >
                       <RotateCcw aria-hidden="true" className="size-3 transition-transform duration-500 group-hover:-rotate-180" />
-                      <span className="hidden sm:inline">{tc.nova}</span>
+                      <span className="sr-only sm:not-sr-only">{tc.nova}</span>
                     </motion.button>
                   )}
                 </AnimatePresence>
@@ -313,6 +313,8 @@ export function AssistenteIA({ pagina, onInicio }: AssistenteIAProps): JSX.Eleme
               className="flex-1 overflow-y-auto px-4 py-6 sm:px-8"
               role="log"
               aria-live="polite"
+              // Enquanto a resposta chega aos pedaços, o leitor de tela espera e lê o texto completo.
+              aria-busy={carregando}
               aria-label={tc.historico}
             >
               <div className="mx-auto max-w-3xl space-y-6">

@@ -11,7 +11,7 @@
 
 import { ShieldAlert, TriangleAlert } from 'lucide-react';
 import { motion } from 'motion/react';
-import { Fragment, type JSX } from 'react';
+import { Fragment, memo, type JSX } from 'react';
 import { usePreferencias } from '@/hooks/usePreferencias';
 import { EASE_SCIENTATA } from '@/lib/movimento';
 import type { MensagemChat } from '@/types/rapi';
@@ -240,8 +240,12 @@ function IndicadorDigitando(): JSX.Element {
  * Uma mensagem da conversa: a do usuário num bloco amarelo translúcido à
  * direita; a do assistente como texto editorial à esquerda, sob um
  * rótulo mono. Cada mensagem entra subindo e desfocando.
+ *
+ * `memo`: durante o streaming só a resposta em curso muda de identidade;
+ * as mensagens anteriores não re-renderizam (nem re-interpretam o Markdown)
+ * a cada fragmento recebido.
  */
-export function BolhaMensagem({ mensagem }: BolhaMensagemProps): JSX.Element {
+export const BolhaMensagem = memo(function BolhaMensagem({ mensagem }: BolhaMensagemProps): JSX.Element {
   const doUsuario = mensagem.role === 'user';
   const tb = usePreferencias().t.chat.bolha;
 
@@ -313,4 +317,4 @@ export function BolhaMensagem({ mensagem }: BolhaMensagemProps): JSX.Element {
       )}
     </motion.div>
   );
-}
+});

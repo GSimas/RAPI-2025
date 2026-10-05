@@ -167,7 +167,14 @@ export function PopoverFiltro<T>({
         >
           {tf.limpar}
         </button>
-        <button type="button" onClick={onFechar} className="rotulo text-signal hover:text-ink">
+        <button
+          type="button"
+          onClick={() => {
+            onFechar();
+            ancora.focus(); // devolve o foco ao botão de filtro, como no Escape
+          }}
+          className="rotulo text-signal hover:text-ink"
+        >
           {tf.concluir}
         </button>
       </div>

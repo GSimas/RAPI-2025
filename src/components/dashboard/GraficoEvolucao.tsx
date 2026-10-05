@@ -34,6 +34,8 @@ import type { PontoHistorico } from '@/types/rapi';
 interface GraficoEvolucaoProps {
   readonly serie: readonly PontoHistorico[];
   readonly escuro: boolean;
+  /** Nome acessível do SVG (os valores ficam na aba "Dados", em tabela). */
+  readonly titulo: string;
 }
 
 /** Estrutura de cada payload recebido pelo tooltip customizado. */
@@ -52,13 +54,14 @@ interface TooltipProps {
  * semafórico do ano sob o cursor.
  */
 function TooltipEvolucao({ active, payload, escuro }: TooltipProps): JSX.Element | null {
+  // Hooks antes de qualquer `return` (regra dos hooks): o tooltip alterna entre visível e oculto.
+  const { t } = usePreferencias();
   if (!active || !payload || payload.length === 0) return null;
 
   const ponto = payload[0]?.payload;
   if (!ponto) return null;
 
   const paleta = paletaGrafico(escuro);
-  const { t } = usePreferencias();
 
   return (
     <div
@@ -90,7 +93,7 @@ function TooltipEvolucao({ active, payload, escuro }: TooltipProps): JSX.Element
 /**
  * Gráfico combinado de barras semaforizadas e linha de tendência.
  */
-export function GraficoEvolucao({ serie, escuro }: GraficoEvolucaoProps): JSX.Element {
+export function GraficoEvolucao({ serie, escuro, titulo }: GraficoEvolucaoProps): JSX.Element {
   const paleta = paletaGrafico(escuro);
   const { t, reduzirMovimento } = usePreferencias();
   const dados = [...serie];
@@ -99,7 +102,7 @@ export function GraficoEvolucao({ serie, escuro }: GraficoEvolucaoProps): JSX.El
   return (
     <div className="h-[420px] w-full">
       <ResponsiveContainer width="100%" height="100%">
-        <ComposedChart data={dados} margin={{ top: 28, right: 16, left: -8, bottom: 4 }}>
+        <ComposedChart title={titulo} data={dados} margin={{ top: 28, right: 16, left: -8, bottom: 4 }}>
           <CartesianGrid stroke={paleta.grade} vertical={false} />
 
           <XAxis dataKey="ano" tick={ticks} tickLine={false} axisLine={{ stroke: paleta.eixo }} />

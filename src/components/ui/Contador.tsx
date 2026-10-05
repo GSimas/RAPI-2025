@@ -9,7 +9,7 @@
  */
 
 import { animate, useInView, useReducedMotionConfig } from 'motion/react';
-import { useEffect, useRef, type JSX } from 'react';
+import { useEffect, useMemo, useRef, type JSX } from 'react';
 import { localeNumeros } from '@/lib/format';
 import { EASE_SCIENTATA } from '@/lib/movimento';
 
@@ -28,7 +28,9 @@ export function Contador({ valor, sufixo = '' }: ContadorProps): JSX.Element {
   const emVista = useInView(ref, { once: true, margin: '0px 0px -40px 0px' });
   // Respeita o "reduzir movimento" do painel (via MotionConfig), não só o do sistema.
   const reduzir = useReducedMotionConfig();
-  const formatador = new Intl.NumberFormat(localeNumeros());
+  // Estável entre renders: um formatador novo a cada render reiniciava a animação (dependência do efeito).
+  const locale = localeNumeros();
+  const formatador = useMemo(() => new Intl.NumberFormat(locale), [locale]);
 
   useEffect(() => {
     const elemento = ref.current;

@@ -11,7 +11,7 @@ import { ArrowUpRight, Sparkles } from 'lucide-react';
 import { motion } from 'motion/react';
 import type { JSX } from 'react';
 import { usePreferencias } from '@/hooks/usePreferencias';
-import { TOTAL_INDICADORES } from '@/lib/dataset';
+import { TOTAL_INDICADORES } from '@/lib/total';
 import { EASE_SCIENTATA, VARIANTES_ESCALONADO, VARIANTES_ITEM } from '@/lib/movimento';
 import type { IdPagina } from '@/lib/navegacao';
 import { PonteHercilioLuz, Radar } from './ArteHero';

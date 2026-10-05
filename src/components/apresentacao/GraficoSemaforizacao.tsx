@@ -36,14 +36,45 @@ interface GraficoSemaforizacaoProps {
  */
 export function GraficoSemaforizacao({ escuro }: GraficoSemaforizacaoProps): JSX.Element {
   const paleta = paletaGrafico(escuro);
-  const { reduzirMovimento } = usePreferencias();
+  const { t, reduzirMovimento } = usePreferencias();
   const { EVOLUCAO_SEMAFORIZACAO, SERIES_SEMAFORO } = useConteudoApresentacao();
   const ticks = { fill: paleta.textoSuave, fontSize: 11, fontFamily: FONTE_GRAFICO };
 
   return (
-    <div className="h-[380px] w-full" aria-hidden="true">
+    <div className="h-[380px] w-full">
+      {/* Alternativa textual: os mesmos números do gráfico, para leitores de tela.
+          O `sr-only` fica num <div>: em <table> ele não recorta (tabelas ignoram
+          width/overflow) e a tabela vazava na horizontal, deslocando o layout. */}
+      <div className="sr-only" data-exportar="nao">
+        <table>
+          <caption>{t.apresentacao.grafico.titulo}</caption>
+          <thead>
+            <tr>
+              <th scope="col">{t.serie.ano}</th>
+              {SERIES_SEMAFORO.map((serie) => (
+                <th key={serie.chave} scope="col">
+                  {serie.rotulo}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {EVOLUCAO_SEMAFORIZACAO.map((linha) => (
+              <tr key={linha.ano}>
+                <th scope="row">{linha.ano}</th>
+                {SERIES_SEMAFORO.map((serie) => (
+                  <td key={serie.chave}>{linha[serie.chave]}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
       <ResponsiveContainer width="100%" height="100%">
+        {/* `title` nomeia o SVG focável (camada de teclado do recharts). */}
         <BarChart
+          title={t.apresentacao.grafico.titulo}
           data={[...EVOLUCAO_SEMAFORIZACAO]}
           margin={{ top: 8, right: 8, left: -16, bottom: 4 }}
           barCategoryGap="28%"

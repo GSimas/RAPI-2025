@@ -15,9 +15,10 @@
 
 import { TriangleAlert } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
-import { useMemo, useRef, useState, type JSX } from 'react';
+import { lazy, Suspense, useMemo, useRef, useState, type JSX } from 'react';
 import { BotaoBaixarPng } from '@/components/ui/BotaoBaixarPng';
 import { Segmentado, type OpcaoSegmentado } from '@/components/ui/Segmentado';
+import { LimiteErro } from '@/components/ui/LimiteErro';
 import { TituloPagina } from '@/components/ui/Titulos';
 import { useFiltros } from '@/hooks/useFiltros';
 import { slugArquivo } from '@/lib/csv';
@@ -29,9 +30,12 @@ import { usePreferencias } from '@/hooks/usePreferencias';
 import { montarSerieHistorica, possuiDadosPlotaveis } from '@/lib/serie';
 import { ANO_ANTERIOR, ANO_ATUAL, type IndicadorRAPI } from '@/types/rapi';
 import { CartaoMetrica } from './CartaoMetrica';
-import { GraficoEvolucao } from './GraficoEvolucao';
 import { PainelFiltros } from './PainelFiltros';
 import { TabelaSerie } from './TabelaSerie';
+
+// O recharts não bloqueia o restante do Dashboard (cabeçalho, filtros e
+// métricas pintam antes); o gráfico chega em seguida, com a altura reservada.
+const GraficoEvolucao = lazy(() => import('./GraficoEvolucao').then((m) => ({ default: m.GraficoEvolucao })));
 
 interface DashboardProps {
   readonly escuro: boolean;
@@ -208,7 +212,8 @@ function DetalheIndicador({ indicador, escuro, subAba, onSubAba }: DetalheIndica
           <span className="rotulo hidden lg:inline">
             <span className="text-signal">C</span> · {td.detalhes}
           </span>
-          <div className="lg:ml-auto">
+          {/* `min-w-0 max-w-full`: no celular a barra rola dentro do card em vez de alargar a página. */}
+          <div className="min-w-0 max-w-full lg:ml-auto">
             <Segmentado
               opcoes={subAbas}
               ativa={subAba}
@@ -243,7 +248,11 @@ function DetalheIndicador({ indicador, escuro, subAba, onSubAba }: DetalheIndica
                         nomeArquivo={`rapi-${slugArquivo(indicador.indicador)}`}
                       />
                     </figcaption>
-                    <GraficoEvolucao serie={serie} escuro={escuro} />
+                    <LimiteErro className="h-[420px]">
+                      <Suspense fallback={<div className="h-[420px] w-full" />}>
+                        <GraficoEvolucao serie={serie} escuro={escuro} titulo={indicador.indicador} />
+                      </Suspense>
+                    </LimiteErro>
                     <p className="mt-3 text-xs text-faint">
                       {td.notaGrafico}
                     </p>
