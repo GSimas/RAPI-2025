@@ -54,8 +54,12 @@ import {
   verificarLimite,
 } from './_lib/seguranca';
 
-/** Tamanho máximo do corpo da requisição, em bytes. */
-const MAXIMO_CORPO = 96_000;
+/**
+ * Tamanho máximo do corpo da requisição, em bytes. Pergunta e histórico
+ * não têm limite de caracteres; este teto só acompanha o limite de
+ * payload da Netlify (6 MB).
+ */
+const MAXIMO_CORPO = 5_000_000;
 
 /** Tempo máximo da geração (o streaming na Netlify vai até 60 s). */
 const TEMPO_LIMITE_MS = 55_000;
@@ -99,18 +103,12 @@ function lerHistorico(valor: unknown): { turnos: Turno[]; mascarados: string[] }
     if (registro['role'] !== 'user' && registro['role'] !== 'assistant') continue;
     if (typeof registro['content'] !== 'string') continue;
 
-    const limpo = limparTexto(registro['content']).slice(0, LIMITES.turno);
+    const limpo = limparTexto(registro['content']);
     if (!limpo) continue;
 
     const { texto, encontrados } = mascararDadosPessoais(limpo);
     encontrados.forEach((tipo) => mascarados.add(tipo));
     turnos.push({ role: registro['role'], content: neutralizarDelimitadores(texto) });
-  }
-
-  // Orçamento total: descarta os turnos mais antigos.
-  let total = turnos.reduce((soma, turno) => soma + turno.content.length, 0);
-  while (total > LIMITES.historicoTotal && turnos.length > 0) {
-    total -= turnos.shift()?.content.length ?? 0;
   }
 
   return { turnos, mascarados: [...mascarados] };
@@ -156,9 +154,6 @@ export default async function handler(request: Request): Promise<Response> {
   // --- 3. Higiene e dados pessoais --------------------------------------
   const perguntaBruta = typeof corpo['pergunta'] === 'string' ? limparTexto(corpo['pergunta']) : '';
   if (!perguntaBruta) return responderErro(m.pergunta, 400);
-  if (perguntaBruta.length > LIMITES.pergunta) {
-    return responderErro(m.perguntaLonga(LIMITES.pergunta), 413);
-  }
 
   const { texto: perguntaMascarada, encontrados } = mascararDadosPessoais(perguntaBruta);
   const historico = lerHistorico(corpo['historico']);
@@ -217,11 +212,6 @@ export default async function handler(request: Request): Promise<Response> {
           acumulado += evento.texto;
           if (saidaVazaInstrucoes(acumulado)) {
             emitir({ tipo: 'bloqueio', mensagem: m.saidaBloqueada });
-            controlador.abort();
-            break;
-          }
-          if (acumulado.length > LIMITES.resposta) {
-            emitir({ tipo: 'aviso', mensagem: m.tamanhoMaximo });
             controlador.abort();
             break;
           }

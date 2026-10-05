@@ -23,9 +23,6 @@ interface CampoPerguntaProps {
 /** Altura máxima do campo antes de rolar internamente. */
 const ALTURA_MAXIMA_PX = 160;
 
-/** Mesmo limite aplicado no servidor. */
-const LIMITE_CARACTERES = 2_000;
-
 /**
  * Campo de digitação com envio por Enter e auto-ajuste de altura.
  */
@@ -57,7 +54,6 @@ export function CampoPergunta({ onEnviar, onParar, carregando }: CampoPerguntaPr
   };
 
   const vazio = texto.trim() === '';
-  const perto = texto.length > LIMITE_CARACTERES * 0.85;
 
   return (
     <form
@@ -79,7 +75,6 @@ export function CampoPergunta({ onEnviar, onParar, carregando }: CampoPerguntaPr
           ref={areaRef}
           rows={1}
           value={texto}
-          maxLength={LIMITE_CARACTERES}
           placeholder={tc.placeholder}
           onChange={(evento) => {
             setTexto(evento.target.value);
@@ -93,11 +88,6 @@ export function CampoPergunta({ onEnviar, onParar, carregando }: CampoPerguntaPr
           }}
           className="max-h-40 w-full resize-none bg-transparent px-2 py-2 text-sm text-ink placeholder:text-faint focus:outline-none"
         />
-        {perto && (
-          <span className="absolute right-1 -bottom-1 font-mono text-[0.625rem] text-faint">
-            {texto.length}/{LIMITE_CARACTERES}
-          </span>
-        )}
       </div>
 
       <button

@@ -10,22 +10,27 @@
  * - Seção 5 com a legenda proporcional e o gráfico de evolução.
  */
 
-import { motion } from 'motion/react';
-import { useRef, type JSX } from 'react';
+import { motion, useInView } from 'motion/react';
+import { lazy, Suspense, useRef, type JSX } from 'react';
 import { BotaoBaixarPng } from '@/components/ui/BotaoBaixarPng';
 import { useConteudoApresentacao } from '@/content';
 import { AvisoTraducao } from '@/components/ui/AvisoTraducao';
 import { usePreferencias } from '@/hooks/usePreferencias';
-import { TOTAL_INDICADORES } from '@/lib/dataset';
+import { TOTAL_INDICADORES } from '@/lib/total';
 import { EASE_SCIENTATA } from '@/lib/movimento';
 import type { IdPagina } from '@/lib/navegacao';
 import { CartaoExpansivel } from '@/components/ui/CartaoExpansivel';
 import { Revelar, RevelarGrupo } from '@/components/ui/Revelar';
 import { TextoRico } from '@/components/ui/TextoRico';
 import { CabecalhoSecao } from '@/components/ui/Titulos';
-import { GraficoSemaforizacao } from './GraficoSemaforizacao';
+import { LimiteErro } from '@/components/ui/LimiteErro';
 import { Hero } from './Hero';
 import { Modulos, Numeros } from './Modulos';
+
+// O gráfico fica abaixo da dobra: o recharts sai do bundle inicial.
+const GraficoSemaforizacao = lazy(() =>
+  import('./GraficoSemaforizacao').then((m) => ({ default: m.GraficoSemaforizacao })),
+);
 
 interface ApresentacaoProps {
   readonly escuro: boolean;
@@ -37,6 +42,8 @@ interface ApresentacaoProps {
  */
 export function Apresentacao({ escuro, onNavegar }: ApresentacaoProps): JSX.Element {
   const refGrafico = useRef<HTMLElement>(null);
+  // O chunk do gráfico (recharts) só é baixado quando ele se aproxima da tela.
+  const graficoPerto = useInView(refGrafico, { once: true, margin: '600px 0px' });
   const { t } = usePreferencias();
   const ta = t.apresentacao;
   const { SECOES_INTRODUTORIAS, CARDS_DIMENSOES, LEGENDA_SEMAFORO } = useConteudoApresentacao();
@@ -186,7 +193,16 @@ export function Apresentacao({ escuro, onNavegar }: ApresentacaoProps): JSX.Elem
                   <BotaoBaixarPng alvo={refGrafico} nomeArquivo="rapi-evolucao-semaforizacao" />
                 </figcaption>
                 <div className="p-4 sm:p-5">
-                  <GraficoSemaforizacao escuro={escuro} />
+                  <LimiteErro className="h-[380px]">
+                    {/* Reserva a altura do gráfico: nenhum salto de layout ao carregar. */}
+                    {graficoPerto ? (
+                      <Suspense fallback={<div className="h-[380px] w-full" />}>
+                        <GraficoSemaforizacao escuro={escuro} />
+                      </Suspense>
+                    ) : (
+                      <div className="h-[380px] w-full" />
+                    )}
+                  </LimiteErro>
                   <p className="mt-3 text-xs text-faint">
                     {ta.grafico.legenda}
                   </p>

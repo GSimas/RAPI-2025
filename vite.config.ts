@@ -1,7 +1,17 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
+import { readFileSync } from 'node:fs';
 import { fileURLToPath, URL } from 'node:url';
+
+/**
+ * Total de indicadores, lido do JSON no build. A página inicial só precisa
+ * deste número; assim o dataset (~115 KB) fica fora do bundle inicial e só
+ * é baixado com o Dashboard/Explorador.
+ */
+const TOTAL_INDICADORES = (
+  JSON.parse(readFileSync(new URL('./dados_rapi_completo.json', import.meta.url), 'utf8')) as unknown[]
+).length;
 
 /**
  * Configuracao do Vite para o Dashboard RAPI 2024-2025.
@@ -14,6 +24,9 @@ import { fileURLToPath, URL } from 'node:url';
  */
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  define: {
+    __TOTAL_INDICADORES__: JSON.stringify(TOTAL_INDICADORES),
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
@@ -44,13 +57,9 @@ export default defineConfig({
     outDir: 'dist',
     sourcemap: false,
     chunkSizeWarningLimit: 900,
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          // Isola a biblioteca de graficos do bundle principal.
-          recharts: ['recharts'],
-        },
-      },
-    },
+    // Sem `manualChunks`: as páginas e os gráficos são `React.lazy`, então o
+    // Rollup já isola o recharts num chunk assíncrono. (O `manualChunks`
+    // antigo arrastava o `react` para dentro do chunk do recharts e o
+    // tornava obrigatório no carregamento inicial.)
   },
 });

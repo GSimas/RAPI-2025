@@ -45,6 +45,8 @@
 # ----------------------------------------------------------
 # Cabeçalhos
 # ----------------------------------------------------------
+# Assets do Vite têm hash no nome: cache imutável de 1 ano. Brotli/Gzip
+# são negociados automaticamente pela CDN da Netlify (Accept-Encoding).
 [[headers]]
   for = "/assets/*"
   [headers.values]
@@ -54,11 +56,11 @@
   for = "/*"
   [headers.values]
     X-Content-Type-Options = "nosniff"
-    X-Frame-Options = "SAMEORIGIN"
+    X-Frame-Options = "DENY"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Strict-Transport-Security = "max-age=31536000; includeSubDomains"
     Cross-Origin-Opener-Policy = "same-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
     # Scripts só do próprio site; conexões externas apenas para o login
     # OpenRouter (PKCE) e para embutir as fontes na exportação PNG.
-    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://openrouter.ai https://fonts.googleapis.com https://fonts.gstatic.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests"
+    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://openrouter.ai https://fonts.googleapis.com https://fonts.gstatic.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests"

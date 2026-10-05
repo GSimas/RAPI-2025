@@ -46,13 +46,18 @@ export function useBrilho(refHolofote: RefObject<HTMLDivElement | null>): void {
         holofote.dataset['ativo'] = 'true';
       }
 
-      // Percorre do alvo até a raiz, atualizando cada elemento iluminável.
+      // Percorre do alvo até a raiz: primeiro lê todas as caixas, depois
+      // escreve. Intercalar leitura e escrita forçava um layout síncrono por
+      // elemento aninhado a cada quadro (layout thrashing).
+      const alvos: { elemento: HTMLElement; caixa: DOMRect }[] = [];
       let alvo = (evento.target as Element | null)?.closest<HTMLElement>(SELETOR_ILUMINAVEL);
       while (alvo) {
-        const caixa = alvo.getBoundingClientRect();
-        alvo.style.setProperty('--mx', `${x - caixa.left}px`);
-        alvo.style.setProperty('--my', `${y - caixa.top}px`);
+        alvos.push({ elemento: alvo, caixa: alvo.getBoundingClientRect() });
         alvo = alvo.parentElement?.closest<HTMLElement>(SELETOR_ILUMINAVEL) ?? null;
+      }
+      for (const { elemento, caixa } of alvos) {
+        elemento.style.setProperty('--mx', `${x - caixa.left}px`);
+        elemento.style.setProperty('--my', `${y - caixa.top}px`);
       }
     };
 

@@ -18,7 +18,7 @@
 
 import { ArrowDown, ArrowUp, ArrowUpDown, ListFilter, Search, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
-import { useCallback, useMemo, useState, type JSX } from 'react';
+import { useCallback, useDeferredValue, useMemo, useState, type JSX } from 'react';
 import { usePreferencias } from '@/hooks/usePreferencias';
 import { normalizarChave } from '@/lib/taxonomia';
 import { EASE_SCIENTATA } from '@/lib/movimento';
@@ -79,18 +79,23 @@ export function TabelaDados<T>({
     [filtros],
   );
 
+  // O campo responde na hora; a filtragem e a tabela são recalculadas como
+  // atualização adiada (interrompível), sem travar a digitação (INP).
+  const buscaAdiada = useDeferredValue(busca);
+  const ativosAdiados = useDeferredValue(ativos);
+
   const filtradas = useMemo(() => {
-    const termo = normalizarChave(busca);
+    const termo = normalizarChave(buscaAdiada);
 
     return linhas.filter((linha) => {
-      for (const [id, filtro] of ativos) {
+      for (const [id, filtro] of ativosAdiados) {
         const coluna = colunas.find((c) => c.id === id);
         if (coluna && !passaNoFiltro(coluna, linha, filtro)) return false;
       }
       if (termo === '') return true;
       return colunas.some((coluna) => normalizarChave(textoCelula(coluna, linha)).includes(termo));
     });
-  }, [linhas, colunas, ativos, busca]);
+  }, [linhas, colunas, ativosAdiados, buscaAdiada]);
 
   // --- Ordenação -------------------------------------------------------
   const visiveis = useMemo(() => {
@@ -98,6 +103,37 @@ export function TabelaDados<T>({
     const coluna = colunas.find((c) => c.id === ordenacao.colunaId);
     return coluna ? ordenar(filtradas, coluna, ordenacao.direcao) : filtradas;
   }, [filtradas, colunas, ordenacao]);
+
+  // Linhas memoizadas: re-renderizações urgentes (cada tecla, abrir um
+  // filtro) não reconstroem as centenas de células da tabela.
+  const corpo = useMemo(
+    () =>
+      visiveis.map((linha) => (
+        <tr
+          key={chaveLinha(linha)}
+          className="border-b border-line transition-colors duration-200 last:border-0 hover:bg-signal/[0.045]"
+        >
+          {colunas.map((coluna) => {
+            const texto = textoCelula(coluna, linha);
+            return (
+              <td
+                key={coluna.id}
+                className={[
+                  'px-3 py-2.5 align-top text-ink/80',
+                  coluna.tipo === 'numero' ? 'text-right font-mono text-[0.8125rem] tabular-nums' : '',
+                ].join(' ')}
+                title={texto.length > 60 ? texto : undefined}
+              >
+                {coluna.render
+                  ? coluna.render(linha)
+                  : texto || <span className="text-faint/60">—</span>}
+              </td>
+            );
+          })}
+        </tr>
+      )),
+    [visiveis, colunas, chaveLinha],
+  );
 
   const alternarOrdenacao = (colunaId: string): void => {
     setOrdenacao((atual) => {
@@ -305,30 +341,7 @@ export function TabelaDados<T>({
             </thead>
 
             <tbody>
-              {visiveis.map((linha) => (
-                <tr
-                  key={chaveLinha(linha)}
-                  className="border-b border-line transition-colors duration-200 last:border-0 hover:bg-signal/[0.045]"
-                >
-                  {colunas.map((coluna) => {
-                    const texto = textoCelula(coluna, linha);
-                    return (
-                      <td
-                        key={coluna.id}
-                        className={[
-                          'px-3 py-2.5 align-top text-ink/80',
-                          coluna.tipo === 'numero' ? 'text-right font-mono text-[0.8125rem] tabular-nums' : '',
-                        ].join(' ')}
-                        title={texto.length > 60 ? texto : undefined}
-                      >
-                        {coluna.render
-                          ? coluna.render(linha)
-                          : texto || <span className="text-faint/60">—</span>}
-                      </td>
-                    );
-                  })}
-                </tr>
-              ))}
+              {corpo}
 
               {visiveis.length === 0 && (
                 <tr>

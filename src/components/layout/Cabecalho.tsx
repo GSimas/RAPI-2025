@@ -62,7 +62,6 @@ export function Cabecalho({ ativa, onNavegar }: CabecalhoProps): JSX.Element {
             navegar('apresentacao');
           }}
           className="sem-brilho group flex shrink-0 items-center gap-3"
-          aria-label={t.cabecalho.irInicio}
         >
           <SimboloRapi className="size-9 transition-transform duration-500 ease-scientata group-hover:rotate-[-6deg]" />
           <span className="flex flex-col leading-none">
@@ -71,6 +70,8 @@ export function Cabecalho({ ativa, onNavegar }: CabecalhoProps): JSX.Element {
             </span>
             <span className="mt-1 text-[0.9375rem] font-bold tracking-[-0.02em] text-ink">
               RAPI <span className="serif text-base font-normal text-signal">2024–25</span>
+              {/* O nome acessível começa pelo texto visível (WCAG 2.5.3). */}
+              <span className="sr-only"> — {t.cabecalho.irInicio}</span>
             </span>
           </span>
         </a>
@@ -125,7 +126,8 @@ export function Cabecalho({ ativa, onNavegar }: CabecalhoProps): JSX.Element {
               aria-hidden="true"
               className="size-4 transition-transform duration-500 ease-scientata group-hover:rotate-12 group-hover:scale-110"
             />
-            <span className="hidden sm:inline">{t.cabecalho.assistente}</span>
+            {/* Visualmente oculto no celular, mas sempre nomeia o link. */}
+            <span className="sr-only sm:not-sr-only">{t.cabecalho.assistente}</span>
           </a>
 
           <button

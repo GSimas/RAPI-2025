@@ -14,7 +14,7 @@ import type { JSX } from 'react';
 import { Contador } from '@/components/ui/Contador';
 import { Revelar, RevelarGrupo } from '@/components/ui/Revelar';
 import { usePreferencias } from '@/hooks/usePreferencias';
-import { TOTAL_INDICADORES } from '@/lib/dataset';
+import { TOTAL_INDICADORES } from '@/lib/total';
 import { PAGINAS, type IdPagina } from '@/lib/navegacao';
 
 /** Valores das grandezas, na ordem dos rótulos de `TEXTOS.numeros.itens`. */

@@ -105,9 +105,6 @@ export const INDICADORES: readonly IndicadorRAPI[] = Array.isArray(brutoJson)
   ? brutoJson.map(normalizarIndicador)
   : [];
 
-/** Total de indicadores carregados (206 registros no dataset atual). */
-export const TOTAL_INDICADORES = INDICADORES.length;
-
 /** Ordena strings segundo as regras do portugues brasileiro. */
 const colator = new Intl.Collator('pt-BR', { sensitivity: 'base', numeric: true });
 

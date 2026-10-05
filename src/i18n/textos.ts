@@ -19,7 +19,7 @@ const pt = {
 
   cabecalho: {
     marcaRotulo: 'Florianópolis · Indicadores · IA',
-    irInicio: 'RAPI 2024-2025 — ir para o início',
+    irInicio: 'ir para o início',
     paginas: 'Páginas',
     assistente: 'Assistente',
     abrirMenu: 'Abrir menu',
@@ -316,6 +316,18 @@ const pt = {
 
   select: { semOpcoes: '— sem opções —' },
 
+  a11y: {
+    pularConteudo: 'Pular para o conteúdo',
+    paginaAtual: (pagina: string) => `Página: ${pagina}`,
+    carregando: 'Carregando…',
+  },
+
+  erro: {
+    titulo: 'Algo não saiu como esperado.',
+    texto: 'Esta parte não pôde ser exibida. O restante do painel continua funcionando.',
+    tentar: 'Tentar novamente',
+  },
+
   chat: {
     sugestoes: [
       'Qual o valor do consumo de água em 2024 e o que o relatório recomenda?',
@@ -455,7 +467,7 @@ const en: Textos = {
 
   cabecalho: {
     marcaRotulo: 'Florianópolis · Indicators · AI',
-    irInicio: 'RAPI 2024-2025 — go to home',
+    irInicio: 'go to home',
     paginas: 'Pages',
     assistente: 'Assistant',
     abrirMenu: 'Open menu',
@@ -749,6 +761,18 @@ const en: Textos = {
   },
 
   select: { semOpcoes: '— no options —' },
+
+  a11y: {
+    pularConteudo: 'Skip to content',
+    paginaAtual: (pagina: string) => `Page: ${pagina}`,
+    carregando: 'Loading…',
+  },
+
+  erro: {
+    titulo: 'Something went wrong.',
+    texto: 'This part could not be displayed. The rest of the dashboard keeps working.',
+    tentar: 'Try again',
+  },
 
   chat: {
     sugestoes: [

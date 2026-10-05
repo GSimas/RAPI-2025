@@ -5,13 +5,13 @@
  *
  * O Gemini responde em Markdown leve. Em vez de embutir um parser
  * completo (e HTML bruto), renderizamos aqui o subconjunto que o modelo
- * de fato usa: parágrafos, listas, títulos e ênfase — tudo como elementos
+ * de fato usa: parágrafos, listas, títulos, tabelas e ênfase — tudo como elementos
  * React, sem `dangerouslySetInnerHTML`.
  */
 
 import { ShieldAlert, TriangleAlert } from 'lucide-react';
 import { motion } from 'motion/react';
-import { Fragment, type JSX } from 'react';
+import { Fragment, memo, type JSX } from 'react';
 import { usePreferencias } from '@/hooks/usePreferencias';
 import { EASE_SCIENTATA } from '@/lib/movimento';
 import type { MensagemChat } from '@/types/rapi';
@@ -22,6 +22,76 @@ interface BolhaMensagemProps {
 
 /** Captura trechos `**negrito**`, `*itálico*` e `` `código` ``. */
 const PADRAO_INLINE = /(\*\*[^*]+\*\*|\*[^*\n]+\*|`[^`\n]+`)/g;
+
+/** Linha delimitadora de tabela GFM: `| --- | :---: | ---: |`. */
+const SEPARADOR_TABELA = /^\|?\s*:?-+:?\s*(?:\|\s*:?-+:?\s*)*\|?$/;
+
+type Alinhamento = 'text-left' | 'text-center' | 'text-right';
+
+/** Divide uma linha `| a | b |` em células, respeitando `\|` escapado. */
+function celulasTabela(linha: string): string[] {
+  return linha
+    .trim()
+    .replace(/^\|/, '')
+    .replace(/(?<!\\)\|$/, '')
+    .split(/(?<!\\)\|/)
+    .map((celula) => celula.trim().replace(/\\\|/g, '|'));
+}
+
+/** Alinhamento de cada coluna, lido dos `:` da linha delimitadora. */
+function alinhamentosTabela(separador: string): Alinhamento[] {
+  return celulasTabela(separador).map((celula) =>
+    celula.endsWith(':') ? (celula.startsWith(':') ? 'text-center' : 'text-right') : 'text-left',
+  );
+}
+
+/**
+ * Tabela Markdown renderizada com rolagem horizontal própria, para não
+ * estourar a largura da conversa em telas estreitas.
+ */
+function TabelaMarkdown({
+  cabecalho,
+  alinhamentos,
+  linhas,
+}: {
+  readonly cabecalho: readonly string[];
+  readonly alinhamentos: readonly Alinhamento[];
+  readonly linhas: readonly (readonly string[])[];
+}): JSX.Element {
+  return (
+    <div className="overflow-x-auto border border-line">
+      <table className="w-full border-collapse text-sm">
+        <thead className="bg-canvas/60">
+          <tr>
+            {cabecalho.map((celula, coluna) => (
+              <th
+                key={coluna}
+                scope="col"
+                className={`border-b border-line-forte px-3 py-2 font-semibold whitespace-nowrap ${alinhamentos[coluna] ?? 'text-left'}`}
+              >
+                <InlineMarkdown texto={celula} />
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {linhas.map((linha, indice) => (
+            <tr key={indice} className="border-b border-line last:border-b-0">
+              {cabecalho.map((_, coluna) => (
+                <td
+                  key={coluna}
+                  className={`px-3 py-1.5 align-top tabular-nums ${alinhamentos[coluna] ?? 'text-left'}`}
+                >
+                  <InlineMarkdown texto={linha[coluna] ?? ''} />
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
 
 /**
  * Converte marcações inline de Markdown em elementos React.
@@ -59,7 +129,7 @@ function InlineMarkdown({ texto }: { readonly texto: string }): JSX.Element {
 }
 
 /**
- * Renderiza o corpo da mensagem em blocos: títulos, listas e parágrafos.
+ * Renderiza o corpo da mensagem em blocos: títulos, listas, tabelas e parágrafos.
  */
 function CorpoMarkdown({ texto }: { readonly texto: string }): JSX.Element {
   const linhas = texto.split('\n');
@@ -83,8 +153,8 @@ function CorpoMarkdown({ texto }: { readonly texto: string }): JSX.Element {
     itensLista = [];
   };
 
-  for (const linha of linhas) {
-    const limpa = linha.trim();
+  for (let i = 0; i < linhas.length; i++) {
+    const limpa = (linhas[i] ?? '').trim();
 
     if (limpa === '') {
       fecharLista();
@@ -99,6 +169,27 @@ function CorpoMarkdown({ texto }: { readonly texto: string }): JSX.Element {
     }
 
     fecharLista();
+
+    // Tabela: linha de cabeçalho com "|" seguida da linha delimitadora.
+    const proxima = (linhas[i + 1] ?? '').trim();
+    if (limpa.includes('|') && SEPARADOR_TABELA.test(proxima)) {
+      const corpo: string[][] = [];
+      i += 2;
+      while (i < linhas.length && (linhas[i] ?? '').includes('|') && (linhas[i] ?? '').trim() !== '') {
+        corpo.push(celulasTabela(linhas[i] ?? ''));
+        i++;
+      }
+      i--;
+      blocos.push(
+        <TabelaMarkdown
+          key={`tabela-${blocos.length}`}
+          cabecalho={celulasTabela(limpa)}
+          alinhamentos={alinhamentosTabela(proxima)}
+          linhas={corpo}
+        />,
+      );
+      continue;
+    }
 
     // Títulos "## Texto".
     const titulo = /^(#{1,4})\s+(.*)$/.exec(limpa);
@@ -149,8 +240,12 @@ function IndicadorDigitando(): JSX.Element {
  * Uma mensagem da conversa: a do usuário num bloco amarelo translúcido à
  * direita; a do assistente como texto editorial à esquerda, sob um
  * rótulo mono. Cada mensagem entra subindo e desfocando.
+ *
+ * `memo`: durante o streaming só a resposta em curso muda de identidade;
+ * as mensagens anteriores não re-renderizam (nem re-interpretam o Markdown)
+ * a cada fragmento recebido.
  */
-export function BolhaMensagem({ mensagem }: BolhaMensagemProps): JSX.Element {
+export const BolhaMensagem = memo(function BolhaMensagem({ mensagem }: BolhaMensagemProps): JSX.Element {
   const doUsuario = mensagem.role === 'user';
   const tb = usePreferencias().t.chat.bolha;
 
@@ -222,4 +317,4 @@ export function BolhaMensagem({ mensagem }: BolhaMensagemProps): JSX.Element {
       )}
     </motion.div>
   );
-}
+});
