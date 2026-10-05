@@ -43,9 +43,11 @@ export function Rodape(): JSX.Element {
             type="button"
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             className="assinatura group sem-brilho flex w-full cursor-pointer items-end justify-between gap-6 text-left"
-            aria-label={`RAPI Floripa — ${tr.voltarTopo}`}
             title={tr.voltarTopo}
           >
+            {/* Nome acessível em texto, não em aria-label: as letras visíveis são
+                <span>s soltos ("RAPIFloripa") e não casariam com o rótulo (WCAG 2.5.3). */}
+            <span className="sr-only">RAPI Floripa — {tr.voltarTopo}</span>
             <span aria-hidden="true" className="relative pb-3 text-[clamp(3.25rem,11vw,8.5rem)] leading-[0.85] font-semibold tracking-[-0.05em] text-ink">
               <Letras palavra="RAPI" inicio={0} classe="letra-rapi" />
               {/* A cor fica no invólucro: assim a regra de hover (index.css) pode sobrescrevê-la nas letras. */}
